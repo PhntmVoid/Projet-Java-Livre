@@ -1,0 +1,98 @@
+{
+  "title": "Le Manoir de l'Enfer",
+  "startChapterId": 1,
+  "chapters": [
+    {
+      "id": 1,
+      "text": "Vous vous tenez devant le sinistre Manoir de l'Enfer. La légende dit que le comte Zaroff y pratique des expériences terrifiantes sur des humains. Votre mission est d'infiltrer le manoir et de mettre fin à ses agissements. La nuit tombe et une pluie fine commence à tomber. Devant vous, le portail rouillé grince dans le vent.\n\nQue faites-vous?",
+      "choices": [
+        {
+          "text": "Franchir le portail et avancer vers le manoir",
+          "nextChapterId": 2
+        },
+        {
+          "text": "Faire le tour du manoir pour trouver une entrée secondaire",
+          "nextChapterId": 3
+        },
+        {
+          "text": "Attendre pour observer les alentours",
+          "nextChapterId": 4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "text": "Vous avancez le long de l'allée principale. Soudain, un piège se déclenche! Une lame tranchante jaillit du sol. Testez votre Habileté.",
+      "choices": [
+        {
+          "text": "Tenter d'esquiver (Habileté)",
+          "nextChapterId": 5
+        },
+        {
+          "text": "Sauter par-dessus",
+          "nextChapterId": 6
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "text": "En faisant le tour du manoir, vous trouvez une fenêtre entrouverte au rez-de-chaussée. Elle semble mener à la cuisine.",
+      "choices": [
+        {
+          "text": "Entrer par la fenêtre",
+          "nextChapterId": 7
+        },
+        {
+          "text": "Continuer à explorer l'extérieur",
+          "nextChapterId": 8
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "text": "En attendant, vous remarquez une silhouette se déplacer derrière une fenêtre du premier étage. Peu après, un serviteur sort par une porte dérobée et s'éloigne en direction de la forêt.",
+      "choices": [
+        {
+          "text": "Profiter de l'occasion pour entrer par la porte dérobée",
+          "nextChapterId": 9
+        },
+        {
+          "text": "Suivre discrètement le serviteur",
+          "nextChapterId": 10
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "Vous esquivez avec succès la lame et continuez votre chemin vers le manoir. Vous arrivez devant la porte d'entrée massive.",
+      "choices": [
+        {
+          "text": "Frapper à la porte",
+          "nextChapterId": 11
+        },
+        {
+          "text": "Chercher un moyen d'entrer discrètement",
+          "nextChapterId": 12
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "text": "La lame vous entaille la jambe. Vous perdez 2 points d'ENDURANCE. Vous arrivez néanmoins devant la porte d'entrée, blessé mais déterminé.",
+      "choices": [
+        {
+          "text": "Frapper à la porte",
+          "nextChapterId": 11
+        },
+        {
+          "text": "S'asseoir pour panser votre blessure",
+          "nextChapterId": 13
+        }
+      ]
+    },
+    {
+      "id": -1,
+      "text": "Fin de la démo. Merci d'avoir joué à cette version simplifiée du Manoir de l'Enfer!"
+    }
+  ]
+}
