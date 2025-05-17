@@ -6,7 +6,11 @@ import java.util.List;
 public class Player {
     private List<String> inventory;
     private int skill;
+    int actualSkill;
     private int stamina;
+    int actualStamina;
+    int maxFear;
+    int actualFear;
 
     public Player(int skill, int stamina) {
         this.skill = skill;

@@ -10,87 +10,141 @@ public class ScenarioLoader {
     public static Scenario loadScenario(String resourcePath) {
         try (InputStream is = ScenarioLoader.class.getClassLoader().getResourceAsStream(resourcePath)) {
             if (is == null) {
-                throw new RuntimeException("Resource not found: " + resourcePath);
+                throw new IllegalArgumentException("Resource not found: " + resourcePath);
             }
 
             String jsonContent = new Scanner(is, "UTF-8").useDelimiter("\\A").next();
             return parseJsonManually(jsonContent);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to load scenario", e);
+            System.err.println("Failed to load scenario from " + resourcePath + ": " + e.getMessage());
+            e.printStackTrace();
+            // Return a minimal fallback scenario instead of throwing exception
+            return createFallbackScenario();
         }
     }
 
+    private static Scenario createFallbackScenario() {
+        Scenario fallback = new Scenario("Scénario de secours", 0);
+        Chapter errorChapter = new Chapter(0, "Impossible de charger le scénario. Veuillez vérifier que le fichier JSON est correctement formaté.");
+        fallback.addChapter(errorChapter);
+        return fallback;
+    }
+
     private static Scenario parseJsonManually(String json) {
-        // Implémentation simplifiée - pour un vrai projet, utilisez une bibliothèque JSON
-        String title = extractValue(json, "title");
-        int startChapterId = Integer.parseInt(extractValue(json, "startChapterId"));
+        try {
+            String title = extractValue(json, "title");
+            int startChapterId = Integer.parseInt(extractValue(json, "startChapterId"));
 
-        Scenario scenario = new Scenario(title, startChapterId);
+            Scenario scenario = new Scenario(title, startChapterId);
+            String chaptersSection = extractSection(json, "chapters");
+            List<String> chapters = splitArray(chaptersSection);
 
-        String chaptersSection = extractSection(json, "chapters");
-        List<String> chapters = splitArray(chaptersSection);
+            for (String chapterJson : chapters) {
+                try {
+                    int id = Integer.parseInt(extractValue(chapterJson, "id"));
+                    String text = extractValue(chapterJson, "text");
 
-        for (String chapterJson : chapters) {
-            int id = Integer.parseInt(extractValue(chapterJson, "id"));
-            String text = extractValue(chapterJson, "text");
+                    Chapter chapter = new Chapter(id, text);
 
-            Chapter chapter = new Chapter(id, text);
+                    if (chapterJson.contains("\"choices\"")) {
+                        String choicesSection = extractSection(chapterJson, "choices");
+                        List<String> choices = splitArray(choicesSection);
 
-            if (chapterJson.contains("choices")) {
-                String choicesSection = extractSection(chapterJson, "choices");
-                List<String> choices = splitArray(choicesSection);
+                        for (String choiceJson : choices) {
+                            try {
+                                String choiceText = extractValue(choiceJson, "text");
+                                int nextChapterId = Integer.parseInt(extractValue(choiceJson, "nextChapterId"));
+                                chapter.addChoice(new Choice(choiceText, nextChapterId));
+                            } catch (Exception e) {
+                                System.err.println("Error parsing choice: " + e.getMessage());
+                            }
+                        }
+                    }
 
-                for (String choiceJson : choices) {
-                    String choiceText = extractValue(choiceJson, "text");
-                    int nextChapterId = Integer.parseInt(extractValue(choiceJson, "nextChapterId"));
-                    chapter.addChoice(new Choice(choiceText, nextChapterId));
+                    scenario.addChapter(chapter);
+                } catch (Exception e) {
+                    System.err.println("Error parsing chapter: " + e.getMessage());
                 }
             }
 
-            scenario.addChapter(chapter);
-        }
+            // Make sure start chapter exists
+            if (scenario.getChapter(startChapterId) == null) {
+                throw new IllegalStateException("Start chapter ID " + startChapterId + " not found in loaded chapters");
+            }
 
-        return scenario;
+            return scenario;
+        } catch (Exception e) {
+            System.err.println("Error parsing JSON: " + e.getMessage());
+            return createFallbackScenario();
+        }
     }
 
     // Méthodes utilitaires pour le parsing manuel
     private static String extractValue(String json, String key) {
-        int start = json.indexOf("\"" + key + "\":") + key.length() + 3;
-        int end = json.indexOf(',', start);
-        if (end == -1) end = json.indexOf('}', start);
-
-        String value = json.substring(start, end).trim();
-        if (value.startsWith("\"") && value.endsWith("\"")) {
-            value = value.substring(1, value.length() - 1);
+        int keyIndex = json.indexOf("\"" + key + "\":");
+        if (keyIndex == -1) {
+            throw new IllegalArgumentException("Key not found: " + key);
         }
-        return value;
+
+        int start = keyIndex + key.length() + 3;
+        int end = -1;
+
+        // Handle string values (with quotes)
+        if (json.charAt(start) == '"') {
+            start++; // Skip opening quote
+            end = json.indexOf('"', start);
+            if (end == -1) {
+                throw new IllegalArgumentException("Unterminated string value for key: " + key);
+            }
+            return json.substring(start, end);
+        }
+        // Handle numeric or boolean values
+        else {
+            end = json.indexOf(',', start);
+            if (end == -1) end = json.indexOf('}', start);
+            if (end == -1) {
+                throw new IllegalArgumentException("Unterminated value for key: " + key);
+            }
+            return json.substring(start, end).trim();
+        }
     }
 
     private static String extractSection(String json, String key) {
-        int start = json.indexOf("\"" + key + "\":") + key.length() + 3;
-        int braceCount = 0;
-        int bracketCount = 0;
+        int keyIndex = json.indexOf("\"" + key + "\":");
+        if (keyIndex == -1) {
+            throw new IllegalArgumentException("Section not found: " + key);
+        }
+
+        int start = keyIndex + key.length() + 2;
+        while (start < json.length() && (json.charAt(start) == ':' || Character.isWhitespace(json.charAt(start)))) {
+            start++;
+        }
+
         boolean inArray = json.charAt(start) == '[';
         if (inArray) {
-            start++;
-            bracketCount++;
+            return extractBalancedSection(json, start, '[', ']');
+        } else if (json.charAt(start) == '{') {
+            return extractBalancedSection(json, start, '{', '}');
+        } else {
+            throw new IllegalArgumentException("Invalid section format for key: " + key);
         }
+    }
 
-        int end = start;
-        while (end < json.length()) {
-            char c = json.charAt(end);
-            if (c == '{') braceCount++;
-            if (c == '}') braceCount--;
-            if (c == '[') bracketCount++;
-            if (c == ']') bracketCount--;
+    private static String extractBalancedSection(String json, int start, char openChar, char closeChar) {
+        int count = 0;
+        int contentStart = start + 1; // Skip the opening bracket/brace
 
-            if ((inArray && bracketCount == 0) || (!inArray && braceCount == 0)) {
-                break;
+        for (int i = start; i < json.length(); i++) {
+            char c = json.charAt(i);
+            if (c == openChar) count++;
+            if (c == closeChar) count--;
+
+            if (count == 0) {
+                return json.substring(contentStart, i);
             }
-            end++;
         }
 
-        return json.substring(start, end);
+        throw new IllegalArgumentException("Unbalanced brackets/braces in JSON");
     }
 
     private static List<String> splitArray(String arrayJson) {
@@ -104,13 +158,13 @@ public class ScenarioLoader {
             if (c == '}') braceCount--;
 
             if (braceCount == 0 && c == ',') {
-                items.add(arrayJson.substring(start, i));
+                items.add(arrayJson.substring(start, i).trim());
                 start = i + 1;
             }
         }
 
         if (start < arrayJson.length()) {
-            items.add(arrayJson.substring(start));
+            items.add(arrayJson.substring(start).trim());
         }
 
         return items;

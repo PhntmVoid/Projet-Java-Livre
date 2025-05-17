@@ -4,75 +4,71 @@
   "chapters": [
     {
       "id": 1,
-      "text": "Vous vous tenez devant le sinistre Manoir de l'Enfer. La légende dit que le comte Zaroff y pratique des expériences terrifiantes sur des humains. Votre mission est d'infiltrer le manoir et de mettre fin à ses agissements. La nuit tombe et une pluie fine commence à tomber. Devant vous, le portail rouillé grince dans le vent.\n\nQue faites-vous?",
+      "text": "Vous grimpez les marches quatre à quatre et, arrivé devant la porte du Manoir, vous vous\narrêtez un instant pour reprendre votre souffle. Bien que vous ayez couru tout le long du\nchemin, la pluie a transpercé vos vêtements, et vos pieds sont complètement trempés. A\nen juger par le nombre de flaques d'eau dans lesquelles vous avez pataugé, il en coûterait\nune véritable fortune pour remettre l'allée en état. Maintenant à l'abri du porche, vous\nsecouez vos vêtements imbibés d'eau. La pluie tombe toujours à verse, mais il règne\npourtant un étrange silence. \n Aucune lumière ne brille au rez-de-chaussée, et vous faites quelques pas en arrière pour\nessayer d'apercevoir la fenêtre qui avait attiré votre attention : les fenêtres du premier\nétage sont plongées dans l'obscurité ; la lumière que vous aviez vue a disparu. L'endroit\nsemble complètement désert. C'est alors que vous prenez conscience de l'heure : il est\nminuit moins cinq et tous les habitants de la maison dorment probablement. Une chouette\nhulule dans le lointain et un frisson vous parcourt l'échine. Vous commencez à éprouver\nquelque frayeur de la situation dans laquelle vous vous trouvez : égaré en pleine\ncampagne, sur le seuil d'une vieille maison à moitié en ruine, et à l'allure inquiétante, et,\nsur le point de réveiller quiconque peut l'habiter... à minuit! Vous ne serez certainement\npas accueilli à bras ouverts, mais si vous tenez à être présent à votre rendez-vous, demain\nmatin, vous n'avez pas le choix : vous devez trouver un téléphone pour demander de\nl'aide.\nAlors que vous vous tournez vers la porte d'entrée, vous remarquez une lueur sourde\nprovenant du côté gauche du Manoir : une lampe vient d'être allumée. Quelqu'un est donc\néveillé, et vous poussez un soupir de soulagement. Au milieu de la porte est fixé un\nmarteau sculpté, et un cordon de sonnette pend à votre droite.",
       "choices": [
         {
-          "text": "Franchir le portail et avancer vers le manoir",
-          "nextChapterId": 2
+          "text": "frapper à l'aide du marteau",
+          "nextChapterId": 357
         },
         {
-          "text": "Faire le tour du manoir pour trouver une entrée secondaire",
-          "nextChapterId": 3
+          "text": "tirer le cordon de sonnette",
+          "nextChapterId": 275
         },
         {
-          "text": "Attendre pour observer les alentours",
-          "nextChapterId": 4
+          "text": "diriger vers la lumière en contournant le Manoir",
+          "nextChapterId": 289
         }
       ]
     },
     {
-      "id": 2,
-      "text": "Vous avancez le long de l'allée principale. Soudain, un piège se déclenche! Une lame tranchante jaillit du sol. Testez votre Habileté.",
+      "id": 357,
+      "text": "Au bout de quelques instants, la porte s'ouvre lentement. Sur le seuil se tient un homme\nde haute taille, vêtu d'un habit de couleur noire. Son long visage est empreint d'une\nsolennité glacée. « Oui ? » dit-il d'un ton légèrement indigné. Vous souriez\nnerveusement, et vous lui expliquez la situation peu agréable qui est la vôtre. L'homme\ndemeure impassible : « Entrez, dit-il, le Maître vous attend. Suivez-moi. » Il vous précède\nalors jusqu'à un vaste hall, et il vous prie de vous asseoir pendant qu'il avertit son Maître\nde votre arrivée.",
       "choices": [
         {
-          "text": "Tenter d'esquiver (Habileté)",
-          "nextChapterId": 5
-        },
-        {
-          "text": "Sauter par-dessus",
-          "nextChapterId": 6
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "text": "En faisant le tour du manoir, vous trouvez une fenêtre entrouverte au rez-de-chaussée. Elle semble mener à la cuisine.",
-      "choices": [
-        {
-          "text": "Entrer par la fenêtre",
-          "nextChapterId": 7
-        },
-        {
-          "text": "Continuer à explorer l'extérieur",
+          "text": "Continuer",
           "nextChapterId": 8
         }
       ]
     },
     {
-      "id": 4,
-      "text": "En attendant, vous remarquez une silhouette se déplacer derrière une fenêtre du premier étage. Peu après, un serviteur sort par une porte dérobée et s'éloigne en direction de la forêt.",
+      "id": 275,
+      "text": "Vous saisissez le cordon de sonnette, et vous le tirez. Venant des profondeurs du Manoir,\nvous percevez un léger tintement, et la lumière que vous aviez aperçue sur votre gauche\ndisparaît.",
       "choices": [
         {
-          "text": "Profiter de l'occasion pour entrer par la porte dérobée",
-          "nextChapterId": 9
-        },
-        {
-          "text": "Suivre discrètement le serviteur",
-          "nextChapterId": 10
+          "text": "Continuer",
+          "nextChapterId": 357
         }
       ]
     },
     {
-      "id": 5,
-      "text": "Vous esquivez avec succès la lame et continuez votre chemin vers le manoir. Vous arrivez devant la porte d'entrée massive.",
+      "id": 289,
+      "text": "Vous descendez l'escalier, et vous contournez le Manoir sur la gauche. \nEffectivement, une lumière brille, provenant très certainement d'une fenêtre située sur l'arrière du bâtiment. ",
       "choices": [
         {
-          "text": "Frapper à la porte",
-          "nextChapterId": 11
+          "text": " diriger vers cette fenêtre pour y jeter un coup d'œil",
+          "nextChapterId": 345
         },
         {
-          "text": "Chercher un moyen d'entrer discrètement",
-          "nextChapterId": 12
+          "text": "examiner les fenêtres derriere de la maison pour voir s'il serait possible d'y pénétrer sans éveiller l'attention des habitants",
+          "nextChapterId": 137
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "text": "Vous vous installez dans un lourd fauteuil sculpté, et vous examinez les lieux. \nLa salle dans laquelle vous vous trouvez est bien différente de ce que l'aspect extérieur du manoir vous avait fait imaginer.  \nElle est en effet décorée avec goût de riches tapisseries et d'élégants lambris de chêne, et est meublée d'une robuste table ainsi que de fauteuils datant certainement du XVIe siècle.  \nDe plus, de nombreux portraits sont accrochés aux murs.",
+      "choices": [
+        {
+          "text": "attendre l'arrivée de votre hôte",
+          "nextChapterId": 277
+        },
+        {
+          "text": "s intéresser aux portraits ",
+          "nextChapterId": 304
+        },
+        {
+          "text": "mettre à la recherche d'un téléphone ",
+          "nextChapterId": 238
         }
       ]
     },
