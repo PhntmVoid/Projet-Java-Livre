@@ -7,20 +7,27 @@ import view.TextUI;
 
 public class Main {
     public static void main(String[] args) {
-        // Chargement du scénario
-        Scenario scenario = ScenarioLoader.loadScenario("resources/manoir_enfer.json");
+        try {
+            // Load scenario
+            Scenario scenario = ScenarioLoader.loadScenario("resources/manoir_enfer.json");
 
-        // Création du joueur avec des valeurs initiales
-        Player player = new Player(7, 20); // Habileté: 7, Endurance: 20
+            // Create player with initial stats
+            Player player = new Player(7, 20, 7); // Skill: 7, Stamina: 20, Luck: 7
 
-        // Création du contrôleur
-        GameController controller = new GameController(scenario, player);
+            // Create controller
+            GameController controller = new GameController(scenario, player);
 
-        // Choix de l'interface
-        if (args.length > 0 && args[0].equals("--text")) {
-            new TextUI(controller).startGame();
-        } else {
-            new SwingUI(controller);
+            // Choose interface
+            if (args.length > 0 && args[0].equals("--text")) {
+                new TextUI(controller).startGame();
+            } else {
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    new SwingUI(controller);
+                });
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to start the game: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

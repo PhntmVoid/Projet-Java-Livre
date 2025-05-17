@@ -5,33 +5,64 @@ import java.util.List;
 
 public class Player {
     private List<String> inventory;
-    private int skill;
-    int actualSkill;
-    private int stamina;
-    int actualStamina;
-    int maxFear;
-    int actualFear;
+    private int maxSkill;
+    private int currentSkill;
+    private int maxStamina;
+    private int currentStamina;
+    private int maxFear;
+    private int currentFear;
+    private int luck;
 
-    public Player(int skill, int stamina) {
-        this.skill = skill;
-        this.stamina = stamina;
+    public Player(int skill, int stamina, int luck) {
+        this.maxSkill = skill;
+        this.currentSkill = skill;
+        this.maxStamina = stamina;
+        this.currentStamina = stamina;
+        this.maxFear = 10; // Example value
+        this.currentFear = 0;
+        this.luck = luck;
         this.inventory = new ArrayList<>();
     }
 
-    // Getters et setters
-    public List<String> getInventory() { return inventory; }
-    public int getSkill() { return skill; }
-    public int getStamina() { return stamina; }
+    // Getters
+    public List<String> getInventory() { return new ArrayList<>(inventory); }
+    public int getMaxSkill() { return maxSkill; }
+    public int getCurrentSkill() { return currentSkill; }
+    public int getMaxStamina() { return maxStamina; }
+    public int getCurrentStamina() { return currentStamina; }
+    public int getMaxFear() { return maxFear; }
+    public int getCurrentFear() { return currentFear; }
+    public int getLuck() { return luck; }
+
+    // Inventory methods
+    public boolean hasItem(String item) {
+        return inventory.contains(item);
+    }
 
     public void addItem(String item) {
-        inventory.add(item);
+        if (!inventory.contains(item)) {
+            inventory.add(item);
+        }
     }
 
-    public void removeItem(String item) {
-        inventory.remove(item);
+    public boolean removeItem(String item) {
+        return inventory.remove(item);
     }
 
+    // Stat modification methods
     public void modifyStamina(int change) {
-        stamina += change;
+        currentStamina = Math.min(maxStamina, Math.max(0, currentStamina + change));
+    }
+
+    public void modifySkill(int change) {
+        currentSkill = Math.min(maxSkill, Math.max(0, currentSkill + change));
+    }
+
+    public void modifyFear(int change) {
+        currentFear = Math.min(maxFear, Math.max(0, currentFear + change));
+    }
+
+    public boolean isAlive() {
+        return currentStamina > 0;
     }
 }

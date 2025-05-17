@@ -4,40 +4,45 @@ import model.Chapter;
 import model.Player;
 import model.Scenario;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameController {
     private Scenario scenario;
     private Player player;
     private int currentChapterId;
+    private List<Integer> chapterHistory;
 
     public GameController(Scenario scenario, Player player) {
+        if (scenario == null || player == null) {
+            throw new IllegalArgumentException("Scenario and Player cannot be null");
+        }
+
         this.scenario = scenario;
         this.player = player;
-        this.currentChapterId = scenario.getStartChapterId();
+        this.chapterHistory = new ArrayList<>();
 
-        // Vérifier que le chapitre de départ existe
+        initializeStartingChapter();
+    }
+
+    private void initializeStartingChapter() {
+        this.currentChapterId = scenario.getStartChapterId();
+        chapterHistory.add(currentChapterId);
+
         if (scenario.getChapter(currentChapterId) == null) {
-            System.err.println("ERREUR: Le chapitre de départ ID " + currentChapterId + " n'existe pas!");
-            // Si le chapitre de départ n'existe pas, utiliser le premier chapitre disponible ou -1
-            if (!scenario.getChapters().isEmpty()) {
-                currentChapterId = scenario.getChapters().keySet().iterator().next();
-            } else {
-                currentChapterId = -1;
-            }
+            throw new IllegalStateException("Starting chapter not found in scenario");
         }
     }
 
     public Chapter getCurrentChapter() {
         Chapter chapter = scenario.getChapter(currentChapterId);
-        if (chapter == null) {
-            // Retourner un chapitre d'erreur au lieu de null
-            return createErrorChapter();
-        }
-        return chapter;
+        return chapter != null ? chapter : createErrorChapter();
     }
 
     private Chapter createErrorChapter() {
-        Chapter errorChapter = new Chapter(-999, "Erreur: Ce chapitre n'existe pas dans le scénario.");
-        return errorChapter;
+        return new Chapter(-999, "Erreur: Le chemin que vous avez choisi ne mène nulle part.\n\n" +
+                "Vous vous retrouvez dans un endroit étrange et vide. L'aventure semble s'être arrêtée brusquement.\n\n" +
+                "(Ceci est une erreur technique - le chapitre suivant n'existe pas dans le scénario)");
     }
 
     public Player getPlayer() {
@@ -46,22 +51,42 @@ public class GameController {
 
     public boolean makeChoice(int choiceIndex) {
         Chapter current = getCurrentChapter();
-        if (choiceIndex >= 0 && choiceIndex < current.getChoices().size()) {
-            int nextChapterId = current.getChoices().get(choiceIndex).getNextChapterId();
+        if (current == null || choiceIndex < 0 || choiceIndex >= current.getChoices().size()) {
+            return false;
+        }
 
-            // Vérifier que le chapitre suivant existe
-            if (scenario.getChapter(nextChapterId) != null || nextChapterId == -1) {
-                currentChapterId = nextChapterId;
-                return true;
-            } else {
-                System.err.println("ERREUR: Le chapitre cible ID " + nextChapterId + " n'existe pas!");
-                return false;
-            }
+        int nextChapterId = current.getChoices().get(choiceIndex).getNextChapterId();
+        Chapter nextChapter = scenario.getChapter(nextChapterId);
+
+        if (nextChapterId == -1 || nextChapter == null) {
+            // Create a default "invalid path" chapter if the next chapter doesn't exist
+            currentChapterId = -999;
+            chapterHistory.add(currentChapterId);
+            return true;
+        }
+
+        currentChapterId = nextChapterId;
+        chapterHistory.add(currentChapterId);
+        return true;
+    }
+
+    public boolean goBack() {
+        if (chapterHistory.size() > 1) {
+            chapterHistory.remove(chapterHistory.size() - 1);
+            currentChapterId = chapterHistory.get(chapterHistory.size() - 1);
+            return true;
         }
         return false;
     }
 
     public boolean isGameOver() {
-        return currentChapterId == -1 || getCurrentChapter().getChoices().isEmpty();
+        return !player.isAlive() ||
+                currentChapterId == -1 ||
+                currentChapterId == -999 || // Add this line
+                getCurrentChapter().getChoices().isEmpty();
+    }
+
+    public boolean isPlayerAlive() {
+        return player.isAlive();
     }
 }

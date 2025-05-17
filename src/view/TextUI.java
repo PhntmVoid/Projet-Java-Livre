@@ -19,7 +19,7 @@ public class TextUI {
         while (!controller.isGameOver()) {
             Chapter currentChapter = controller.getCurrentChapter();
 
-            System.out.println("\n=== " + controller.getPlayer().getStamina() + " ENDURANCE ===\n");
+            System.out.println("\n=== " + controller.getPlayer().getCurrentStamina() + " ENDURANCE ===\n");
             System.out.println(currentChapter.getText());
 
             if (currentChapter.getChoices().isEmpty()) {
