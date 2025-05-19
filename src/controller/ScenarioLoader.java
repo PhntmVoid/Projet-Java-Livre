@@ -41,10 +41,17 @@ public class ScenarioLoader {
 
                 // Parse endurance and fear modifiers
                 if (chapterMap.containsKey("enduranceModifier")) {
-                    chapter.setEnduranceModifier(((Number) chapterMap.get("enduranceModifier")).intValue());
+                    String modStr = extractValue(chapterMap.toString(), "\"enduranceModifier\":", ",}");
+                    if (modStr != null && !modStr.isEmpty()) {
+                        chapter.setEnduranceModifier(Integer.parseInt(modStr.trim()));
+                    }
                 }
+
                 if (chapterMap.containsKey("fearModifier")) {
-                    chapter.setFearModifier(((Number) chapterMap.get("fearModifier")).intValue());
+                    String modStr = extractValue(chapterMap.toString(), "\"fearModifier\":", ",}");
+                    if (modStr != null && !modStr.isEmpty()) {
+                        chapter.setFearModifier(Integer.parseInt(modStr.trim()));
+                    }
                 }
 
                 // Parse luck test
@@ -55,18 +62,16 @@ public class ScenarioLoader {
 
                     if (luckTestMap.containsKey("success")) {
                         Map<String, Object> successMap = (Map<String, Object>) luckTestMap.get("success");
-                        success = new LuckTestOutcome(
-                            (String) successMap.get("text"),
-                            ((Number) successMap.get("enduranceModifier")).intValue()
-                        );
+                        String successText = (String) successMap.get("text");
+                        int successMod = ((Number) successMap.get("enduranceModifier")).intValue();
+                        success = new LuckTestOutcome(successText, successMod);
                     }
 
                     if (luckTestMap.containsKey("failure")) {
                         Map<String, Object> failureMap = (Map<String, Object>) luckTestMap.get("failure");
-                        failure = new LuckTestOutcome(
-                            (String) failureMap.get("text"),
-                            ((Number) failureMap.get("enduranceModifier")).intValue()
-                        );
+                        String failureText = (String) failureMap.get("text");
+                        int failureMod = ((Number) failureMap.get("enduranceModifier")).intValue();
+                        failure = new LuckTestOutcome(failureText, failureMod);
                     }
 
                     chapter.setLuckTest(new LuckTest(success, failure));
@@ -74,24 +79,29 @@ public class ScenarioLoader {
 
                 // Parse choices
                 if (chapterMap.containsKey("choices")) {
-                    Object[] choices = (Object[]) chapterMap.get("choices");
-                    if (choices != null) {
-                        for (Object choiceObj : choices) {
-                            Map<String, Object> choiceMap = (Map<String, Object>) choiceObj;
-
-                            String choiceText = (String) choiceMap.get("text");
-                            int nextChapterId = ((Number) choiceMap.get("nextChapterId")).intValue();
-
+                    String choicesStr = extractValue(chapterMap.toString(), "\"choices\":", "]");
+                    if (choicesStr != null && choicesStr.startsWith("[")) {
+                        choicesStr = choicesStr.substring(1); // Remove leading [
+                        String[] choiceStrings = splitChoices(choicesStr);
+                        
+                        for (String choiceString : choiceStrings) {
+                            String choiceText = extractValue(choiceString, "\"text\":", ",");
+                            String nextIdStr = extractValue(choiceString, "\"nextChapterId\":", ",}");
+                            int nextChapterId = Integer.parseInt(nextIdStr.trim());
+                            
                             Choice choice = new Choice(choiceText, nextChapterId);
-
-                            // Parse choice flags
-                            if (choiceMap.containsKey("requiresLuckTest")) {
-                                choice.setRequiresLuckTest((Boolean) choiceMap.get("requiresLuckTest"));
+                            
+                            // Parse boolean flags
+                            String requiresLuckTest = extractValue(choiceString, "\"requiresLuckTest\":", ",}");
+                            if (requiresLuckTest != null) {
+                                choice.setRequiresLuckTest(Boolean.parseBoolean(requiresLuckTest.trim()));
                             }
-                            if (choiceMap.containsKey("combatRequired")) {
-                                choice.setCombatRequired((Boolean) choiceMap.get("combatRequired"));
+                            
+                            String combatRequired = extractValue(choiceString, "\"combatRequired\":", ",}");
+                            if (combatRequired != null) {
+                                choice.setCombatRequired(Boolean.parseBoolean(combatRequired.trim()));
                             }
-
+                            
                             chapter.addChoice(choice);
                         }
                     }
@@ -135,27 +145,7 @@ public class ScenarioLoader {
 
             if (chapterStrings[i].contains("\"choices\":")) {
                 String choicesSection = chapterStrings[i].substring(chapterStrings[i].indexOf("\"choices\":"));
-                choicesSection = choicesSection.substring(choicesSection.indexOf("[") + 1);
-                int endIndex = choicesSection.lastIndexOf("]");
-                if (endIndex > 0) {
-                    choicesSection = choicesSection.substring(0, endIndex);
-                    String[] choiceStrings = splitChoices(choicesSection);
-                    Object[] choices = new Object[choiceStrings.length];
-
-                    for (int j = 0; j < choiceStrings.length; j++) {
-                        Map<String, Object> choice = new HashMap<>();
-
-                        String choiceText = extractValue(choiceStrings[j], "\"text\":", ",");
-                        choice.put("text", choiceText);
-
-                        String nextId = extractValue(choiceStrings[j], "\"nextChapterId\":", "}");
-                        choice.put("nextChapterId", Integer.parseInt(nextId));
-
-                        choices[j] = choice;
-                    }
-
-                    chapter.put("choices", choices);
-                }
+                chapter.put("choices", choicesSection);
             }
 
             chapters[i] = chapter;
@@ -166,18 +156,34 @@ public class ScenarioLoader {
     }
 
     private static String extractValue(String json, String key, String end) {
-        int start = json.indexOf(key) + key.length();
-        int endPos = json.indexOf(end, start);
-        if (endPos < 0) {
-            endPos = json.length();
+        try {
+            int start = json.indexOf(key);
+            if (start == -1) return null;
+            
+            start += key.length();
+            int endPos = -1;
+            
+            for (String possibleEnd : end.split("")) {
+                int pos = json.indexOf(possibleEnd, start);
+                if (pos != -1 && (endPos == -1 || pos < endPos)) {
+                    endPos = pos;
+                }
+            }
+            
+            if (endPos == -1) {
+                endPos = json.length();
+            }
+            
+            String value = json.substring(start, endPos).trim();
+            
+            if (value.startsWith("\"") && value.endsWith("\"")) {
+                value = value.substring(1, value.length() - 1);
+            }
+            
+            return value;
+        } catch (Exception e) {
+            return null;
         }
-        String value = json.substring(start, endPos).trim();
-
-        if (value.startsWith("\"") && value.endsWith("\"")) {
-            value = value.substring(1, value.length() - 1);
-        }
-
-        return value;
     }
 
     private static String[] splitChapters(String chaptersSection) {
