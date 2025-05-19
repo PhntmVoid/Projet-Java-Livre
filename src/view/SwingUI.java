@@ -7,6 +7,8 @@ import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class SwingUI {
@@ -15,7 +17,7 @@ public class SwingUI {
     private JPanel mainMenuPanel;
     private JPanel gamePanel;
     private JPanel statsPanel;
-    private JTextArea chapterTextArea;
+    private JTextPane chapterTextArea; // Changed from JTextArea to JTextPane
     private JPanel choicesPanel;
 
     private static final Font STATS_FONT = new Font("SansSerif", Font.PLAIN, 12);
@@ -99,4 +101,240 @@ public class SwingUI {
         statsPanel = new JPanel();
         statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
         statsPanel.setBackground(new Color(40, 40, 40));
-        statsPanel.setPreferredSize(n
+        statsPanel.setPreferredSize(new Dimension(STATS_PANEL_WIDTH, WINDOW_HEIGHT));
+        statsPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
+
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.setBackground(DARK_GREY);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Use JTextPane instead of JTextArea
+        chapterTextArea = new JTextPane();
+        chapterTextArea.setEditable(false);
+        chapterTextArea.setContentType("text/plain");
+        chapterTextArea.setFont(new Font("Serif", Font.PLAIN, 16));
+        chapterTextArea.setBackground(DARK_GREY);
+        chapterTextArea.setForeground(WHITE);
+        chapterTextArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JScrollPane scrollPane = new JScrollPane(chapterTextArea);
+        scrollPane.setBorder(BorderFactory.createLineBorder(TEAL_COLOR, 1));
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBackground(DARK_GREY);
+
+        choicesPanel = new JPanel();
+        choicesPanel.setLayout(new BoxLayout(choicesPanel, BoxLayout.Y_AXIS));
+        choicesPanel.setBackground(DARK_GREY);
+        choicesPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        contentPanel.add(choicesPanel, BorderLayout.SOUTH);
+
+        gamePanel.add(statsPanel, BorderLayout.WEST);
+        gamePanel.add(contentPanel, BorderLayout.CENTER);
+    }
+
+    private void showMainMenu() {
+        CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
+        cl.show(frame.getContentPane(), "MENU");
+    }
+
+    private void showGameScreen() {
+        CardLayout cl = (CardLayout) frame.getContentPane().getLayout();
+        cl.show(frame.getContentPane(), "GAME");
+        frame.revalidate();
+        frame.repaint();
+        updateGameScreen();
+    }
+
+    private void updateGameScreen() {
+        updatePlayerStats();
+        updateChapterDisplay();
+    }
+
+    private void updatePlayerStats() {
+        statsPanel.removeAll();
+
+        Player player = controller.getPlayer();
+        if (player == null) return;
+
+        JLabel statsTitle = new JLabel("STATISTIQUES", SwingConstants.CENTER);
+        statsTitle.setForeground(WHITE);
+        statsTitle.setFont(new Font("SansSerif", Font.BOLD, 16));
+        statsTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+
+        statsPanel.add(statsTitle);
+
+        addStatBar("Habileté", player.getCurrentSkill(), player.getMaxSkill());
+        addStatBar("Endurance", player.getCurrentStamina(), player.getMaxStamina());
+        addStatBar("Chance", player.getLuck(), 10);
+        addStatBar("Peur", player.getCurrentFear(), player.getMaxFear());
+
+        JLabel inventoryTitle = new JLabel("INVENTAIRE", SwingConstants.CENTER);
+        inventoryTitle.setForeground(WHITE);
+        inventoryTitle.setFont(new Font("SansSerif", Font.BOLD, 14));
+        inventoryTitle.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+        statsPanel.add(inventoryTitle);
+
+        JPanel inventoryPanel = new JPanel();
+        inventoryPanel.setLayout(new BoxLayout(inventoryPanel, BoxLayout.Y_AXIS));
+        inventoryPanel.setOpaque(false);
+        inventoryPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        List<String> inventory = player.getInventory();
+        if (inventory.isEmpty()) {
+            JLabel emptyLabel = new JLabel("(vide)");
+            emptyLabel.setForeground(WHITE);
+            emptyLabel.setFont(STATS_FONT);
+            inventoryPanel.add(emptyLabel);
+        } else {
+            for (String item : inventory) {
+                JLabel itemLabel = new JLabel("- " + item);
+                itemLabel.setForeground(WHITE);
+                itemLabel.setFont(STATS_FONT);
+                inventoryPanel.add(itemLabel);
+            }
+        }
+
+        statsPanel.add(inventoryPanel);
+        statsPanel.revalidate();
+        statsPanel.repaint();
+    }
+
+    private void addStatBar(String label, int current, int max) {
+        JPanel statPanel = new JPanel();
+        statPanel.setLayout(new BoxLayout(statPanel, BoxLayout.Y_AXIS));
+        statPanel.setOpaque(false);
+        statPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        statPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
+
+        JLabel statLabel = new JLabel(label + ":");
+        statLabel.setForeground(WHITE);
+        statLabel.setFont(STATS_FONT);
+        statLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JProgressBar progressBar = new JProgressBar(0, max);
+        progressBar.setValue(current);
+        progressBar.setString(current + "/" + max);
+        progressBar.setStringPainted(true);
+        progressBar.setForeground(getColorForStat(label));
+        progressBar.setBackground(DARK_GREY);
+        progressBar.setBorder(BorderFactory.createLineBorder(WHITE, 1));
+        progressBar.setPreferredSize(new Dimension(150, 20));
+        progressBar.setMaximumSize(new Dimension(150, 20));
+
+        statPanel.add(statLabel);
+        statPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        statPanel.add(progressBar);
+
+        statsPanel.add(statPanel);
+    }
+
+    private void configureButton(JButton button, Color bgColor, Color fgColor) {
+        button.setBackground(bgColor);
+        button.setForeground(fgColor);
+        button.setFocusPainted(false);
+        button.setBorderPainted(true);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 25, 10, 25));
+        button.setContentAreaFilled(true);
+        button.setOpaque(true);
+
+        button.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
+            @Override
+            public void update(Graphics g, JComponent c) {
+                if (c.isOpaque()) {
+                    g.setColor(c.getBackground());
+                    g.fillRect(0, 0, c.getWidth(), c.getHeight());
+                }
+                paint(g, c);
+            }
+        });
+
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor.brighter());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor);
+            }
+        });
+    }
+
+    private Color getColorForStat(String stat) {
+        switch (stat) {
+            case "Habileté": return new Color(76, 175, 80);
+            case "Endurance": return new Color(244, 67, 54);
+            case "Chance": return new Color(255, 193, 7);
+            case "Peur": return new Color(156, 39, 176);
+            default: return TEAL_COLOR;
+        }
+    }
+
+    private void updateChapterDisplay() {
+        Chapter currentChapter = controller.getCurrentChapter();
+        if (currentChapter == null) return;
+
+        // Update chapter text with proper line breaks
+        String formattedText = currentChapter.getText().replace("\\n", "\n");
+        chapterTextArea.setText(formattedText);
+        chapterTextArea.setCaretPosition(0);
+
+        // Update choices
+        choicesPanel.removeAll();
+
+        if (!controller.isGameOver()) {
+            List<Choice> choices = currentChapter.getChoices();
+            if (choices != null && !choices.isEmpty()) {
+                for (int i = 0; i < choices.size(); i++) {
+                    final int choiceIndex = i;
+                    Choice choice = choices.get(i);
+
+                    JButton choiceButton = new JButton(choice.getText());
+                    choiceButton.setFont(new Font("SansSerif", Font.PLAIN, 14));
+                    choiceButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+                    choiceButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+
+                    configureButton(choiceButton, CHOICE_BUTTON_COLOR, WHITE);
+                    choiceButton.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createLineBorder(TEAL_COLOR, 1),
+                            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+                    ));
+
+                    choiceButton.addActionListener(e -> {
+                        controller.makeChoice(choiceIndex);
+                        updateGameScreen();
+                    });
+
+                    choicesPanel.add(choiceButton);
+                    choicesPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+                }
+            }
+        } else {
+            String message = controller.isPlayerAlive()
+                    ? "Félicitations!"
+                    : "Vous avez péri dans le Manoir de l'Enfer!";
+
+            JLabel endLabel = new JLabel(message);
+            endLabel.setForeground(WHITE);
+            endLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+            endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            choicesPanel.add(endLabel);
+
+            JButton restartButton = new JButton("Retour au menu principal");
+            restartButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+            restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            restartButton.setMaximumSize(new Dimension(250, 40));
+
+            configureButton(restartButton, TEAL_COLOR, WHITE);
+
+            restartButton.addActionListener(e -> showMainMenu());
+
+            choicesPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+            choicesPanel.add(restartButton);
+        }
+
+        choicesPanel.revalidate();
+        choicesPanel.repaint();
+    }
+}
