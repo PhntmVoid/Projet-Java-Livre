@@ -52,7 +52,9 @@ public class ScenarioLoader {
                             String choiceText = (String) choiceMap.get("text");
                             int nextChapterId = ((Number) choiceMap.get("nextChapterId")).intValue();
 
-                            chapter.addChoice(new Choice(choiceText, nextChapterId));
+                            // Create choice and add to chapter
+                            Choice choice = new Choice(choiceText, nextChapterId);
+                            chapter.addChoice(choice);
                         }
                     }
                 }
