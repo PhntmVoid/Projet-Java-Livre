@@ -115,7 +115,7 @@ public class ScenarioLoader {
                     }
                 }
 
-                // Parse choices if present
+                // Parse choices
                 if (chapterStr.contains("\"choices\"")) {
                     int choicesStart = chapterStr.indexOf("\"choices\"");
                     if (choicesStart != -1) {
@@ -135,7 +135,8 @@ public class ScenarioLoader {
                                 
                                 if (choiceText != null && nextIdStr != null) {
                                     try {
-                                        Choice choice = new Choice(choiceText, Integer.parseInt(nextIdStr.trim()));
+                                        int nextId = Integer.parseInt(nextIdStr.trim());
+                                        Choice choice = new Choice(choiceText, nextId);
                                         
                                         // Parse requiresLuckTest if present
                                         String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",");
@@ -151,7 +152,7 @@ public class ScenarioLoader {
 
                                         chapter.addChoice(choice);
                                     } catch (NumberFormatException e) {
-                                        // Skip invalid choice
+                                        System.err.println("Invalid nextChapterId in choice: " + nextIdStr);
                                     }
                                 }
                             }
