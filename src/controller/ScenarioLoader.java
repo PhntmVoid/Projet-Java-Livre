@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScenarioLoader {
-
     public static Scenario loadScenario(String resourcePath) {
         try (InputStream is = ScenarioLoader.class.getClassLoader().getResourceAsStream(resourcePath)) {
             if (is == null) {
@@ -24,7 +23,6 @@ public class ScenarioLoader {
 
     private static Scenario parseScenarioFromJson(String jsonContent) {
         try {
-            // Manual JSON parsing (replacing GSON dependency)
             Map<String, Object> jsonMap = parseJson(jsonContent);
 
             String title = (String) jsonMap.get("title");
@@ -32,7 +30,6 @@ public class ScenarioLoader {
 
             Scenario scenario = new Scenario(title, startChapterId);
 
-            // Parse chapters
             Object[] chapters = (Object[]) jsonMap.get("chapters");
             for (Object chapterObj : chapters) {
                 Map<String, Object> chapterMap = (Map<String, Object>) chapterObj;
@@ -42,7 +39,40 @@ public class ScenarioLoader {
 
                 Chapter chapter = new Chapter(id, text);
 
-                // Parse choices if they exist
+                // Parse endurance and fear modifiers
+                if (chapterMap.containsKey("enduranceModifier")) {
+                    chapter.setEnduranceModifier(((Number) chapterMap.get("enduranceModifier")).intValue());
+                }
+                if (chapterMap.containsKey("fearModifier")) {
+                    chapter.setFearModifier(((Number) chapterMap.get("fearModifier")).intValue());
+                }
+
+                // Parse luck test
+                if (chapterMap.containsKey("luckTest")) {
+                    Map<String, Object> luckTestMap = (Map<String, Object>) chapterMap.get("luckTest");
+                    LuckTestOutcome success = null;
+                    LuckTestOutcome failure = null;
+
+                    if (luckTestMap.containsKey("success")) {
+                        Map<String, Object> successMap = (Map<String, Object>) luckTestMap.get("success");
+                        success = new LuckTestOutcome(
+                            (String) successMap.get("text"),
+                            ((Number) successMap.get("enduranceModifier")).intValue()
+                        );
+                    }
+
+                    if (luckTestMap.containsKey("failure")) {
+                        Map<String, Object> failureMap = (Map<String, Object>) luckTestMap.get("failure");
+                        failure = new LuckTestOutcome(
+                            (String) failureMap.get("text"),
+                            ((Number) failureMap.get("enduranceModifier")).intValue()
+                        );
+                    }
+
+                    chapter.setLuckTest(new LuckTest(success, failure));
+                }
+
+                // Parse choices
                 if (chapterMap.containsKey("choices")) {
                     Object[] choices = (Object[]) chapterMap.get("choices");
                     if (choices != null) {
@@ -52,8 +82,16 @@ public class ScenarioLoader {
                             String choiceText = (String) choiceMap.get("text");
                             int nextChapterId = ((Number) choiceMap.get("nextChapterId")).intValue();
 
-                            // Create choice and add to chapter
                             Choice choice = new Choice(choiceText, nextChapterId);
+
+                            // Parse choice flags
+                            if (choiceMap.containsKey("requiresLuckTest")) {
+                                choice.setRequiresLuckTest((Boolean) choiceMap.get("requiresLuckTest"));
+                            }
+                            if (choiceMap.containsKey("combatRequired")) {
+                                choice.setCombatRequired((Boolean) choiceMap.get("combatRequired"));
+                            }
+
                             chapter.addChoice(choice);
                         }
                     }
@@ -69,47 +107,32 @@ public class ScenarioLoader {
         }
     }
 
-    // Simple implementation of a JSON parser to avoid GSON dependency
-    // Note: This is a very simplified parser and does not handle all JSON cases
     private static Map<String, Object> parseJson(String json) {
-        // For educational purposes, we're providing a simpler alternative
-        // In a real application, you would want to use a proper JSON parser library
-
-        // For this demo's purpose only - simulating JSON parsing for the specific expected format
         Map<String, Object> result = new HashMap<>();
 
-        // Parse title
         result.put("title", extractValue(json, "\"title\":", ","));
 
-        // Parse startChapterId
         String startId = extractValue(json, "\"startChapterId\":", ",");
         result.put("startChapterId", Integer.parseInt(startId));
 
-        // For chapters, we'll do a very simplified parsing
-        // Warning: This is not a proper JSON parser, just a simple extraction for this specific case
         String chaptersSection = json.substring(json.indexOf("\"chapters\":"));
         chaptersSection = chaptersSection.substring(chaptersSection.indexOf("[") + 1, chaptersSection.lastIndexOf("]"));
 
-        // Split chapters
         String[] chapterStrings = splitChapters(chaptersSection);
         Object[] chapters = new Object[chapterStrings.length];
 
         for (int i = 0; i < chapterStrings.length; i++) {
             Map<String, Object> chapter = new HashMap<>();
 
-            // Parse id
             String idStr = extractValue(chapterStrings[i], "\"id\":", ",");
             chapter.put("id", Integer.parseInt(idStr));
 
-            // Parse text
             String text = extractValue(chapterStrings[i], "\"text\":", "\"choices\"");
-            // Clean up text
             if (text.endsWith(",")) {
                 text = text.substring(0, text.length() - 1);
             }
             chapter.put("text", text.replace("\\n", "\n").replace("\\\"", "\""));
 
-            // Parse choices
             if (chapterStrings[i].contains("\"choices\":")) {
                 String choicesSection = chapterStrings[i].substring(chapterStrings[i].indexOf("\"choices\":"));
                 choicesSection = choicesSection.substring(choicesSection.indexOf("[") + 1);
@@ -122,11 +145,9 @@ public class ScenarioLoader {
                     for (int j = 0; j < choiceStrings.length; j++) {
                         Map<String, Object> choice = new HashMap<>();
 
-                        // Parse text
                         String choiceText = extractValue(choiceStrings[j], "\"text\":", ",");
                         choice.put("text", choiceText);
 
-                        // Parse nextChapterId
                         String nextId = extractValue(choiceStrings[j], "\"nextChapterId\":", "}");
                         choice.put("nextChapterId", Integer.parseInt(nextId));
 
@@ -152,7 +173,6 @@ public class ScenarioLoader {
         }
         String value = json.substring(start, endPos).trim();
 
-        // Remove quotes for string values
         if (value.startsWith("\"") && value.endsWith("\"")) {
             value = value.substring(1, value.length() - 1);
         }
@@ -161,7 +181,6 @@ public class ScenarioLoader {
     }
 
     private static String[] splitChapters(String chaptersSection) {
-        // Very simplified chapter splitting - only works for specific JSON format
         java.util.List<String> chapters = new java.util.ArrayList<>();
         int depth = 0;
         int start = 0;
@@ -185,7 +204,6 @@ public class ScenarioLoader {
     }
 
     private static String[] splitChoices(String choicesSection) {
-        // Similar to splitChapters but for choices
         java.util.List<String> choices = new java.util.ArrayList<>();
         int depth = 0;
         int start = 0;
