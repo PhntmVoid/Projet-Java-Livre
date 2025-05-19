@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.json:json:20231013'
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
