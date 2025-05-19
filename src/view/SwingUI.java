@@ -7,8 +7,6 @@ import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class SwingUI {
@@ -17,7 +15,7 @@ public class SwingUI {
     private JPanel mainMenuPanel;
     private JPanel gamePanel;
     private JPanel statsPanel;
-    private JTextPane chapterTextArea; // Changed from JTextArea to JTextPane
+    private JTextArea chapterTextArea;
     private JPanel choicesPanel;
 
     private static final Font STATS_FONT = new Font("SansSerif", Font.PLAIN, 12);
@@ -109,19 +107,21 @@ public class SwingUI {
         contentPanel.setBackground(DARK_GREY);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Use JTextPane instead of JTextArea
-        chapterTextArea = new JTextPane();
+        chapterTextArea = new JTextArea();
         chapterTextArea.setEditable(false);
-        chapterTextArea.setContentType("text/plain");
+        chapterTextArea.setLineWrap(true);
+        chapterTextArea.setWrapStyleWord(true);
         chapterTextArea.setFont(new Font("Serif", Font.PLAIN, 16));
         chapterTextArea.setBackground(DARK_GREY);
         chapterTextArea.setForeground(WHITE);
         chapterTextArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        chapterTextArea.setMargin(new Insets(10, 10, 10, 10));
 
         JScrollPane scrollPane = new JScrollPane(chapterTextArea);
         scrollPane.setBorder(BorderFactory.createLineBorder(TEAL_COLOR, 1));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.setBackground(DARK_GREY);
+        scrollPane.getViewport().setBackground(DARK_GREY);
 
         choicesPanel = new JPanel();
         choicesPanel.setLayout(new BoxLayout(choicesPanel, BoxLayout.Y_AXIS));
@@ -163,6 +163,7 @@ public class SwingUI {
         statsTitle.setForeground(WHITE);
         statsTitle.setFont(new Font("SansSerif", Font.BOLD, 16));
         statsTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        statsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         statsPanel.add(statsTitle);
 
@@ -175,6 +176,7 @@ public class SwingUI {
         inventoryTitle.setForeground(WHITE);
         inventoryTitle.setFont(new Font("SansSerif", Font.BOLD, 14));
         inventoryTitle.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+        inventoryTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         statsPanel.add(inventoryTitle);
 
         JPanel inventoryPanel = new JPanel();
@@ -187,12 +189,14 @@ public class SwingUI {
             JLabel emptyLabel = new JLabel("(vide)");
             emptyLabel.setForeground(WHITE);
             emptyLabel.setFont(STATS_FONT);
+            emptyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             inventoryPanel.add(emptyLabel);
         } else {
             for (String item : inventory) {
                 JLabel itemLabel = new JLabel("- " + item);
                 itemLabel.setForeground(WHITE);
                 itemLabel.setFont(STATS_FONT);
+                itemLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 inventoryPanel.add(itemLabel);
             }
         }
@@ -223,6 +227,7 @@ public class SwingUI {
         progressBar.setBorder(BorderFactory.createLineBorder(WHITE, 1));
         progressBar.setPreferredSize(new Dimension(150, 20));
         progressBar.setMaximumSize(new Dimension(150, 20));
+        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         statPanel.add(statLabel);
         statPanel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -275,12 +280,13 @@ public class SwingUI {
         Chapter currentChapter = controller.getCurrentChapter();
         if (currentChapter == null) return;
 
-        // Update chapter text with proper line breaks
-        String formattedText = currentChapter.getText().replace("\\n", "\n");
-        chapterTextArea.setText(formattedText);
-        chapterTextArea.setCaretPosition(0);
+        String text = currentChapter.getText();
+        if (text != null) {
+            text = text.replace("\\n", "\n");
+            chapterTextArea.setText(text);
+            chapterTextArea.setCaretPosition(0);
+        }
 
-        // Update choices
         choicesPanel.removeAll();
 
         if (!controller.isGameOver()) {
@@ -327,7 +333,6 @@ public class SwingUI {
             restartButton.setMaximumSize(new Dimension(250, 40));
 
             configureButton(restartButton, TEAL_COLOR, WHITE);
-
             restartButton.addActionListener(e -> showMainMenu());
 
             choicesPanel.add(Box.createRigidArea(new Dimension(0, 20)));
