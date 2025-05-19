@@ -120,23 +120,25 @@ public class ScenarioLoader {
                     int choicesStart = chapterStr.indexOf("\"choices\"");
                     if (choicesStart != -1) {
                         choicesStart = chapterStr.indexOf("[", choicesStart);
-                        int choicesEnd = chapterStr.indexOf("]", choicesStart);
+                        int choicesEnd = findMatchingBracket(chapterStr, choicesStart);
                         if (choicesStart != -1 && choicesEnd != -1) {
                             String choicesStr = chapterStr.substring(choicesStart + 1, choicesEnd);
                             String[] choices = splitObjects(choicesStr);
                             
                             for (String choiceStr : choices) {
-                                String choiceText = extractValue(choiceStr, "\"text\"", ",");
-                                String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", ",");
-                                
-                                if (nextIdStr == null) {
-                                    nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", "}");
+                                String choiceText = extractValue(choiceStr, "\"text\"", "\"nextChapterId\"");
+                                if (choiceText != null && choiceText.endsWith(",")) {
+                                    choiceText = choiceText.substring(0, choiceText.length() - 1);
                                 }
                                 
+                                String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", "}");
+                                if (nextIdStr != null && nextIdStr.endsWith(",")) {
+                                    nextIdStr = nextIdStr.substring(0, nextIdStr.length() - 1);
+                                }
+
                                 if (choiceText != null && nextIdStr != null) {
                                     try {
-                                        int nextId = Integer.parseInt(nextIdStr.trim());
-                                        Choice choice = new Choice(choiceText, nextId);
+                                        Choice choice = new Choice(choiceText, Integer.parseInt(nextIdStr.trim()));
                                         
                                         // Parse requiresLuckTest if present
                                         String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",");
@@ -247,6 +249,19 @@ public class ScenarioLoader {
         }
 
         return objects.toArray(new String[0]);
+    }
+
+    private static int findMatchingBracket(String text, int openBracketIndex) {
+        int depth = 0;
+        for (int i = openBracketIndex; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if (c == '[') depth++;
+            else if (c == ']') {
+                depth--;
+                if (depth == 0) return i;
+            }
+        }
+        return -1;
     }
 
     private static Scenario createFallbackScenario() {
