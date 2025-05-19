@@ -73,16 +73,97 @@
       ]
     },
     {
-      "id": 6,
-      "text": "La lame vous entaille la jambe. Vous perdez 2 points d'ENDURANCE. Vous arrivez néanmoins devant la porte d'entrée, blessé mais déterminé.",
+      "id": 137,
+      "text": "Vous marchez jusqu'à une grande fenêtre qui paraît mal fermée. De toute façon, même si\nvous aviez pu l'ouvrir, il vous aurait été impossible de vous glisser à travers ses barreaux.\nCette maison semble être particulièrement à l'abri des intrus !",
       "choices": [
         {
-          "text": "Frapper à la porte",
-          "nextChapterId": 11
+          "text": "faire le tour du Manoir, pour voir d'où provient la lumière",
+          "nextChapterId": 345
         },
         {
-          "text": "S'asseoir pour panser votre blessure",
-          "nextChapterId": 13
+          "text": "revenir à la porte d'entrée pour tirer le cordon de sonnette",
+          "nextChapterId": 275
+        },
+        {
+          "text": "frapper à l'aide du marteau",
+          "nextChapterId": 357
+        }
+      ]
+    },
+    {
+      "id": 207,
+      "text": "« Qu'est-ce que c'est ?, marmonne le vieil homme. Qui peut bien frapper à la porte à une\nheure pareille ? Serait-ce l'un des Frères ? Je croyais pourtant que tout le monde était\narrivé... » Les deux hommes chuchotent alors entre eux, et leur voix est trop faible pour\nque vous puissiez comprendre quoi que ce soit. Vous attendez patiemment sous la pluie.\nFinalement la porte s'ouvre et une voix demande : « Qui est là ? »",
+      "choices": [
+        {
+          "text": " mettre au courant de votre mésaventure et leur demander la permission de téléphoner ",
+          "nextChapterId": 95
+        },
+        {
+          "text": "prétendre que vous êtes l'un des Frères auxquels ils ont fait allusion ",
+          "nextChapterId": 267
+        }
+      ]
+    },
+    {
+      "id": 95,
+      "text": "« La porte s'ouvre en grand, et le vieil homme vous regarde d'un air interrogateur avant de\nvous laisser entrer. Les deux hommes vous écoutent alors pendant que vous leur racontez\nce qui vous est arrivé. « C'est vraiment de la malchance, dit le vieil homme, mais\nprobablement Franklin pourra-t-il vous aider. Allez le chercher Frère Fabien. » Le jeune\nhomme lance un regard furieux à son compagnon, mais quitte néanmoins la cuisine. Vous\nposez alors quelques questions à votre hôte pour essayer de savoir où vous vous trouvez,\net si lui-même et le Frère Fabien sont membres d'une secte quelconque. « En quelque\nsorte, répond-il. En fait, votre arrivée est un peu embarrassante, car cette nuit... » Il vous\nregarde alors avec nervosité « car cette nuit... » Il est interrompu par l'arrivée du Frère\nFabien, accompagné d'un homme de haute taille vêtu d'un habit sombre : Franklin, très\ncertainement, à qui vous expliquez la raison de votre présence. Il vous écoute sans qu'un\npli de son visage ne bouge, et vous déclare d'un ton impassible lorsque vous avez terminé\nvotre récit : « Les étrangers ne sont pas les bienvenus ici. Mais je vais vous conduire\nauprès du Maître qui décidera s'il peut vous venir en aide. Veuillez me suivre. » Précédé\nde Franklin, vous traversez la cuisine, et vous suivez un couloir qui finit par déboucher\nsur un vaste hall d'entrée. « Attendez ici pendant que je préviens le Comte », vous ordonne-t-il avant de disparaître",
+      "choices": [
+        {
+          "text": "continuer",
+          "nextChapterId": 8
+        }
+      ]
+    },
+    {
+      "id":267,
+      "text": "La porte s'ouvre en grand, et vous êtes invité à pénétrer dans la cuisine. « Nous pensions\nque tout le monde était déjà là, dit le vieil homme, et il était grand temps que vous\narriviez, car les autres... » En voyant votre expression, il s'arrête de parler, et échange un\nregard avec son compagnon. « Euh, hum... qu'est-ce qui vous a retardé ? » Vous vous\nsentez mal à l'aise, et vous marmonnez une vague excuse à propos de votre voiture qui est\ntombée en panne. « Votre voiture, dit lentement l'homme ; oui, bien sûr, votre voiture.\nQuel ennui ! J'espère que ce n'est pas trop grave. » Leur réaction vous fait penser que\nvous ne leur avez pas donné l'explication qu'ils attendaient de vous. Et soudain vous\nréalisez qu'il n'y avait aucun véhicule devant le Manoir ; et pourtant, selon votre\ninterlocuteur, tout le monde est là ! Pendant que vous réfléchissez rapidement à ce que\nvous pourriez leur dire, vous ne remarquez pas le manège du jeune homme qui s'est glissé\nderrière vous, et vous ressentez une violente douleur derrière le crâne, qui vous fait\nperdre connaissance.",
+      "enduranceModifier": -4,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 173
+        }
+      ]
+    },
+    {
+      "id":68,
+      "text": "Le jeune homme se tourne vers son compagnon et dit avec colère : « L'enseignement du\nMaître n'est pas pour les mauviettes. Vous savez comme son pouvoir est grand, et les\npromesses qu'ils nous a faites. Peut-être n'êtes-vous pas suffisamment fort pour rester\nparmi nous ! » Le vieil homme tourne alors la tête vers la fenêtre ; sans doute pour cacher\nl'expression de peur qui apparaît sur son visage. « Non, balbutie-t-il, tout ira bien. Ce\nn'était qu'un moment de faiblesse. Allons terminer les préparatifs. » Après avoir soufflé\nles bougies, les deux hommes quittent la pièce, et vous vous demandez de quoi ils\npouvaient bien parler !",
+      "choices": [
+        {
+          "text": "essayer de pénétrer dans la cuisine",
+          "nextChapterId": 306
+        },
+        {
+          "text": "revenir à la porte d'entrée pour y frapper",
+          "nextChapterId": 357
+        }
+      ]
+    },
+    {
+      "id": 306,
+      "text": "La porte est verrouillée. Impossible de pénétrer dans le Manoir par cette voie.",
+      "choices": [
+        {
+          "text": "frapper à la porte pour essayer d'attirer l'attention des deux hommes",
+          "nextChapterId": 190
+        },
+        {
+          "text": "revenir à la porte d'entrée pour tirer le cordon de sonnette",
+          "nextChapterId": 275
+        },
+        {
+          "text": "revenir à la porte d'entrée pour frapper à l'aide du marteau",
+          "nextChapterId": 357
+        }
+      ]
+    },
+    {
+      "id": 190,
+      "text": "Vous frappez à la porte avec force, et regardez par la fenêtre. \n Les deux hommes reviennent bientôt, et allument les bougies.\n Le vieil homme se dirige vers la porte",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 207
         }
       ]
     },
