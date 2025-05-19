@@ -24,80 +24,77 @@ public class ScenarioLoader {
 
     private static Scenario parseScenarioFromJson(String jsonContent) {
         try {
-            Map<String, Object> jsonMap = parseJson(jsonContent);
-
-            String title = (String) jsonMap.get("title");
-            int startChapterId = ((Number) jsonMap.get("startChapterId")).intValue();
+            Map<String, Object> jsonMap = new HashMap<>();
+            
+            // Parse title
+            String title = extractValue(jsonContent, "\"title\"", ",");
+            jsonMap.put("title", title);
+            
+            // Parse startChapterId
+            String startIdStr = extractValue(jsonContent, "\"startChapterId\"", ",");
+            int startChapterId = Integer.parseInt(startIdStr.trim());
+            jsonMap.put("startChapterId", startChapterId);
 
             Scenario scenario = new Scenario(title, startChapterId);
 
-            Object[] chapters = (Object[]) jsonMap.get("chapters");
-            for (Object chapterObj : chapters) {
-                Map<String, Object> chapterMap = (Map<String, Object>) chapterObj;
+            // Extract chapters array
+            String chaptersStr = jsonContent.substring(
+                jsonContent.indexOf("\"chapters\""),
+                jsonContent.lastIndexOf("]") + 1
+            );
+            chaptersStr = chaptersStr.substring(chaptersStr.indexOf("[") + 1, chaptersStr.lastIndexOf("]"));
 
-                int id = ((Number) chapterMap.get("id")).intValue();
-                String text = (String) chapterMap.get("text");
+            // Split chapters
+            String[] chapters = splitObjects(chaptersStr);
+
+            for (String chapterStr : chapters) {
+                // Parse chapter ID
+                String idStr = extractValue(chapterStr, "\"id\"", ",");
+                int id = Integer.parseInt(idStr.trim());
+
+                // Parse chapter text
+                String text = extractValue(chapterStr, "\"text\"", "\"choices\"");
+                if (text != null && text.endsWith(",")) {
+                    text = text.substring(0, text.length() - 1);
+                }
 
                 Chapter chapter = new Chapter(id, text);
 
-                // Parse endurance and fear modifiers
-                if (chapterMap.containsKey("enduranceModifier")) {
-                    String modStr = extractValue(chapterMap.toString(), "\"enduranceModifier\":", ",}");
-                    if (modStr != null && !modStr.isEmpty()) {
-                        chapter.setEnduranceModifier(Integer.parseInt(modStr.trim()));
-                    }
+                // Parse endurance modifier if present
+                String enduranceModStr = extractValue(chapterStr, "\"enduranceModifier\"", ",");
+                if (enduranceModStr != null) {
+                    chapter.setEnduranceModifier(Integer.parseInt(enduranceModStr.trim()));
                 }
 
-                if (chapterMap.containsKey("fearModifier")) {
-                    String modStr = extractValue(chapterMap.toString(), "\"fearModifier\":", ",}");
-                    if (modStr != null && !modStr.isEmpty()) {
-                        chapter.setFearModifier(Integer.parseInt(modStr.trim()));
-                    }
+                // Parse fear modifier if present
+                String fearModStr = extractValue(chapterStr, "\"fearModifier\"", ",");
+                if (fearModStr != null) {
+                    chapter.setFearModifier(Integer.parseInt(fearModStr.trim()));
                 }
 
-                // Parse luck test
-                if (chapterMap.containsKey("luckTest")) {
-                    Map<String, Object> luckTestMap = (Map<String, Object>) chapterMap.get("luckTest");
-                    LuckTestOutcome success = null;
-                    LuckTestOutcome failure = null;
+                // Parse choices if present
+                if (chapterStr.contains("\"choices\"")) {
+                    String choicesSection = chapterStr.substring(chapterStr.indexOf("\"choices\""));
+                    choicesSection = choicesSection.substring(choicesSection.indexOf("[") + 1);
+                    choicesSection = choicesSection.substring(0, choicesSection.lastIndexOf("]"));
 
-                    if (luckTestMap.containsKey("success")) {
-                        Map<String, Object> successMap = (Map<String, Object>) luckTestMap.get("success");
-                        String successText = (String) successMap.get("text");
-                        int successMod = ((Number) successMap.get("enduranceModifier")).intValue();
-                        success = new LuckTestOutcome(successText, successMod);
-                    }
-
-                    if (luckTestMap.containsKey("failure")) {
-                        Map<String, Object> failureMap = (Map<String, Object>) luckTestMap.get("failure");
-                        String failureText = (String) failureMap.get("text");
-                        int failureMod = ((Number) failureMap.get("enduranceModifier")).intValue();
-                        failure = new LuckTestOutcome(failureText, failureMod);
-                    }
-
-                    chapter.setLuckTest(new LuckTest(success, failure));
-                }
-
-                // Parse choices
-                if (chapterMap.containsKey("choices")) {
-                    String choicesStr = chapterMap.get("choices").toString();
-                    String[] choiceStrings = splitChoices(choicesStr);
-
-                    for (String choiceString : choiceStrings) {
-                        String choiceText = extractValue(choiceString, "\"text\":", ",");
-                        String nextIdStr = extractValue(choiceString, "\"nextChapterId\":", ",}");
-
+                    String[] choices = splitObjects(choicesSection);
+                    
+                    for (String choiceStr : choices) {
+                        String choiceText = extractValue(choiceStr, "\"text\"", ",");
+                        String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", "}");
+                        
                         if (choiceText != null && nextIdStr != null) {
-                            int nextChapterId = Integer.parseInt(nextIdStr.trim());
-                            Choice choice = new Choice(choiceText, nextChapterId);
-
-                            // Parse boolean flags
-                            String requiresLuckTest = extractValue(choiceString, "\"requiresLuckTest\":", ",}");
+                            Choice choice = new Choice(choiceText, Integer.parseInt(nextIdStr.trim()));
+                            
+                            // Parse requiresLuckTest if present
+                            String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",");
                             if (requiresLuckTest != null) {
                                 choice.setRequiresLuckTest(Boolean.parseBoolean(requiresLuckTest.trim()));
                             }
 
-                            String combatRequired = extractValue(choiceString, "\"combatRequired\":", ",}");
+                            // Parse combatRequired if present
+                            String combatRequired = extractValue(choiceStr, "\"combatRequired\"", ",");
                             if (combatRequired != null) {
                                 choice.setCombatRequired(Boolean.parseBoolean(combatRequired.trim()));
                             }
@@ -118,144 +115,58 @@ public class ScenarioLoader {
         }
     }
 
-    private static Map<String, Object> parseJson(String json) {
-        Map<String, Object> result = new HashMap<>();
-
-        result.put("title", extractValue(json, "\"title\":", ","));
-
-        String startId = extractValue(json, "\"startChapterId\":", ",");
-        result.put("startChapterId", Integer.parseInt(startId));
-
-        String chaptersSection = json.substring(json.indexOf("\"chapters\":"));
-        chaptersSection = chaptersSection.substring(chaptersSection.indexOf("[") + 1, chaptersSection.lastIndexOf("]"));
-
-        String[] chapterStrings = splitChapters(chaptersSection);
-        Object[] chapters = new Object[chapterStrings.length];
-
-        for (int i = 0; i < chapterStrings.length; i++) {
-            Map<String, Object> chapter = new HashMap<>();
-
-            String idStr = extractValue(chapterStrings[i], "\"id\":", ",");
-            chapter.put("id", Integer.parseInt(idStr));
-
-            String text = extractValue(chapterStrings[i], "\"text\":", "\"choices\"");
-            if (text != null) {
-                if (text.endsWith(",")) {
-                    text = text.substring(0, text.length() - 1);
-                }
-                chapter.put("text", text);
-            }
-
-            if (chapterStrings[i].contains("\"choices\":[")) {
-                String choicesSection = chapterStrings[i].substring(chapterStrings[i].indexOf("\"choices\":["));
-                choicesSection = choicesSection.substring(0, findClosingBracket(choicesSection, '[', ']') + 1);
-                chapter.put("choices", choicesSection);
-            }
-
-            chapters[i] = chapter;
-        }
-
-        result.put("chapters", chapters);
-        return result;
-    }
-
-    private static int findClosingBracket(String str, char open, char close) {
-        int depth = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == open) depth++;
-            else if (str.charAt(i) == close) {
-                depth--;
-                if (depth == 0) return i;
-            }
-        }
-        return -1;
-    }
-
     private static String extractValue(String json, String key, String end) {
         try {
-            int start = json.indexOf(key);
-            if (start == -1) return null;
+            int keyIndex = json.indexOf(key);
+            if (keyIndex == -1) return null;
 
-            start += key.length();
-            start = json.indexOf(":", start) + 1;
-            while (start < json.length() && Character.isWhitespace(json.charAt(start))) {
-                start++;
+            int startIndex = json.indexOf(":", keyIndex) + 1;
+            while (startIndex < json.length() && Character.isWhitespace(json.charAt(startIndex))) {
+                startIndex++;
             }
 
-            int endPos = -1;
-            if (json.charAt(start) == '"') {
-                start++;
-                endPos = json.indexOf("\"", start);
+            boolean isQuoted = json.charAt(startIndex) == '"';
+            if (isQuoted) startIndex++;
+
+            int endIndex;
+            if (isQuoted) {
+                endIndex = json.indexOf("\"", startIndex);
             } else {
-                for (char c : end.toCharArray()) {
-                    int pos = json.indexOf(c, start);
-                    if (pos != -1 && (endPos == -1 || pos < endPos)) {
-                        endPos = pos;
+                endIndex = -1;
+                for (String endChar : end.split("")) {
+                    int pos = json.indexOf(endChar, startIndex);
+                    if (pos != -1 && (endIndex == -1 || pos < endIndex)) {
+                        endIndex = pos;
                     }
                 }
+                if (endIndex == -1) endIndex = json.length();
             }
 
-            if (endPos == -1) {
-                endPos = json.length();
-            }
-
-            return json.substring(start, endPos).trim();
+            return json.substring(startIndex, endIndex).trim();
         } catch (Exception e) {
             return null;
         }
     }
 
-    private static String[] splitChapters(String chaptersSection) {
-        java.util.List<String> chapters = new java.util.ArrayList<>();
+    private static String[] splitObjects(String json) {
+        java.util.List<String> objects = new java.util.ArrayList<>();
         int depth = 0;
         int start = 0;
 
-        for (int i = 0; i < chaptersSection.length(); i++) {
-            char c = chaptersSection.charAt(i);
+        for (int i = 0; i < json.length(); i++) {
+            char c = json.charAt(i);
             if (c == '{') {
-                if (depth == 0) {
-                    start = i;
-                }
+                if (depth == 0) start = i;
                 depth++;
             } else if (c == '}') {
                 depth--;
                 if (depth == 0) {
-                    chapters.add(chaptersSection.substring(start, i + 1));
+                    objects.add(json.substring(start, i + 1));
                 }
             }
         }
 
-        return chapters.toArray(new String[0]);
-    }
-
-    private static String[] splitChoices(String choicesSection) {
-        if (!choicesSection.startsWith("[")) {
-            int start = choicesSection.indexOf("[");
-            if (start != -1) {
-                choicesSection = choicesSection.substring(start);
-            }
-        }
-
-        java.util.List<String> choices = new java.util.ArrayList<>();
-        int depth = 0;
-        int start = 0;
-
-        for (int i = 0; i < choicesSection.length(); i++) {
-            char c = choicesSection.charAt(i);
-            if (c == '{') {
-                if (depth == 0) {
-                    start = i;
-                }
-                depth++;
-            } else if (c == '}') {
-                depth--;
-                if (depth == 0) {
-                    choices.add(choicesSection.substring(start, i + 1));
-                }
-            }
-        }
-
-        return choices.toArray(new String[0]);
+        return objects.toArray(new String[0]);
     }
 
     private static Scenario createFallbackScenario() {
