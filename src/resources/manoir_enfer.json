@@ -115,7 +115,7 @@
       ]
     },
     {
-      "id":267,
+      "id": 267,
       "text": "La porte s'ouvre en grand, et vous êtes invité à pénétrer dans la cuisine. « Nous pensions\n que tout le monde était déjà là, dit le vieil homme, et il était grand temps que vous\narriviez, car les autres... » En voyant votre expression, il s'arrête de parler, et échange un\nregard avec son compagnon. « Euh, hum... qu'est-ce qui vous a retardé ? » Vous vous\nsentez mal à l'aise, et vous marmonnez une vague excuse à propos de votre voiture qui est\ntombée en panne. « Votre voiture, dit lentement l'homme ; oui, bien sûr, votre voiture.\nQuel ennui ! J'espère que ce n'est pas trop grave. » Leur réaction vous fait penser que\nvous ne leur avez pas donné l'explication qu'ils attendaient de vous. Et soudain vous\nréalisez qu'il n'y avait aucun véhicule devant le Manoir ; et pourtant, selon votre\ninterlocuteur, tout le monde est là ! Pendant que vous réfléchissez rapidement à ce que\nvous pourriez leur dire, vous ne remarquez pas le manège du jeune homme qui s'est glissé\nderrière vous, et vous ressentez une violente douleur derrière le crâne, qui vous fait\nperdre connaissance.",
       "enduranceModifier": -4,
       "choices": [
@@ -126,7 +126,7 @@
       ]
     },
     {
-      "id":68,
+      "id": 68,
       "text": "Le jeune homme se tourne vers son compagnon et dit avec colère : « L'enseignement du\nMaître n'est pas pour les mauviettes. Vous savez comme son pouvoir est grand, et les\npromesses qu'ils nous a faites. Peut-être n'êtes-vous pas suffisamment fort pour rester\nparmi nous ! » Le vieil homme tourne alors la tête vers la fenêtre ; sans doute pour cacher\nl'expression de peur qui apparaît sur son visage. « Non, balbutie-t-il, tout ira bien. Ce\nn'était qu'un moment de faiblesse. Allons terminer les préparatifs. » Après avoir soufflé\nles bougies, les deux hommes quittent la pièce, et vous vous demandez de quoi ils\npouvaient bien parler !",
       "choices": [
         {
@@ -403,7 +403,8 @@
           "nextChapterId": 115
         },
         {
-          "text": "présenter vos excuses et choisir l'agneau",
+          "text": "présenter vos excuses et chois
+ir l'agneau",
           "nextChapterId": 196
         },
         {
@@ -640,16 +641,15 @@
     },
     {
       "id": 391,
-      "text": "En un éclair, vous traversez la pièce, saisissez la poignée de la porte... et vous hurlez de\ndouleur alors que vous êtes violemment projeté en arrière par la décharge électrique qui\nvous a traversé le bras. Vous perdez 2 points d'ENDURANCE. Rendez-vous au 277 .",
+      "text": "En un éclair, vous traversez la pièce, saisissez la poignée de la porte... et vous hurlez de\ndouleur alors que vous êtes violemment projeté en arrière par la décharge électrique qui\nvous a traversé le bras. Vous perdez 2 points d'ENDURANCE.",
+      "enduranceModifier": -2,
       "choices": [
         {
-          "text": "vous a traversé le bras. Vous perdez 2 points d'ENDURANCE",
+          "text": "Continuer",
           "nextChapterId": 277
         }
       ]
     },
-
-
     {
       "id": -1,
       "text": "Fin de la démo. Merci d'avoir joué à cette version simplifiée du Manoir de l'Enfer!"
