@@ -12,7 +12,7 @@ public class Main {
             Scenario scenario = ScenarioLoader.loadScenario("resources/manoir_enfer.json");
 
             // Create player with initial stats
-            Player player = new Player(7, 20, 7); // Skill: 7, Stamina: 20, Luck: 7
+            Player player = new Player(10, 20, 12); // Skill: 7, Stamina: 20, Luck: 7
 
             // Create controller
             GameController controller = new GameController(scenario, player);

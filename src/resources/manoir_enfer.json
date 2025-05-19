@@ -63,7 +63,7 @@
           "nextChapterId": 277
         },
         {
-          "text": "s intéresser aux portraits ",
+          "text": "intéresser aux portraits ",
           "nextChapterId": 304
         },
         {
@@ -629,7 +629,7 @@
         "skill": 7,
         "endurance": 7
       },
-      "combatInstruction": "Dès que vous lui aurez infligé une blessure, rendez-vous au 284.",
+      "combatInstruction": "Dès que vous lui aurez infligé une blessure",
       "choices": [
         {
           "text": "Combattre le Bossu",
@@ -641,6 +641,7 @@
     {
       "id": 391,
       "text": "En un éclair, vous traversez la pièce, saisissez la poignée de la porte... et vous hurlez de\ndouleur alors que vous êtes violemment projeté en arrière par la décharge électrique qui\nvous a traversé le bras. Vous perdez 2 points d'ENDURANCE. Rendez-vous au 277 .",
+      "enduranceModifier": -2,
       "choices": [
         {
           "text": "vous a traversé le bras. Vous perdez 2 points d'ENDURANCE",
@@ -648,8 +649,70 @@
         }
       ]
     },
-
-
+    {
+      "id": 284,
+      "text": "Alors que vous vous préparez à lui asséner un nouveau coup, le Bossu tombe à genoux. « Assez... grâce... par pitié... Je vais vous dire le mot de passe... Pravemi... c'est Pravemi le mot de passe. C'est le nom d'un membre de la famille du Comte, ou quelque chose comme ça. Maintenant laissez-moi, partez ! » Shekou détale, et disparaît par la porte de gauche en vous laissant seul.",
+      "choices": [
+        {
+          "text": "poursuivre le long du passage",
+          "nextChapterId": 393
+        },
+        {
+          "text": "examiner le lieu où vous vous trouvez",
+          "nextChapterId": 166
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "text": "Le liquide est aussi sirupeux que de l'eau dans laquelle on aurait fait dissoudre beaucoup de sucre. Mais votre demi-sommeil vous a donné la bouche tellement sèche, que vous le buvez jusqu'à la dernière goutte. Vous vous remettez au lit en vous demandant qui a pu pénétrer dans la chambre. Sans doute Franklin, le majordome. Une bonne attention de sa part de vous apporter une tisane ! Mais pourquoi a-t-il fermé la porte à clef ? Vous vous sentez si fatigué que vous vous pelotonnez dans votre lit. C'est alors que la tête commence à vous tourner, et que la pièce semble naviguer d'un mur sur l'autre. Même si dans le peu de conscience qui vous reste vous comprenez que vous avez été drogué, il est trop tard maintenant.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 173
+        }
+      ]
+    },
+    {
+      "id": 128,
+      "text": "Vous reculez de quelques pas, et vous vous précipitez contre la porte qui tremble. Le choc a résonné dans toute la maison, mais la serrure a tenu bon. Vous avez rebondi contre la porte, et votre épaule est endolorie.",
+      "enduranceModifier": -2,
+      "choices": [
+        {
+          "text": "faire une autre tentative",
+          "nextChapterId": 106
+        },
+        {
+          "text": "abandonner, la porte semble trop robuste",
+          "nextChapterId": 158
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "text": "Vous attendez dans l'obscurité. Le Manoir est totalement silencieux, et vous n'entendez que le bruit de la pluie contre la vitre. Combien de temps allez-vous devoir attendre, avant que quelqu'un apparaisse ? La nuit entière ? La pensée de rester toute la nuit dans l'obscurité vous met quelque peu mal à l'aise.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 158
+        }
+      ]
+    },
+    {
+      "id": 79,
+      "text": "Jetez deux dés. Si le nombre obtenu est supérieur à votre Total de départ d'HABILETÉ, rendez-vous au 106. S'il est égal ou inférieur à ce même total, rendez-vous au 128.",
+      "choices": [
+        {
+          "text": "jet de dés : résultat > HABILETÉ",
+          "nextChapterId": 106
+        },
+        {
+          "text": "jet de dés : résultat ≤ HABILETÉ",
+          "nextChapterId": 128
+        }
+      ]
+    },
     {
       "id": -1,
       "text": "Fin de la démo. Merci d'avoir joué à cette version simplifiée du Manoir de l'Enfer!"

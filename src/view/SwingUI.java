@@ -17,17 +17,15 @@ public class SwingUI {
     private JPanel mainMenuPanel;
     private JPanel gamePanel;
     private JPanel statsPanel;
-    private JTextArea chapterTextArea;
+    private JTextPane chapterTextArea; // Changed from JTextArea to JTextPane
     private JPanel choicesPanel;
 
-    // Fonts and colors
     private static final Font STATS_FONT = new Font("SansSerif", Font.PLAIN, 12);
     private static final Color TEAL_COLOR = new Color(0, 128, 128);
     private static final Color DARK_GREY = new Color(50, 50, 50);
     private static final Color CHOICE_BUTTON_COLOR = new Color(60, 60, 60);
     private static final Color WHITE = Color.WHITE;
 
-    // Constants for UI dimensions
     private static final int WINDOW_WIDTH = 1200;
     private static final int WINDOW_HEIGHT = 700;
     private static final int STATS_PANEL_WIDTH = 200;
@@ -43,12 +41,10 @@ public class SwingUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setMinimumSize(new Dimension(800, 600));
-        frame.setLocationRelativeTo(null); // Center on screen
+        frame.setLocationRelativeTo(null);
 
-        // Use modern look and feel
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            // Ensure buttons render with custom colors
             UIManager.put("Button.background", CHOICE_BUTTON_COLOR);
             UIManager.put("Button.foreground", WHITE);
         } catch (Exception e) {
@@ -102,24 +98,21 @@ public class SwingUI {
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(DARK_GREY);
 
-        // Stats panel on the left
         statsPanel = new JPanel();
         statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
         statsPanel.setBackground(new Color(40, 40, 40));
         statsPanel.setPreferredSize(new Dimension(STATS_PANEL_WIDTH, WINDOW_HEIGHT));
         statsPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
 
-        // Main content panel (chapter text and choices)
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
         contentPanel.setBackground(DARK_GREY);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Chapter text area
-        chapterTextArea = new JTextArea();
+        // Use JTextPane instead of JTextArea
+        chapterTextArea = new JTextPane();
         chapterTextArea.setEditable(false);
-        chapterTextArea.setLineWrap(true);
-        chapterTextArea.setWrapStyleWord(true);
+        chapterTextArea.setContentType("text/plain");
         chapterTextArea.setFont(new Font("Serif", Font.PLAIN, 16));
         chapterTextArea.setBackground(DARK_GREY);
         chapterTextArea.setForeground(WHITE);
@@ -128,8 +121,8 @@ public class SwingUI {
         JScrollPane scrollPane = new JScrollPane(chapterTextArea);
         scrollPane.setBorder(BorderFactory.createLineBorder(TEAL_COLOR, 1));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBackground(DARK_GREY);
 
-        // Choices panel
         choicesPanel = new JPanel();
         choicesPanel.setLayout(new BoxLayout(choicesPanel, BoxLayout.Y_AXIS));
         choicesPanel.setBackground(DARK_GREY);
@@ -175,10 +168,9 @@ public class SwingUI {
 
         addStatBar("Habileté", player.getCurrentSkill(), player.getMaxSkill());
         addStatBar("Endurance", player.getCurrentStamina(), player.getMaxStamina());
-        addStatBar("Chance", player.getLuck(), 10); // Assuming luck is out of 10
+        addStatBar("Chance", player.getLuck(), 10);
         addStatBar("Peur", player.getCurrentFear(), player.getMaxFear());
 
-        // Inventory
         JLabel inventoryTitle = new JLabel("INVENTAIRE", SwingConstants.CENTER);
         inventoryTitle.setForeground(WHITE);
         inventoryTitle.setFont(new Font("SansSerif", Font.BOLD, 14));
@@ -248,7 +240,6 @@ public class SwingUI {
         button.setContentAreaFilled(true);
         button.setOpaque(true);
 
-        // Ensure button UI retains custom colors
         button.setUI(new javax.swing.plaf.basic.BasicButtonUI() {
             @Override
             public void update(Graphics g, JComponent c) {
@@ -272,10 +263,10 @@ public class SwingUI {
 
     private Color getColorForStat(String stat) {
         switch (stat) {
-            case "Habileté": return new Color(76, 175, 80); // Green
-            case "Endurance": return new Color(244, 67, 54); // Red
-            case "Chance": return new Color(255, 193, 7);   // Yellow
-            case "Peur": return new Color(156, 39, 176);     // Purple
+            case "Habileté": return new Color(76, 175, 80);
+            case "Endurance": return new Color(244, 67, 54);
+            case "Chance": return new Color(255, 193, 7);
+            case "Peur": return new Color(156, 39, 176);
             default: return TEAL_COLOR;
         }
     }
@@ -284,9 +275,10 @@ public class SwingUI {
         Chapter currentChapter = controller.getCurrentChapter();
         if (currentChapter == null) return;
 
-        // Update chapter text
-        chapterTextArea.setText(currentChapter.getText());
-        chapterTextArea.setCaretPosition(0); // Scroll to top
+        // Update chapter text with proper line breaks
+        String formattedText = currentChapter.getText().replace("\\n", "\n");
+        chapterTextArea.setText(formattedText);
+        chapterTextArea.setCaretPosition(0);
 
         // Update choices
         choicesPanel.removeAll();
@@ -303,10 +295,7 @@ public class SwingUI {
                     choiceButton.setAlignmentX(Component.LEFT_ALIGNMENT);
                     choiceButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
-                    // Apply consistent button styling
                     configureButton(choiceButton, CHOICE_BUTTON_COLOR, WHITE);
-
-                    // Add border with teal color - moved inside configureButton
                     choiceButton.setBorder(BorderFactory.createCompoundBorder(
                             BorderFactory.createLineBorder(TEAL_COLOR, 1),
                             BorderFactory.createEmptyBorder(5, 10, 5, 10)
@@ -320,16 +309,8 @@ public class SwingUI {
                     choicesPanel.add(choiceButton);
                     choicesPanel.add(Box.createRigidArea(new Dimension(0, 10)));
                 }
-            } else {
-                // Game over but player is still alive (victory)
-                JLabel endLabel = new JLabel("Fin de l'aventure!");
-                endLabel.setForeground(WHITE);
-                endLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
-                endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                choicesPanel.add(endLabel);
             }
         } else {
-            // Game over
             String message = controller.isPlayerAlive()
                     ? "Félicitations!"
                     : "Vous avez péri dans le Manoir de l'Enfer!";
@@ -345,15 +326,9 @@ public class SwingUI {
             restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             restartButton.setMaximumSize(new Dimension(250, 40));
 
-            // Apply consistent button styling
             configureButton(restartButton, TEAL_COLOR, WHITE);
 
-            restartButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    showMainMenu();
-                }
-            });
+            restartButton.addActionListener(e -> showMainMenu());
 
             choicesPanel.add(Box.createRigidArea(new Dimension(0, 20)));
             choicesPanel.add(restartButton);
@@ -361,16 +336,5 @@ public class SwingUI {
 
         choicesPanel.revalidate();
         choicesPanel.repaint();
-    }
-
-    private void makeChoice(int choiceIndex) {
-        if (controller.makeChoice(choiceIndex)) {
-            updateGameScreen();
-        } else {
-            JOptionPane.showMessageDialog(frame,
-                    "Choix invalide!",
-                    "Erreur",
-                    JOptionPane.ERROR_MESSAGE);
-        }
     }
 }
