@@ -6,12 +6,14 @@ import model.Scenario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameController {
     private Scenario scenario;
     private Player player;
     private int currentChapterId;
     private List<Integer> chapterHistory;
+    private Random random;
 
     public GameController(Scenario scenario, Player player) {
         if (scenario == null || player == null) {
@@ -21,6 +23,7 @@ public class GameController {
         this.scenario = scenario;
         this.player = player;
         this.chapterHistory = new ArrayList<>();
+        this.random = new Random();
 
         initializeStartingChapter();
     }
@@ -55,11 +58,30 @@ public class GameController {
             return false;
         }
 
+        // Apply any modifiers from the current chapter
+        if (current.getEnduranceModifier() != 0) {
+            player.modifyStamina(current.getEnduranceModifier());
+        }
+        if (current.getFearModifier() != 0) {
+            player.modifyFear(current.getFearModifier());
+        }
+
+        // Handle luck test if required
+        if (current.getChoices().get(choiceIndex).isRequiresLuckTest()) {
+            boolean isLucky = testLuck();
+            if (current.getLuckTest() != null) {
+                if (isLucky && current.getLuckTest().getSuccess() != null) {
+                    player.modifyStamina(current.getLuckTest().getSuccess().getEnduranceModifier());
+                } else if (!isLucky && current.getLuckTest().getFailure() != null) {
+                    player.modifyStamina(current.getLuckTest().getFailure().getEnduranceModifier());
+                }
+            }
+        }
+
         int nextChapterId = current.getChoices().get(choiceIndex).getNextChapterId();
         Chapter nextChapter = scenario.getChapter(nextChapterId);
 
         if (nextChapterId == -1 || nextChapter == null) {
-            // Create a default "invalid path" chapter if the next chapter doesn't exist
             currentChapterId = -999;
             chapterHistory.add(currentChapterId);
             return true;
@@ -68,6 +90,11 @@ public class GameController {
         currentChapterId = nextChapterId;
         chapterHistory.add(currentChapterId);
         return true;
+    }
+
+    public boolean testLuck() {
+        int roll = random.nextInt(6) + 1 + random.nextInt(6) + 1;
+        return roll <= player.getLuck();
     }
 
     public boolean goBack() {
@@ -82,7 +109,7 @@ public class GameController {
     public boolean isGameOver() {
         return !player.isAlive() ||
                 currentChapterId == -1 ||
-                currentChapterId == -999 || // Add this line
+                currentChapterId == -999 ||
                 getCurrentChapter().getChoices().isEmpty();
     }
 
