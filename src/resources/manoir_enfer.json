@@ -115,7 +115,7 @@
       ]
     },
     {
-      "id": 267,
+      "id":267,
       "text": "La porte s'ouvre en grand, et vous êtes invité à pénétrer dans la cuisine. « Nous pensions\n que tout le monde était déjà là, dit le vieil homme, et il était grand temps que vous\narriviez, car les autres... » En voyant votre expression, il s'arrête de parler, et échange un\nregard avec son compagnon. « Euh, hum... qu'est-ce qui vous a retardé ? » Vous vous\nsentez mal à l'aise, et vous marmonnez une vague excuse à propos de votre voiture qui est\ntombée en panne. « Votre voiture, dit lentement l'homme ; oui, bien sûr, votre voiture.\nQuel ennui ! J'espère que ce n'est pas trop grave. » Leur réaction vous fait penser que\nvous ne leur avez pas donné l'explication qu'ils attendaient de vous. Et soudain vous\nréalisez qu'il n'y avait aucun véhicule devant le Manoir ; et pourtant, selon votre\ninterlocuteur, tout le monde est là ! Pendant que vous réfléchissez rapidement à ce que\nvous pourriez leur dire, vous ne remarquez pas le manège du jeune homme qui s'est glissé\nderrière vous, et vous ressentez une violente douleur derrière le crâne, qui vous fait\nperdre connaissance.",
       "enduranceModifier": -4,
       "choices": [
@@ -126,7 +126,7 @@
       ]
     },
     {
-      "id": 68,
+      "id":68,
       "text": "Le jeune homme se tourne vers son compagnon et dit avec colère : « L'enseignement du\nMaître n'est pas pour les mauviettes. Vous savez comme son pouvoir est grand, et les\npromesses qu'ils nous a faites. Peut-être n'êtes-vous pas suffisamment fort pour rester\nparmi nous ! » Le vieil homme tourne alors la tête vers la fenêtre ; sans doute pour cacher\nl'expression de peur qui apparaît sur son visage. « Non, balbutie-t-il, tout ira bien. Ce\nn'était qu'un moment de faiblesse. Allons terminer les préparatifs. » Après avoir soufflé\nles bougies, les deux hommes quittent la pièce, et vous vous demandez de quoi ils\npouvaient bien parler !",
       "choices": [
         {
@@ -495,6 +495,221 @@
         {
           "text": "Continuer",
           "nextChapterId": 74
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "text": "Le bossu vous répond que les caves recèlent de nombreux secrets. « ... Mais il en est dont je ne peux parler, car ils sont plus importants que mon existence même. Si je le faisais, le Maître me punirait... et je n'aimerais vraiment pas cela ! » Sa réponse ne fait qu'exciter votre curiosité, mais il n'ajoute pas un mot de plus.",
+      "choices": [
+        {
+          "text": "lui offrir du cognac (si vous en avez)",
+          "nextChapterId": 93
+        },
+        {
+          "text": "le menacer avec une arme (si vous en avez une)",
+          "nextChapterId": 191
+        },
+        {
+          "text": "ne rien faire et continuer",
+          "nextChapterId": 347
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "text": "Ses yeux s'illuminent à la vue du cognac, et vous en versez un peu dans le capuchon du flacon. Vous le lui tendez, et il l'avale d'un trait avec un claquement de langue. Deux rations supplémentaires, et le voilà prêt à tenir tous les discours que vous voulez ! Vous lui dites que vous avez entendu parler d'un passage secret qui se trouverait dans une cave, et que vous seriez très flatté qu'une personne aussi compétente que lui vous le montre. Cette flatterie — et le cognac — produisent l'effet désiré. Avec orgueil, il vous révèle tout ce que vous souhaitiez savoir à propos des caves, beaucoup plus qu'il ne devrait en dire. « Très rares sont ceux qui connaissent bien ces caves, se vante-t-il. Vous voulez savoir le mot de passe qui pourrait vous permettre d'ouvrir certaines portes secrètes ? Le Maître le change souvent pour protéger ses secrets. Tenez, pas plus tard qu'hier, il a remplacé le mot Pravemi par... quel est le nouveau mot maintenant ? Je l'ai sur le bout de la langue... impossible de m'en souvenir... pourtant, je ne devrais pas l'avoir oublié puisqu'il s'agit du nom du Manoir, ou plutôt d'un mot commençant par quatre de ses lettres... C'est de votre faute et de la faute de votre maudit cognac ! » Il fait quelques pas en arrière, comprenant qu'il en a trop dit. Vous essayez de le faire parler encore un peu, mais il reste muet et se dirige vers la porte qui se trouve dans le mur de gauche. Avant de disparaître, il vous montre d'un geste le passage en marmonnant quelque chose à propos d'un escalier.",
+      "choices": [
+        {
+          "text": "suivre le passage",
+          "nextChapterId": 393
+        },
+        {
+          "text": "examiner les lieux",
+          "nextChapterId": 166
+        }
+      ]
+    },
+    {
+      "id": 393,
+      "text": "Le passage débouche sur une petite pièce. Et bien que l'obscurité soit pratiquement totale, vous distinguez devant vous les premières marches d'un escalier. Sur votre droite, vous remarquez un grand espace vide. Vous avancez de quelques pas, mais vous vous arrêtez net en entendant des espèces de gazouillement qui vous mettent sur vos gardes. Et tout à coup, quelque chose atterrit sur votre tête, et vous plante des griffes aiguës dans le crâne. Vous faites un bond, et vous portez la main à votre tête : vos doigts rencontrent alors un petit corps caoutchouteux, et deux ailes qui battent frénétiquement pour chercher à se dégager de vos cheveux. Des CHAUVES-SOURIS ! Elles volettent de toutes parts, et fondent sur vous, griffes en avant. Vous ajoutez 1 point à votre total de PEUR pour cette peu agréable rencontre.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "Gravir le plus vite possible l'escalier",
+          "nextChapterId": 370
+        },
+        {
+          "text": "Vous cacher sous l'escalier",
+          "nextChapterId": 320
+        },
+        {
+          "text": "Combattre les Chauves-Souris",
+          "nextChapterId": 343
+        }
+      ]
+    },
+    {
+      "id": 166,
+      "text": "Vous ne découvrez rien de particulier dans cet endroit. Sur la gauche du passage, vous voyez une porte de bois que vous pouvez essayer d'ouvrir.",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir la porte sur la gauche",
+          "nextChapterId": 221
+        },
+        {
+          "text": "faire quelques pas jusqu'à une porte située dans le mur de droite",
+          "nextChapterId": 209
+        },
+        {
+          "text": "poursuivre votre chemin le long du passage",
+          "nextChapterId": 91
+        }
+      ]
+    },
+    {
+      "id": 221,
+      "text": "A travers la porte, vous entendez des bruits inquiétants qui vous font penser que l'être, ou la chose, qui se trouve derrière ne doit pas être particulièrement amical !",
+      "choices": [
+        {
+          "text": "tenter d'ouvrir cette porte",
+          "nextChapterId": 344
+        },
+        {
+          "text": "vous rendre à une autre porte qui se trouve un peu plus loin, sur la droite",
+          "nextChapterId": 209
+        },
+        {
+          "text": "poursuivre votre chemin le long du passage",
+          "nextChapterId": 91
+        }
+      ]
+    },
+    {
+      "id": 209,
+      "text": "La pièce doit être une espèce de cachot car, le long d'un mur, sont alignées quatre cellules dotées de forts barreaux de fer. Il semble qu'il n'y ait personne du côté où vous vous trouvez, aussi faites-vous quelques pas à l'intérieur de la pièce. Alors que vous avancez, une petite branche craque sous vos pieds, et trois êtres crasseux, échevelés, et vêtus de guenilles, bondissent dans trois des cellules. Ils se précipitent vers les barreaux en vous suppliant de les délivrer. En gémissant, ils vous disent qu'ils ont été capturés par les créatures du Comte de Brume et emprisonnés en attendant quelque horrible destin. Dans la cellule la plus proche de vous se tient une jeune fille ; son visage et ses cheveux sont d'une saleté repoussante et elle est en larmes. Dans la seconde cellule est emprisonné un homme de grande taille au visage buriné. Il a accepté sa mort, mais vous demande de mettre fin à ses jours sur-le-champ, afin de priver le Comte de Brume de ce plaisir. Dans la troisième cellule se tient un homme chauve revêtu d'une robe de bure. Il reste silencieux.",
+      "choices": [
+        {
+          "text": "adresser la parole à la jeune fille",
+          "nextChapterId": 322
+        },
+        {
+          "text": "adresser la parole à l'homme de grande taille",
+          "nextChapterId": 266
+        },
+        {
+          "text": "adresser la parole à l'homme chauve",
+          "nextChapterId": 363
+        },
+        {
+          "text": "quitter cette pièce sans leur parler",
+          "nextChapterId": 91
+        }
+      ]
+    },
+    {
+      "id": 91,
+      "text": "Un peu plus loin, en suivant le passage, vous arrivez devant une autre porte située sur votre droite.",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir cette porte",
+          "nextChapterId": 112
+        },
+        {
+          "text": "ne pas y prêter attention et poursuivre votre chemin",
+          "nextChapterId": 393
+        }
+      ]
+    },
+    {
+      "id": 191,
+      "text": "Terrorisé, le BOSSU recule lorsque vous brandissez votre arme. Vous exigez alors qu'il vous révèle les secrets des caves. « Bon, bon, dit-il en tremblant, je vais tout vous dire. Mais que va-t-il m'arriver si le Maître apprend que j'ai raconté cela à quelqu'un... » Vous lui faites facilement comprendre que ce qui lui arrivera sera pire s'il ne dit rien! «Les caves, commence-t-il, sont reliées entre elles par des portes secrètes. Quelques-unes sont simplement cachées. Mais les autres, les plus importantes, ne peuvent s'ouvrir que si l'on en connaît le mot de passe. Et, poursuit-il, le Maître change souvent ce mot de passe pour garder ses secrets en sûreté. » Vous lui demandez le mot qui est actuellement utilisé, mais il vous affirme qu'il l'ignore. Vous le menacez de nouveau, mais cette fois, il bondit sur vous. Vous allez devoir le combattre.",
+      "enemy": {
+        "name": "BOSSU",
+        "skill": 7,
+        "endurance": 7
+      },
+      "combatInstruction": "Dès que vous lui aurez infligé une blessure",
+      "choices": [
+        {
+          "text": "Combattre le Bossu",
+          "nextChapterId": 284,
+          "combatRequired": true
+        }
+      ]
+    },
+    {
+      "id": 391,
+      "text": "En un éclair, vous traversez la pièce, saisissez la poignée de la porte... et vous hurlez de\ndouleur alors que vous êtes violemment projeté en arrière par la décharge électrique qui\nvous a traversé le bras. Vous perdez 2 points d'ENDURANCE. Rendez-vous au 277 .",
+      "enduranceModifier": -2,
+      "choices": [
+        {
+          "text": "vous a traversé le bras. Vous perdez 2 points d'ENDURANCE",
+          "nextChapterId": 277
+        }
+      ]
+    },
+    {
+      "id": 284,
+      "text": "Alors que vous vous préparez à lui asséner un nouveau coup, le Bossu tombe à genoux. « Assez... grâce... par pitié... Je vais vous dire le mot de passe... Pravemi... c'est Pravemi le mot de passe. C'est le nom d'un membre de la famille du Comte, ou quelque chose comme ça. Maintenant laissez-moi, partez ! » Shekou détale, et disparaît par la porte de gauche en vous laissant seul.",
+      "choices": [
+        {
+          "text": "poursuivre le long du passage",
+          "nextChapterId": 393
+        },
+        {
+          "text": "examiner le lieu où vous vous trouvez",
+          "nextChapterId": 166
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "text": "Le liquide est aussi sirupeux que de l'eau dans laquelle on aurait fait dissoudre beaucoup de sucre. Mais votre demi-sommeil vous a donné la bouche tellement sèche, que vous le buvez jusqu'à la dernière goutte. Vous vous remettez au lit en vous demandant qui a pu pénétrer dans la chambre. Sans doute Franklin, le majordome. Une bonne attention de sa part de vous apporter une tisane ! Mais pourquoi a-t-il fermé la porte à clef ? Vous vous sentez si fatigué que vous vous pelotonnez dans votre lit. C'est alors que la tête commence à vous tourner, et que la pièce semble naviguer d'un mur sur l'autre. Même si dans le peu de conscience qui vous reste vous comprenez que vous avez été drogué, il est trop tard maintenant.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 173
+        }
+      ]
+    },
+    {
+      "id": 128,
+      "text": "Vous reculez de quelques pas, et vous vous précipitez contre la porte qui tremble. Le choc a résonné dans toute la maison, mais la serrure a tenu bon. Vous avez rebondi contre la porte, et votre épaule est endolorie.",
+      "enduranceModifier": -2,
+      "choices": [
+        {
+          "text": "faire une autre tentative",
+          "nextChapterId": 106
+        },
+        {
+          "text": "abandonner, la porte semble trop robuste",
+          "nextChapterId": 158
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "text": "Vous attendez dans l'obscurité. Le Manoir est totalement silencieux, et vous n'entendez que le bruit de la pluie contre la vitre. Combien de temps allez-vous devoir attendre, avant que quelqu'un apparaisse ? La nuit entière ? La pensée de rester toute la nuit dans l'obscurité vous met quelque peu mal à l'aise.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 158
+        }
+      ]
+    },
+    {
+      "id": 79,
+      "text": "Jetez deux dés. Si le nombre obtenu est supérieur à votre Total de départ d'HABILETÉ, rendez-vous au 106. S'il est égal ou inférieur à ce même total, rendez-vous au 128.",
+      "choices": [
+        {
+          "text": "jet de dés : résultat > HABILETÉ",
+          "nextChapterId": 106
+        },
+        {
+          "text": "jet de dés : résultat ≤ HABILETÉ",
+          "nextChapterId": 128
         }
       ]
     },
