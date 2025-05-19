@@ -1,6 +1,7 @@
 package controller;
 
 import model.Chapter;
+import model.Choice;
 import model.Player;
 import model.Scenario;
 
