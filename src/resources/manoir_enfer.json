@@ -138,6 +138,369 @@
           "nextChapterId": 357
         }
       ]
+    },
+    {
+      "id": 306,
+      "text": "La porte est verrouillée. Impossible de pénétrer dans le Manoir par cette voie.",
+      "choices": [
+        {
+          "text": "frapper à la porte pour essayer d'attirer l'attention des deux hommes",
+          "nextChapterId": 190,
+          "requiresLuckTest": true
+        },
+        {
+          "text": "revenir à la porte d'entrée pour tirer le cordon de sonnette",
+          "nextChapterId": 275
+        },
+        {
+          "text": "revenir à la porte d'entrée pour frapper à l'aide du marteau",
+          "nextChapterId": 357
+        }
+      ]
+    },
+    {
+      "id": 190,
+      "text": "Vous frappez à la porte avec force, et regardez par la fenêtre. \n Les deux hommes reviennent bientôt, et allument les bougies.\n Le vieil homme se dirige vers la porte",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 207
+        }
+      ]
+    },
+    {
+      "id": 173,
+      "text": "Vous ouvrez les yeux. La tête vous tourne encore et vous mettez quelque temps avant de réaliser que vous êtes pieds et poings liés. La pièce dans laquelle vous vous trouvez est vide, mais déjà vous avez un plan. Vous allez sautiller jusqu'à la fenêtre, briser la vitre, et frotter vos liens sur le tranchant d'un éclat de verre afin de vous libérer. Avec difficulté, vous vous mettez sur vos pieds et, par petits bonds maladroits, vous arrivez jusqu'à la fenêtre. Au-dehors, le vent pousse des rafales de pluie contre les vitres.",
+      "choices": [
+        {
+          "text": "essayer de fracasser les vitres avec vos mains",
+          "nextChapterId": 360
+        },
+        {
+          "text": "tenter votre Chance",
+          "nextChapterId": 136,
+          "requiresLuckTest": true
+        }
+      ]
+    },
+    {
+      "id": 136,
+      "text": "Vous tentez votre Chance pour briser la vitre et vous libérer.",
+      "luckTest": {
+        "success": {
+          "text": "Vous avez été Chanceux ! Vous parvenez à briser la vitre et à vous libérer sans vous blesser.",
+          "enduranceModifier": 0
+        },
+        "failure": {
+          "text": "Vous avez été Malchanceux ! Vous vous êtes cruellement coupé en brisant la vitre.",
+          "enduranceModifier": -2
+        }
+      },
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 317
+        }
+      ]
+    },
+    {
+      "id": 317,
+      "text": "Vous coupez vos liens, et vous massez vos poignets qui sont complètement engourdis. Puis, vous vous dirigez vers la porte pour tenter de l'ouvrir : elle n'est pas verrouillée ! Vous l'entrouvez alors légèrement, et vous jetez un coup d'œil à l'extérieur. La pièce dans laquelle vous vous trouvez donne sur un balcon, situé au premier étage du Manoir, qui est bordé par une balustrade, à travers les barreaux de laquelle vous pouvez apercevoir le hall d'entrée. A votre gauche, deux portes sont situées dans le coin de ce balcon, qui se poursuit après avoir tourné sur la droite. En tournant votre regard vers la droite, vous remarquez que le balcon longe une autre porte, avant de tourner sur la gauche.",
+      "choices": [
+        {
+          "text": "vous diriger vers la gauche, où se trouvent les deux portes",
+          "nextChapterId": 287
+        },
+        {
+          "text": "vous diriger vers la droite, où le balcon longe une autre porte",
+          "nextChapterId": 33
+        }
+      ]
+    },
+    {
+      "id": 360,
+      "text": "En serrant les dents, vous poussez vos mains prisonnières contre la vitre, la corde en avant. Le coup cependant, n'est pas assez violent, et vous devez faire une seconde tentative. Cette fois, la vitre se brise, et quelques gros éclats de verre tombent sur le sol. Mais vous ne sortez pas indemne de cette action désespérée : vous avez en effet reçu une mauvaise blessure au poignet gauche.",
+      "enduranceModifier": -2,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 317
+        }
+      ]
+    },
+    {
+      "id": 287,
+      "text": "Vous vous dirigez vers les deux portes situées dans le coin du balcon. Sur la porte qui se trouve à votre gauche est inscrit le nom Balthus. Quant à la porte qui vous fait face, elle ne porte aucun nom.",
+      "choices": [
+        {
+          "text": "pénétrer dans la pièce Balthus",
+          "nextChapterId": 299
+        },
+        {
+          "text": "entrer dans l'autre pièce sans nom",
+          "nextChapterId": 86
+        },
+        {
+          "text": "continuer votre chemin le long du balcon",
+          "nextChapterId": 193
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "text": "Vous faites quelques pas jusqu'à une porte sur laquelle est inscrit Azazel. Vous pouvez essayer de l'ouvrir (rendez-vous au 358), mais vous pouvez également poursuivre votre chemin le long du balcon qui tourne bientôt sur la gauche (rendez-vous au 229).",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir la porte Azazel",
+          "nextChapterId": 358
+        },
+        {
+          "text": "poursuivre votre chemin le long du balcon",
+          "nextChapterId": 229
+        }
+      ]
+    },
+    {
+      "id": 299,
+      "text": "La pièce dans laquelle vous venez de pénétrer est nue. U n mur est tapissé de papier à rayures, et une cheminée, sur laquelle est posée une petite boîte en bois, se dresse au milieu d'un autre mur. Des rideaux sont tirés le long du troisième mur, mais ils pendent misérablement, et sont comme bombés à différents endroits. Qu'allez-vous faire ?",
+      "choices": [
+        {
+          "text": "Examiner les rideaux",
+          "nextChapterId": 249
+        },
+        {
+          "text": "Ouvrir la boîte",
+          "nextChapterId": 197
+        },
+        {
+          "text": "Quitter la pièce",
+          "nextChapterId": 152
+        }
+      ]
+    },
+    {
+      "id": 277,
+      "text": "Vous entendez soudain un bruit de pas et l'homme vêtu de sombre réapparaît précédant un personnage de haute taille portant une veste d'intérieur pourpre. « Permettez-moi de vous présenter Lord Kelnor, Comte de Brume », dit-il. Le Comte vous tend la main. Son regard vous transperce et ses lèvres esquissent un pâle sourire. A peine avez-vous commencé à lui raconter votre mésaventure qu'il vous interrompt d'un signe de la main. « Je vous en prie, dit-il. Je vois que vous avez été pris dans cette épouvantable tempête ; allons nous installer devant un bon feu, et voyons comment nous pouvons vous venir en aide. » Puis, se tournant vers son majordome, il ajoute : « Franklin, dites au cuisinier de préparer quelque chose de chaud pour notre visiteur. » Vous protestez en lui disant que vous ne voulez le déranger en aucune façon, mais, sans vous prêter la moindre attention, il vous conduit jusqu'à un salon où brûle un feu de bois. Vous vous débarrassez de votre manteau, et vous vous installez confortablement dans un fauteuil. Bientôt la chaleur du feu commence à chasser vos sombres pensées. D'autant plus que Franklin est vite de retour, portant un plateau sur lequel sont posés deux verres de cognac.",
+      "choices": [
+        {
+          "text": "vous détendre en dégustant le cognac, puis demander à votre hôte la permission d'utiliser le téléphone",
+          "nextChapterId": 394
+        },
+        {
+          "text": "attendre qu'il vous questionne",
+          "nextChapterId": 111
+        }
+      ]
+    },
+    {
+      "id": 394,
+      "text": "Le feu et le cognac vous réchauffent et vous commencez à vous sentir plus à l'aise. 1 point a été deduit de votre total de PEUR (si ce total est supérieur à zéro). Vous expliquez au Comte ce qui vous est arrivé sur la route, et vous lui demandez la permission de téléphoner au garage le plus proche. « J'ai bien peur que notre ligne téléphonique n'ait souffert de la tempête, vous répond-il. Elle sera réparée demain dans la matinée. Quoi qu'il en soit, le garagiste ne se déplacerait certainement pas à cette heure. Mais ne vous inquiétez pas. Vous êtes tout à fait le bienvenu, et vous pouvez passer la nuit ici. Demain, Franklin vous conduira à la ville. Justement, le voici. » Le majordome entre, en effet, et vous annonce que le repas est servi. Vous vous levez tous deux et vous vous dirigez vers la salle à manger.",
+      "fearModifier": -1,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 309
+        }
+      ]
+    },
+    {
+      "id": 309,
+      "text": "La salle à manger est somptueuse. Une grande table est dressée entre deux chaises en bois sculpté. Sur cette table sont disposés des couverts en argent. Les murs sont recouverts de luxueuses tapisseries rouges et la pièce est éclairée par un étincelant chandelier hérissé de bougies. Vous vous installez à la table, et Franklin vous présente du vin.",
+      "choices": [
+        {
+          "text": "choisir le vin blanc",
+          "nextChapterId": 269
+        },
+        {
+          "text": "choisir le vin rouge",
+          "nextChapterId": 395
+        }
+      ]
+    },
+    {
+      "id": 269,
+      "text": "Le vin est sec et léger ; un cru de très grande qualité sans aucun doute. Pourtant, il laisse une sorte d'arrière-goût que vous ne pouvez définir. Peut-être est-il dû à un dépôt dans la carafe ? Mais non. Cela vous fait plutôt penser... à un médicament ! Vous réalisez subitement, mais trop tard, que votre vin a été drogué. Vous essayez de vous lever de table mais la drogue commence à produire son effet. Vous chancelez, vous faites quelques pas en arrière en titubant, et vous vous effondrez sans connaissance à terre.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 173
+        }
+      ]
+    },
+    {
+      "id": 395,
+      "text": "Le vin est délicieux, et sans aucun doute s'agit-il là d'un cru exceptionnel. Après avoir dégusté un excellent potage, vous avez le choix entre deux viandes : voulez-vous goûter à l'agneau, ou au canard ? Mais vous pouvez aussi déclarer à votre hôte qu'ayant déjà dîné, vous n'avez plus faim.",
+      "choices": [
+        {
+          "text": "goûter à l'agneau",
+          "nextChapterId": 196
+        },
+        {
+          "text": "goûter au canard",
+          "nextChapterId": 115
+        },
+        {
+          "text": "déclarer que vous n'avez plus faim",
+          "nextChapterId": 244
+        }
+      ]
+    },
+    {
+      "id": 111,
+      "text": "La nervosité qui est la vôtre semble embarrasser quelque peu votre hôte. « Allons, allons, dit-il, vous n'avez aucune raison de vous inquiéter. Ce n'est quand même pas un petit accident qui vous fera perdre vos nerfs ! Buvez ce cognac et oubliez vos craintes. » Pendant qu'il prononçait ces mots, vous l'avez observé attentivement. Et peut-être votre imagination vous joue-t-elle des tours car que devez-vous croire ? Sa bienveillante attention quant à votre bien-être, ou cette espèce d'expression malveillante que vous avez cru déceler dans ses yeux et dans son sourire ? Vous frissonnez, et très certainement avez-vous raison de ne pas être rassuré.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 309
+        }
+      ]
+    },
+    {
+      "id": 196,
+      "text": "Une odeur délicieuse a précédé le morceau d'agneau qui vous est présenté sur un plateau d'argent. Sans perdre un instant, vous le dévorez en compagnie du Comte qui vous pose mille questions vous concernant, et concernant surtout ce qui a pu vous conduire dans un endroit aussi reculé, en plein milieu de la nuit. Puis, à son tour, il vous parle de lui-même et de sa famille.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 28
+        }
+      ]
+    },
+    {
+      "id": 115,
+      "text": "Vous oubliez vos soucis en voyant apparaître le canard rôti ! Le Comte a choisi lui aussi du canard, et, tandis que vous le savourez, vous poursuivez votre conversation. Il vous demande la raison qui vous a conduit sur cette route déserte en plein milieu de la nuit, et vous lui parlez du vieil homme, et de la mauvaise direction qu'il vous a indiquée, ou que vous avez prise. A votre tour, vous lui posez des questions sur lui-même et sur sa famille.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 28
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "text": "Vous apprenez alors que le Comte est le dernier descendant de la lignée des Brume. Son domaine s'étend à des kilomètres à la ronde. A une époque, ce domaine était prospère : de nombreux métayers le cultivaient et son revenu était confortable, jusqu'à ce jour néfaste qui fut témoin de la mort de sa sœur, survenue dans des circonstances bizarres. Alors qu'elle n'était âgée que de trente-deux ans, elle fut retrouvée, sans vie, dans une clairière de la forêt, le cou portant des marques étranges. La nouvelle de ce drame se répandit vite et, dans leur ignorance, les paysans eurent vite fait de propager des histoires de sorcellerie et de magie noire. Bientôt le Manoir devint un lieu maudit. Tout cela était à mettre au compte de la superstition et de la stupidité, bien entendu, mais pourtant, peu à peu, les fermiers désertèrent le domaine.\nLe repas est depuis longtemps terminé lorsque le Comte achève son récit. Franklin vous propose maintenant des fruits, du fromage, et du café accompagné de cognac.",
+      "choices": [
+        {
+          "text": "un fruit, du café et du cognac",
+          "nextChapterId": 224
+        },
+        {
+          "text": "du fromage, du café et du cognac",
+          "nextChapterId": 74
+        },
+        {
+          "text": "un fromage et du café",
+          "nextChapterId": 319
+        }
+      ]
+    },
+    {
+      "id": 244,
+      "text": "Le Comte est outragé ! Ainsi vous l'avez laissé préparer un repas en plein milieu de la nuit, avec tous les inconvénients que cela suppose, et maintenant vous lui déclarez que vous n'avez pas faim ! Vous pouvez lui présenter vos excuses et choisir le canard, ou l'agneau. Mais vous pouvez aussi, en regrettant de l'avoir ainsi dérangé, passer outre à sa colère et rester ferme dans votre décision.",
+      "choices": [
+        {
+          "text": "présenter vos excuses et choisir le canard",
+          "nextChapterId": 115
+        },
+        {
+          "text": "présenter vos excuses et choisir l'agneau",
+          "nextChapterId": 196
+        },
+        {
+          "text": "maintenir votre décision malgré sa colère",
+          "nextChapterId": 96
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "text": "Le Comte sonne le majordome qui apparaît dans l'instant. « Franklin, notre invité refuse de souper. Notre hospitalité a été bafouée. Arrangez-vous de cette situation ! » En hochant la tête, le majordome presse un bouton caché dans le dos de votre fauteuil. Aussitôt, des accoudoirs, surgissent des bracelets, qui se referment sur vos poignets vous interdisant le moindre mouvement. Vous vous contorsionnez pour essayer de vous délivrer, mais vous ne pouvez desserrer leur étreinte. Pendant ce temps, Franklin sort un mouchoir de sa poche, et l'imprègne d'un liquide contenu dans une fiole. Et vous ne pouvez l'empêcher d'appliquer le morceau de tissu sur votre visage. Du chloroforme ! Vous perdez peu à peu connaissance.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 173
+        }
+      ]
+    },
+    {
+      "id": 224,
+      "text": "Franklin vous sert ce que vous avez demandé, et vous terminez votre repas. « Vous devez être bien fatigué, dit le Comte ; minuit est passé depuis longtemps ! Franklin va vous conduire à votre chambre. » Vous prenez congé du Comte après l'avoir remercié, et vous suivez Franklin qui vous précède jusqu'à un ample et magnifique escalier à la rampe sculptée. En haut de l'escalier se trouve un balcon, sur lequel donnent de nombreuses portes portant, pour la plupart, un nom inscrit sur une plaque. Franklin vous mène jusqu'à l'une de ces portes sur laquelle vous pouvez lire Erasme. Après l'avoir ouverte devant vous, il vous souhaite une bonne nuit.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 5
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "text": "De toute évidence, cette chambre a été préparée pour vous. La pièce n'est pas très grande, mais un large miroir a été disposé de telle sorte qu'elle paraît deux fois plus importante. Le lit est fait de draps d'une blancheur immaculée, et un feu accueillant brûle dans la cheminée. Le majordome vient de refermer la porte derrière lui, et vous vous approchez du feu sans savoir que penser. Jamais vous ne serez à l'heure à votre rendez-vous si vous ne quittez pas immédiatement ce lieu. Mais s'il est exact que le téléphone ne fonctionne pas, que faire d'autre sinon passer la nuit ici ?...",
+      "choices": [
+        {
+          "text": "pendre vos vêtements et vous mettre au lit",
+          "nextChapterId": 23
+        },
+        {
+          "text": "ne pas rester dans cette chambre",
+          "nextChapterId": 59
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "text": "Le lit est tiède et confortable, et bientôt vous vous endormez. Mais des pensées étranges et inquiétantes vous traversent l'esprit et vous vous redressez subitement, inondé d'une sueur glacée. Un bruit vous a réveillé : le bruit de la porte qui se refermait. Avec inquiétude vous regardez autour de vous, et vos yeux se portent enfin sur un verre empli d'un liquide limpide, qui a été posé près de votre lit. On vous a apporté une tisane ! Vous bondissez hors du lit et vous vous précipitez sur la porte. Elle est fermée à clef !",
+      "choices": [
+        {
+          "text": "boire le liquide",
+          "nextChapterId": 45
+        },
+        {
+          "text": "essayer d'enfoncer la porte",
+          "nextChapterId": 128
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "text": "La porte est fermée à clef ! Votre hôte préfère certainement ne pas vous voir rôder dans le manoir... Allez-vous essayer d'enfoncer cette porte, vous mettre au lit, ou préférez-vous souffler la bougie, et attendre dans l'obscurité qu'un événement quelconque se produise ?",
+      "choices": [
+        {
+          "text": "essayer d'enfoncer la porte",
+          "nextChapterId": 79
+        },
+        {
+          "text": "vous mettre au lit",
+          "nextChapterId": 23
+        },
+        {
+          "text": "souffler la bougie et attendre",
+          "nextChapterId": 63
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "text": "Vous terminez votre repas. Le Comte se lève alors de table. « Votre conversation est fort agréable, dit-il. Mais maintenant vous devez être certainement très fatigué. Franklin va vous conduire à votre chambre. » Vous vous levez à votre tour. Le Comte a raison : vous êtes très fatigué ; minuit est passé depuis longtemps. Vos jambes flageolent, et vous vous accrochez à la table pour ne pas tomber. Pfff ! vous ne pensiez pas être fatigué à ce point. Mais peut-être avez-vous un peu trop bu ? La tête vous tourne, et la voix de votre hôte semble se perdre dans un bourdonnement qui vous assourdit de plus en plus. Finalement, vous vous écroulez sur le sol, et vous perdez connaissance.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 173
+        }
+      ]
+    },
+    {
+      "id": 319,
+      "text": "Le majordome vous présente un plateau de fromages, et pose devant vous un pot de café brûlant. Vous poursuivez votre conversation avec le Comte.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 74
+        }
+      ]
+    },
+    {
+      "id": -1,
+      "text": "Fin de la démo. Merci d'avoir joué à cette version simplifiée du Manoir de l'Enfer!"
     }
   ]
 }
