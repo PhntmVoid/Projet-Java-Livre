@@ -11,7 +11,8 @@ public class Player {
     private int currentStamina;
     private int maxFear;
     private int currentFear;
-    private int luck;
+    private int maxLuck;
+    private int currentLuck;
 
     public Player(int skill, int stamina, int luck) {
         this.maxSkill = skill;
@@ -20,7 +21,8 @@ public class Player {
         this.currentStamina = stamina;
         this.maxFear = 10; // Example value
         this.currentFear = 0;
-        this.luck = luck;
+        this.maxLuck = luck;
+        this.currentLuck = luck;
         this.inventory = new ArrayList<>();
     }
 
@@ -32,7 +34,7 @@ public class Player {
     public int getCurrentStamina() { return currentStamina; }
     public int getMaxFear() { return maxFear; }
     public int getCurrentFear() { return currentFear; }
-    public int getLuck() { return luck; }
+    public int getLuck() { return currentLuck; }
 
     // Inventory methods
     public boolean hasItem(String item) {
@@ -60,6 +62,10 @@ public class Player {
 
     public void modifyFear(int change) {
         currentFear = Math.min(maxFear, Math.max(0, currentFear + change));
+    }
+
+    public void modifyLuck(int change) {
+        currentLuck = Math.min(maxLuck, Math.max(0, currentLuck + change));
     }
 
     public boolean isAlive() {

@@ -58,6 +58,9 @@ public class GameController {
             return false;
         }
 
+        // Get the selected choice
+        Choice choice = current.getChoices().get(choiceIndex);
+
         // Apply any modifiers from the current chapter
         if (current.getEnduranceModifier() != 0) {
             player.modifyStamina(current.getEnduranceModifier());
@@ -66,8 +69,19 @@ public class GameController {
             player.modifyFear(current.getFearModifier());
         }
 
+        // Handle combat if required
+        if (choice.isCombatRequired()) {
+            // For now, we'll just simulate combat damage
+            player.modifyStamina(-2);
+            if (!player.isAlive()) {
+                currentChapterId = -1;
+                chapterHistory.add(currentChapterId);
+                return true;
+            }
+        }
+
         // Handle luck test if required
-        if (current.getChoices().get(choiceIndex).isRequiresLuckTest()) {
+        if (choice.isRequiresLuckTest()) {
             boolean isLucky = testLuck();
             if (current.getLuckTest() != null) {
                 if (isLucky && current.getLuckTest().getSuccess() != null) {
@@ -78,7 +92,7 @@ public class GameController {
             }
         }
 
-        int nextChapterId = current.getChoices().get(choiceIndex).getNextChapterId();
+        int nextChapterId = choice.getNextChapterId();
         Chapter nextChapter = scenario.getChapter(nextChapterId);
 
         if (nextChapterId == -1 || nextChapter == null) {
@@ -93,6 +107,10 @@ public class GameController {
     }
 
     public boolean testLuck() {
+        // Deduct 1 luck point for testing luck
+        player.modifyLuck(-1);
+        
+        // Roll 2d6 and compare against current luck
         int roll = random.nextInt(6) + 1 + random.nextInt(6) + 1;
         return roll <= player.getLuck();
     }
