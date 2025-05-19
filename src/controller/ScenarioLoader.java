@@ -24,25 +24,26 @@ public class ScenarioLoader {
 
     private static Scenario parseScenarioFromJson(String jsonContent) {
         try {
-            Map<String, Object> jsonMap = new HashMap<>();
-            
             // Parse title
             String title = extractValue(jsonContent, "\"title\"", ",");
-            jsonMap.put("title", title);
-            
+            if (title == null) {
+                throw new IllegalArgumentException("Title not found in JSON");
+            }
+
             // Parse startChapterId
             String startIdStr = extractValue(jsonContent, "\"startChapterId\"", ",");
+            if (startIdStr == null) {
+                throw new IllegalArgumentException("Start chapter ID not found in JSON");
+            }
             int startChapterId = Integer.parseInt(startIdStr.trim());
-            jsonMap.put("startChapterId", startChapterId);
 
             Scenario scenario = new Scenario(title, startChapterId);
 
             // Extract chapters array
-            String chaptersStr = jsonContent.substring(
-                jsonContent.indexOf("\"chapters\""),
-                jsonContent.lastIndexOf("]") + 1
-            );
-            chaptersStr = chaptersStr.substring(chaptersStr.indexOf("[") + 1, chaptersStr.lastIndexOf("]"));
+            String chaptersStr = extractBetween(jsonContent, "\"chapters\"", "]");
+            if (chaptersStr == null) {
+                throw new IllegalArgumentException("Chapters array not found in JSON");
+            }
 
             // Split chapters
             String[] chapters = splitObjects(chaptersStr);
@@ -50,11 +51,13 @@ public class ScenarioLoader {
             for (String chapterStr : chapters) {
                 // Parse chapter ID
                 String idStr = extractValue(chapterStr, "\"id\"", ",");
+                if (idStr == null) continue;
                 int id = Integer.parseInt(idStr.trim());
 
                 // Parse chapter text
                 String chapterText = extractValue(chapterStr, "\"text\"", "\"choices\"");
-                if (chapterText != null && chapterText.endsWith(",")) {
+                if (chapterText == null) continue;
+                if (chapterText.endsWith(",")) {
                     chapterText = chapterText.substring(0, chapterText.length() - 1);
                 }
 
@@ -115,36 +118,33 @@ public class ScenarioLoader {
                     }
                 }
 
-                // Parse choices if present
-                if (chapterStr.contains("\"choices\"")) {
-                    String choicesStr = extractBetween(chapterStr, "\"choices\"", "]");
-                    if (choicesStr != null) {
-                        String[] choices = splitObjects(choicesStr);
+                // Parse choices
+                String choicesStr = extractBetween(chapterStr, "\"choices\"", "]");
+                if (choicesStr != null) {
+                    String[] choices = splitObjects(choicesStr);
+                    for (String choiceStr : choices) {
+                        String choiceText = extractValue(choiceStr, "\"text\"", ",");
+                        String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", "}");
                         
-                        for (String choiceStr : choices) {
-                            String choiceText = extractValue(choiceStr, "\"text\"", ",");
-                            String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", "}");
-                            
-                            if (choiceText != null && nextIdStr != null) {
-                                try {
-                                    Choice choice = new Choice(choiceText, Integer.parseInt(nextIdStr.trim()));
-                                    
-                                    // Parse requiresLuckTest if present
-                                    String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",");
-                                    if (requiresLuckTest != null) {
-                                        choice.setRequiresLuckTest(Boolean.parseBoolean(requiresLuckTest.trim()));
-                                    }
-
-                                    // Parse combatRequired if present
-                                    String combatRequired = extractValue(choiceStr, "\"combatRequired\"", ",");
-                                    if (combatRequired != null) {
-                                        choice.setCombatRequired(Boolean.parseBoolean(combatRequired.trim()));
-                                    }
-
-                                    chapter.addChoice(choice);
-                                } catch (NumberFormatException e) {
-                                    // Skip invalid choice
+                        if (choiceText != null && nextIdStr != null) {
+                            try {
+                                Choice choice = new Choice(choiceText, Integer.parseInt(nextIdStr.trim()));
+                                
+                                // Parse requiresLuckTest if present
+                                String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",");
+                                if (requiresLuckTest != null) {
+                                    choice.setRequiresLuckTest(Boolean.parseBoolean(requiresLuckTest.trim()));
                                 }
+
+                                // Parse combatRequired if present
+                                String combatRequired = extractValue(choiceStr, "\"combatRequired\"", ",");
+                                if (combatRequired != null) {
+                                    choice.setCombatRequired(Boolean.parseBoolean(combatRequired.trim()));
+                                }
+
+                                chapter.addChoice(choice);
+                            } catch (NumberFormatException e) {
+                                System.err.println("Invalid nextChapterId in choice: " + nextIdStr);
                             }
                         }
                     }
@@ -199,7 +199,7 @@ public class ScenarioLoader {
             int startIndex = json.indexOf(startKey);
             if (startIndex == -1) return null;
 
-            startIndex = json.indexOf("{", startIndex);
+            startIndex = json.indexOf("[", startIndex);
             if (startIndex == -1) return null;
 
             int endIndex = startIndex;
@@ -208,8 +208,8 @@ public class ScenarioLoader {
             while (depth > 0 && endIndex < json.length() - 1) {
                 endIndex++;
                 char c = json.charAt(endIndex);
-                if (c == '{') depth++;
-                else if (c == '}') depth--;
+                if (c == '[') depth++;
+                else if (c == ']') depth--;
             }
 
             return json.substring(startIndex, endIndex + 1);
