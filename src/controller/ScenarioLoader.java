@@ -3,8 +3,8 @@ package controller;
 import model.*;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class ScenarioLoader {
     public static Scenario loadScenario(String resourcePath) {
@@ -14,7 +14,27 @@ public class ScenarioLoader {
             }
 
             String jsonContent = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-            return parseScenarioFromJson(jsonContent);
+            JSONObject json = new JSONObject(jsonContent);
+            
+            String title = json.getString("title");
+            int startChapterId = json.getInt("startChapterId");
+            
+            Scenario scenario = new Scenario(title, startChapterId);
+            
+            JSONArray chapters = json.getJSONArray("chapters");
+            for (int i = 0; i < chapters.length(); i++) {
+                try {
+                    JSONObject chapterJson = chapters.getJSONObject(i);
+                    Chapter chapter = parseChapter(chapterJson);
+                    if (chapter != null) {
+                        scenario.addChapter(chapter);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error parsing chapter: " + e.getMessage());
+                }
+            }
+            
+            return scenario;
         } catch (Exception e) {
             System.err.println("Failed to load scenario: " + e.getMessage());
             e.printStackTrace();
@@ -22,257 +42,91 @@ public class ScenarioLoader {
         }
     }
 
-    private static Scenario parseScenarioFromJson(String jsonContent) {
+    private static Chapter parseChapter(JSONObject chapterJson) {
         try {
-            // Parse title
-            String title = extractValue(jsonContent, "\"title\"", ",");
-            if (title == null) throw new IllegalArgumentException("Title not found in JSON");
+            int id = chapterJson.getInt("id");
+            String text = chapterJson.getString("text");
+            Chapter chapter = new Chapter(id, text);
 
-            // Parse startChapterId
-            String startIdStr = extractValue(jsonContent, "\"startChapterId\"", ",");
-            if (startIdStr == null) throw new IllegalArgumentException("Start chapter ID not found in JSON");
-            int startChapterId = Integer.parseInt(startIdStr.trim());
-
-            Scenario scenario = new Scenario(title, startChapterId);
-
-            // Find chapters array
-            int chaptersStart = jsonContent.indexOf("\"chapters\"");
-            if (chaptersStart == -1) throw new IllegalArgumentException("Chapters array not found in JSON");
-            
-            chaptersStart = jsonContent.indexOf("[", chaptersStart);
-            int chaptersEnd = findMatchingBracket(jsonContent, chaptersStart);
-            
-            if (chaptersStart == -1 || chaptersEnd == -1) {
-                throw new IllegalArgumentException("Invalid chapters array structure");
+            // Parse endurance modifier
+            if (chapterJson.has("enduranceModifier")) {
+                chapter.setEnduranceModifier(chapterJson.getInt("enduranceModifier"));
             }
 
-            String chaptersContent = jsonContent.substring(chaptersStart + 1, chaptersEnd);
-            String[] chapters = splitObjects(chaptersContent);
+            // Parse fear modifier
+            if (chapterJson.has("fearModifier")) {
+                chapter.setFearModifier(chapterJson.getInt("fearModifier"));
+            }
 
-            for (String chapterStr : chapters) {
-                try {
-                    // Parse chapter ID
-                    String idStr = extractValue(chapterStr, "\"id\"", ",");
-                    if (idStr == null) continue;
-                    int id = Integer.parseInt(idStr.trim());
+            // Parse luck test
+            if (chapterJson.has("luckTest")) {
+                JSONObject luckTestJson = chapterJson.getJSONObject("luckTest");
+                LuckTestOutcome success = null;
+                LuckTestOutcome failure = null;
 
-                    // Parse chapter text
-                    String chapterText = extractValue(chapterStr, "\"text\"", "\"choices\"");
-                    if (chapterText == null) continue;
-                    if (chapterText.endsWith(",")) {
-                        chapterText = chapterText.substring(0, chapterText.length() - 1);
-                    }
+                if (luckTestJson.has("success")) {
+                    JSONObject successJson = luckTestJson.getJSONObject("success");
+                    success = new LuckTestOutcome(
+                        successJson.getString("text"),
+                        successJson.getInt("enduranceModifier")
+                    );
+                }
 
-                    Chapter chapter = new Chapter(id, chapterText);
+                if (luckTestJson.has("failure")) {
+                    JSONObject failureJson = luckTestJson.getJSONObject("failure");
+                    failure = new LuckTestOutcome(
+                        failureJson.getString("text"),
+                        failureJson.getInt("enduranceModifier")
+                    );
+                }
 
-                    // Parse endurance modifier
-                    String enduranceModStr = extractValue(chapterStr, "\"enduranceModifier\"", ",");
-                    if (enduranceModStr != null) {
-                        try {
-                            int modifier = Integer.parseInt(enduranceModStr.trim());
-                            chapter.setEnduranceModifier(modifier);
-                        } catch (NumberFormatException e) {
-                            // Skip invalid modifier
-                        }
-                    }
-
-                    // Parse fear modifier
-                    String fearModStr = extractValue(chapterStr, "\"fearModifier\"", ",");
-                    if (fearModStr != null) {
-                        try {
-                            int modifier = Integer.parseInt(fearModStr.trim());
-                            chapter.setFearModifier(modifier);
-                        } catch (NumberFormatException e) {
-                            // Skip invalid modifier
-                        }
-                    }
-
-                    // Parse luck test
-                    if (chapterStr.contains("\"luckTest\"")) {
-                        String luckTestStr = extractBetween(chapterStr, "\"luckTest\"", "}");
-                        if (luckTestStr != null) {
-                            LuckTestOutcome success = parseLuckTestOutcome(luckTestStr, "success");
-                            LuckTestOutcome failure = parseLuckTestOutcome(luckTestStr, "failure");
-                            if (success != null || failure != null) {
-                                chapter.setLuckTest(new LuckTest(success, failure));
-                            }
-                        }
-                    }
-
-                    // Parse choices
-                    if (chapterStr.contains("\"choices\"")) {
-                        int choicesStart = chapterStr.indexOf("\"choices\"");
-                        choicesStart = chapterStr.indexOf("[", choicesStart);
-                        int choicesEnd = findMatchingBracket(chapterStr, choicesStart);
-                        
-                        if (choicesStart != -1 && choicesEnd != -1) {
-                            String choicesStr = chapterStr.substring(choicesStart + 1, choicesEnd);
-                            String[] choices = splitObjects(choicesStr);
-                            
-                            for (String choiceStr : choices) {
-                                try {
-                                    String choiceText = extractValue(choiceStr, "\"text\"", ",");
-                                    String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", ",}");
-                                    
-                                    if (choiceText != null && nextIdStr != null) {
-                                        int nextId = Integer.parseInt(nextIdStr.trim());
-                                        Choice choice = new Choice(choiceText, nextId);
-                                        
-                                        // Parse requiresLuckTest
-                                        String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",}");
-                                        if (requiresLuckTest != null) {
-                                            choice.setRequiresLuckTest(Boolean.parseBoolean(requiresLuckTest.trim()));
-                                        }
-
-                                        // Parse combatRequired
-                                        String combatRequired = extractValue(choiceStr, "\"combatRequired\"", ",}");
-                                        if (combatRequired != null) {
-                                            choice.setCombatRequired(Boolean.parseBoolean(combatRequired.trim()));
-                                        }
-
-                                        chapter.addChoice(choice);
-                                    }
-                                } catch (Exception e) {
-                                    System.err.println("Error parsing choice: " + e.getMessage());
-                                    // Continue with next choice
-                                }
-                            }
-                        }
-                    }
-
-                    scenario.addChapter(chapter);
-                } catch (Exception e) {
-                    System.err.println("Error parsing chapter: " + e.getMessage());
-                    // Continue with next chapter
+                if (success != null || failure != null) {
+                    chapter.setLuckTest(new LuckTest(success, failure));
                 }
             }
 
-            return scenario;
-        } catch (Exception e) {
-            System.err.println("Error parsing JSON: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-    private static LuckTestOutcome parseLuckTestOutcome(String luckTestStr, String type) {
-        if (!luckTestStr.contains("\"" + type + "\"")) return null;
-        
-        String outcomeStr = extractBetween(luckTestStr, "\"" + type + "\"", "}");
-        if (outcomeStr == null) return null;
-
-        String text = extractValue(outcomeStr, "\"text\"", ",");
-        String modStr = extractValue(outcomeStr, "\"enduranceModifier\"", "}");
-        
-        if (text != null && modStr != null) {
-            try {
-                int modifier = Integer.parseInt(modStr.trim());
-                return new LuckTestOutcome(text, modifier);
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid endurance modifier in luck test outcome: " + modStr);
-            }
-        }
-        return null;
-    }
-
-    private static String extractValue(String json, String key, String end) {
-        try {
-            int keyIndex = json.indexOf(key);
-            if (keyIndex == -1) return null;
-
-            int startIndex = json.indexOf(":", keyIndex) + 1;
-            while (startIndex < json.length() && Character.isWhitespace(json.charAt(startIndex))) {
-                startIndex++;
-            }
-
-            boolean isQuoted = json.charAt(startIndex) == '"';
-            if (isQuoted) startIndex++;
-
-            int endIndex;
-            if (isQuoted) {
-                endIndex = json.indexOf("\"", startIndex);
-            } else {
-                endIndex = -1;
-                for (String endChar : end.split("")) {
-                    int pos = json.indexOf(endChar, startIndex);
-                    if (pos != -1 && (endIndex == -1 || pos < endIndex)) {
-                        endIndex = pos;
+            // Parse choices
+            if (chapterJson.has("choices")) {
+                JSONArray choicesJson = chapterJson.getJSONArray("choices");
+                for (int i = 0; i < choicesJson.length(); i++) {
+                    try {
+                        JSONObject choiceJson = choicesJson.getJSONObject(i);
+                        Choice choice = parseChoice(choiceJson);
+                        if (choice != null) {
+                            chapter.addChoice(choice);
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Error parsing choice: " + e.getMessage());
                     }
                 }
-                if (endIndex == -1) endIndex = json.length();
             }
 
-            return json.substring(startIndex, endIndex).trim();
+            return chapter;
         } catch (Exception e) {
+            System.err.println("Error creating chapter: " + e.getMessage());
             return null;
         }
     }
 
-    private static String extractBetween(String json, String startKey, String endStr) {
+    private static Choice parseChoice(JSONObject choiceJson) {
         try {
-            int startIndex = json.indexOf(startKey);
-            if (startIndex == -1) return null;
+            String text = choiceJson.getString("text");
+            int nextChapterId = choiceJson.getInt("nextChapterId");
+            Choice choice = new Choice(text, nextChapterId);
 
-            startIndex = json.indexOf("{", startIndex);
-            if (startIndex == -1) return null;
-
-            int endIndex = startIndex;
-            int depth = 1;
-
-            while (depth > 0 && endIndex < json.length() - 1) {
-                endIndex++;
-                char c = json.charAt(endIndex);
-                if (c == '{') depth++;
-                else if (c == '}') depth--;
+            if (choiceJson.has("requiresLuckTest")) {
+                choice.setRequiresLuckTest(choiceJson.getBoolean("requiresLuckTest"));
             }
 
-            return json.substring(startIndex, endIndex + 1);
+            if (choiceJson.has("combatRequired")) {
+                choice.setCombatRequired(choiceJson.getBoolean("combatRequired"));
+            }
+
+            return choice;
         } catch (Exception e) {
+            System.err.println("Error creating choice: " + e.getMessage());
             return null;
         }
-    }
-
-    private static String[] splitObjects(String json) {
-        java.util.List<String> objects = new java.util.ArrayList<>();
-        int depth = 0;
-        int start = 0;
-
-        for (int i = 0; i < json.length(); i++) {
-            char c = json.charAt(i);
-            if (c == '{') {
-                if (depth == 0) start = i;
-                depth++;
-            } else if (c == '}') {
-                depth--;
-                if (depth == 0) {
-                    objects.add(json.substring(start, i + 1));
-                }
-            }
-        }
-
-        return objects.toArray(new String[0]);
-    }
-
-    private static int findMatchingBracket(String text, int openBracketIndex) {
-        if (openBracketIndex < 0 || openBracketIndex >= text.length()) return -1;
-        
-        char openBracket = text.charAt(openBracketIndex);
-        char closeBracket = (openBracket == '[') ? ']' : 
-                           (openBracket == '{') ? '}' : 
-                           (openBracket == '(') ? ')' : 0;
-        
-        if (closeBracket == 0) return -1;
-        
-        int depth = 0;
-        for (int i = openBracketIndex; i < text.length(); i++) {
-            char c = text.charAt(i);
-            if (c == openBracket) depth++;
-            else if (c == closeBracket) {
-                depth--;
-                if (depth == 0) return i;
-            }
-        }
-        return -1;
     }
 
     private static Scenario createFallbackScenario() {
