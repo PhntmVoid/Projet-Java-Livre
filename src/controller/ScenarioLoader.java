@@ -17,6 +17,7 @@ public class ScenarioLoader {
             return parseScenarioFromJson(jsonContent);
         } catch (Exception e) {
             System.err.println("Failed to load scenario: " + e.getMessage());
+            e.printStackTrace();
             return createFallbackScenario();
         }
     }
@@ -79,16 +80,15 @@ public class ScenarioLoader {
 
                 // Parse choices
                 if (chapterMap.containsKey("choices")) {
-                    String choicesStr = extractValue(chapterMap.toString(), "\"choices\":", "]");
-                    if (choicesStr != null && choicesStr.startsWith("[")) {
-                        choicesStr = choicesStr.substring(1); // Remove leading [
-                        String[] choiceStrings = splitChoices(choicesStr);
+                    String choicesStr = chapterMap.get("choices").toString();
+                    String[] choiceStrings = splitChoices(choicesStr);
+                    
+                    for (String choiceString : choiceStrings) {
+                        String choiceText = extractValue(choiceString, "\"text\":", ",");
+                        String nextIdStr = extractValue(choiceString, "\"nextChapterId\":", ",}");
                         
-                        for (String choiceString : choiceStrings) {
-                            String choiceText = extractValue(choiceString, "\"text\":", ",");
-                            String nextIdStr = extractValue(choiceString, "\"nextChapterId\":", ",}");
+                        if (choiceText != null && nextIdStr != null) {
                             int nextChapterId = Integer.parseInt(nextIdStr.trim());
-                            
                             Choice choice = new Choice(choiceText, nextChapterId);
                             
                             // Parse boolean flags
@@ -113,6 +113,7 @@ public class ScenarioLoader {
             return scenario;
         } catch (Exception e) {
             System.err.println("Error parsing JSON: " + e.getMessage());
+            e.printStackTrace();
             throw e;
         }
     }
@@ -138,13 +139,16 @@ public class ScenarioLoader {
             chapter.put("id", Integer.parseInt(idStr));
 
             String text = extractValue(chapterStrings[i], "\"text\":", "\"choices\"");
-            if (text.endsWith(",")) {
-                text = text.substring(0, text.length() - 1);
+            if (text != null) {
+                if (text.endsWith(",")) {
+                    text = text.substring(0, text.length() - 1);
+                }
+                chapter.put("text", text);
             }
-            chapter.put("text", text.replace("\\n", "\n").replace("\\\"", "\""));
 
-            if (chapterStrings[i].contains("\"choices\":")) {
-                String choicesSection = chapterStrings[i].substring(chapterStrings[i].indexOf("\"choices\":"));
+            if (chapterStrings[i].contains("\"choices\":[")) {
+                String choicesSection = chapterStrings[i].substring(chapterStrings[i].indexOf("\"choices\":["));
+                choicesSection = choicesSection.substring(0, findClosingBracket(choicesSection, '[', ']') + 1);
                 chapter.put("choices", choicesSection);
             }
 
@@ -155,18 +159,39 @@ public class ScenarioLoader {
         return result;
     }
 
+    private static int findClosingBracket(String str, char open, char close) {
+        int depth = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == open) depth++;
+            else if (str.charAt(i) == close) {
+                depth--;
+                if (depth == 0) return i;
+            }
+        }
+        return -1;
+    }
+
     private static String extractValue(String json, String key, String end) {
         try {
             int start = json.indexOf(key);
             if (start == -1) return null;
             
             start += key.length();
-            int endPos = -1;
+            start = json.indexOf(":", start) + 1;
+            while (start < json.length() && Character.isWhitespace(json.charAt(start))) {
+                start++;
+            }
             
-            for (String possibleEnd : end.split("")) {
-                int pos = json.indexOf(possibleEnd, start);
-                if (pos != -1 && (endPos == -1 || pos < endPos)) {
-                    endPos = pos;
+            int endPos = -1;
+            if (json.charAt(start) == '"') {
+                start++;
+                endPos = json.indexOf("\"", start);
+            } else {
+                for (char c : end.toCharArray()) {
+                    int pos = json.indexOf(c, start);
+                    if (pos != -1 && (endPos == -1 || pos < endPos)) {
+                        endPos = pos;
+                    }
                 }
             }
             
@@ -174,13 +199,7 @@ public class ScenarioLoader {
                 endPos = json.length();
             }
             
-            String value = json.substring(start, endPos).trim();
-            
-            if (value.startsWith("\"") && value.endsWith("\"")) {
-                value = value.substring(1, value.length() - 1);
-            }
-            
-            return value;
+            return json.substring(start, endPos).trim();
         } catch (Exception e) {
             return null;
         }
@@ -210,6 +229,13 @@ public class ScenarioLoader {
     }
 
     private static String[] splitChoices(String choicesSection) {
+        if (!choicesSection.startsWith("[")) {
+            int start = choicesSection.indexOf("[");
+            if (start != -1) {
+                choicesSection = choicesSection.substring(start);
+            }
+        }
+        
         java.util.List<String> choices = new java.util.ArrayList<>();
         int depth = 0;
         int start = 0;
