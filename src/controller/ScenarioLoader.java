@@ -63,43 +63,89 @@ public class ScenarioLoader {
                 // Parse endurance modifier if present
                 String enduranceModStr = extractValue(chapterStr, "\"enduranceModifier\"", ",");
                 if (enduranceModStr != null) {
-                    chapter.setEnduranceModifier(Integer.parseInt(enduranceModStr.trim()));
+                    try {
+                        chapter.setEnduranceModifier(Integer.parseInt(enduranceModStr.trim()));
+                    } catch (NumberFormatException e) {
+                        // Skip invalid number
+                    }
                 }
 
                 // Parse fear modifier if present
                 String fearModStr = extractValue(chapterStr, "\"fearModifier\"", ",");
                 if (fearModStr != null) {
-                    chapter.setFearModifier(Integer.parseInt(fearModStr.trim()));
+                    try {
+                        chapter.setFearModifier(Integer.parseInt(fearModStr.trim()));
+                    } catch (NumberFormatException e) {
+                        // Skip invalid number
+                    }
+                }
+
+                // Parse luck test if present
+                if (chapterStr.contains("\"luckTest\"")) {
+                    String luckTestStr = extractBetween(chapterStr, "\"luckTest\"", "}");
+                    if (luckTestStr != null) {
+                        LuckTestOutcome success = null;
+                        LuckTestOutcome failure = null;
+
+                        if (luckTestStr.contains("\"success\"")) {
+                            String successStr = extractBetween(luckTestStr, "\"success\"", "},");
+                            if (successStr != null) {
+                                String text = extractValue(successStr, "\"text\"", ",");
+                                String modStr = extractValue(successStr, "\"enduranceModifier\"", "}");
+                                if (text != null && modStr != null) {
+                                    success = new LuckTestOutcome(text, Integer.parseInt(modStr.trim()));
+                                }
+                            }
+                        }
+
+                        if (luckTestStr.contains("\"failure\"")) {
+                            String failureStr = extractBetween(luckTestStr, "\"failure\"", "}");
+                            if (failureStr != null) {
+                                String text = extractValue(failureStr, "\"text\"", ",");
+                                String modStr = extractValue(failureStr, "\"enduranceModifier\"", "}");
+                                if (text != null && modStr != null) {
+                                    failure = new LuckTestOutcome(text, Integer.parseInt(modStr.trim()));
+                                }
+                            }
+                        }
+
+                        if (success != null || failure != null) {
+                            chapter.setLuckTest(new LuckTest(success, failure));
+                        }
+                    }
                 }
 
                 // Parse choices if present
                 if (chapterStr.contains("\"choices\"")) {
-                    String choicesSection = chapterStr.substring(chapterStr.indexOf("\"choices\""));
-                    choicesSection = choicesSection.substring(choicesSection.indexOf("[") + 1);
-                    choicesSection = choicesSection.substring(0, choicesSection.lastIndexOf("]"));
-
-                    String[] choices = splitObjects(choicesSection);
-                    
-                    for (String choiceStr : choices) {
-                        String choiceText = extractValue(choiceStr, "\"text\"", ",");
-                        String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", "}");
+                    String choicesStr = extractBetween(chapterStr, "\"choices\"", "]");
+                    if (choicesStr != null) {
+                        String[] choices = splitObjects(choicesStr);
                         
-                        if (choiceText != null && nextIdStr != null) {
-                            Choice choice = new Choice(choiceText, Integer.parseInt(nextIdStr.trim()));
+                        for (String choiceStr : choices) {
+                            String choiceText = extractValue(choiceStr, "\"text\"", ",");
+                            String nextIdStr = extractValue(choiceStr, "\"nextChapterId\"", "}");
                             
-                            // Parse requiresLuckTest if present
-                            String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",");
-                            if (requiresLuckTest != null) {
-                                choice.setRequiresLuckTest(Boolean.parseBoolean(requiresLuckTest.trim()));
-                            }
+                            if (choiceText != null && nextIdStr != null) {
+                                try {
+                                    Choice choice = new Choice(choiceText, Integer.parseInt(nextIdStr.trim()));
+                                    
+                                    // Parse requiresLuckTest if present
+                                    String requiresLuckTest = extractValue(choiceStr, "\"requiresLuckTest\"", ",");
+                                    if (requiresLuckTest != null) {
+                                        choice.setRequiresLuckTest(Boolean.parseBoolean(requiresLuckTest.trim()));
+                                    }
 
-                            // Parse combatRequired if present
-                            String combatRequired = extractValue(choiceStr, "\"combatRequired\"", ",");
-                            if (combatRequired != null) {
-                                choice.setCombatRequired(Boolean.parseBoolean(combatRequired.trim()));
-                            }
+                                    // Parse combatRequired if present
+                                    String combatRequired = extractValue(choiceStr, "\"combatRequired\"", ",");
+                                    if (combatRequired != null) {
+                                        choice.setCombatRequired(Boolean.parseBoolean(combatRequired.trim()));
+                                    }
 
-                            chapter.addChoice(choice);
+                                    chapter.addChoice(choice);
+                                } catch (NumberFormatException e) {
+                                    // Skip invalid choice
+                                }
+                            }
                         }
                     }
                 }
@@ -143,6 +189,30 @@ public class ScenarioLoader {
             }
 
             return json.substring(startIndex, endIndex).trim();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static String extractBetween(String json, String startKey, String endStr) {
+        try {
+            int startIndex = json.indexOf(startKey);
+            if (startIndex == -1) return null;
+
+            startIndex = json.indexOf("{", startIndex);
+            if (startIndex == -1) return null;
+
+            int endIndex = startIndex;
+            int depth = 1;
+
+            while (depth > 0 && endIndex < json.length() - 1) {
+                endIndex++;
+                char c = json.charAt(endIndex);
+                if (c == '{') depth++;
+                else if (c == '}') depth--;
+            }
+
+            return json.substring(startIndex, endIndex + 1);
         } catch (Exception e) {
             return null;
         }
