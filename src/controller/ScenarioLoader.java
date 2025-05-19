@@ -53,12 +53,12 @@ public class ScenarioLoader {
                 int id = Integer.parseInt(idStr.trim());
 
                 // Parse chapter text
-                String text = extractValue(chapterStr, "\"text\"", "\"choices\"");
-                if (text != null && text.endsWith(",")) {
-                    text = text.substring(0, text.length() - 1);
+                String chapterText = extractValue(chapterStr, "\"text\"", "\"choices\"");
+                if (chapterText != null && chapterText.endsWith(",")) {
+                    chapterText = chapterText.substring(0, chapterText.length() - 1);
                 }
 
-                Chapter chapter = new Chapter(id, text);
+                Chapter chapter = new Chapter(id, chapterText);
 
                 // Parse endurance modifier if present
                 String enduranceModStr = extractValue(chapterStr, "\"enduranceModifier\"", ",");
@@ -90,10 +90,10 @@ public class ScenarioLoader {
                         if (luckTestStr.contains("\"success\"")) {
                             String successStr = extractBetween(luckTestStr, "\"success\"", "},");
                             if (successStr != null) {
-                                String text = extractValue(successStr, "\"text\"", ",");
+                                String outcomeText = extractValue(successStr, "\"text\"", ",");
                                 String modStr = extractValue(successStr, "\"enduranceModifier\"", "}");
-                                if (text != null && modStr != null) {
-                                    success = new LuckTestOutcome(text, Integer.parseInt(modStr.trim()));
+                                if (outcomeText != null && modStr != null) {
+                                    success = new LuckTestOutcome(outcomeText, Integer.parseInt(modStr.trim()));
                                 }
                             }
                         }
@@ -101,10 +101,10 @@ public class ScenarioLoader {
                         if (luckTestStr.contains("\"failure\"")) {
                             String failureStr = extractBetween(luckTestStr, "\"failure\"", "}");
                             if (failureStr != null) {
-                                String text = extractValue(failureStr, "\"text\"", ",");
+                                String outcomeText = extractValue(failureStr, "\"text\"", ",");
                                 String modStr = extractValue(failureStr, "\"enduranceModifier\"", "}");
-                                if (text != null && modStr != null) {
-                                    failure = new LuckTestOutcome(text, Integer.parseInt(modStr.trim()));
+                                if (outcomeText != null && modStr != null) {
+                                    failure = new LuckTestOutcome(outcomeText, Integer.parseInt(modStr.trim()));
                                 }
                             }
                         }
