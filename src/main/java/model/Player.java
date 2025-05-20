@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Player {
     private List<String> inventory;
@@ -13,14 +14,17 @@ public class Player {
     private int currentFear;
     private int maxLuck;
     private int currentLuck;
+    private Random random;
 
     public Player(int skill, int stamina, int luck) {
+        this.random = new Random();
         this.maxSkill = skill;
         this.currentSkill = skill;
         this.maxStamina = stamina;
         this.currentStamina = stamina;
-        this.maxFear = 10;
-        this.currentFear = 0;
+        // Initialize fear as per game rules: 1d6 + 6
+        this.maxFear = random.nextInt(6) + 1 + 6;
+        this.currentFear = 0; // Start with 0 fear
         this.maxLuck = luck;
         this.currentLuck = luck;
         this.inventory = new ArrayList<>();
@@ -83,6 +87,6 @@ public class Player {
     }
 
     public boolean isAlive() {
-        return currentStamina > 0;
+        return currentStamina > 0 && currentFear < maxFear;
     }
 }
