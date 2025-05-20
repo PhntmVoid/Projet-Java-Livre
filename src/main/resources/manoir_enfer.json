@@ -1375,6 +1375,202 @@
         }
       ]
     },
+    "4": {
+      "id": 4,
+      "text": "« Un visiteur, hein ? Et que pensez-vous de notre labyrinthe, cher ami ? Est-il suffisamment intéressant pour vous ? Vous y passez de bons moments?.. Dans la cage ! » Le bourreau resserre alors ses doigts autour de vos poignets et vous entraîne vers le coin gauche de la pièce. « Vous allez pouvoir constater la qualité de notre hospitalité, l'ami. Quelle sorte de logement préférez-vous ? Désirez-vous passer le reste de vos jours accroupi ou debout ? » Et, heureux de sa macabre plaisanterie, il éclate d'un rire démoniaque qui résonne dans la cave. Qu'allez-vous répondre?",
+      "choices": [
+        {
+          "text": "Choisir la cage haute",
+          "nextChapterId": 396
+        },
+        {
+          "text": "Choisir la petite cage",
+          "nextChapterId": 201
+        }
+      ]
+    },
+    "342": {
+      "id": 342,
+      "text": "La porte n'est pas fermée à clef mais les grognements et les cavalcades que vous entendez derrière elle ne présagent rien de bon. Vous devez agir avec précaution. Allez-vous vous éloigner de cette porte et examiner le passage dans lequel vous vous trouvez ou, au contraire, l'ouvrir à la volée et surgir dans la pièce ?",
+      "choices": [
+        {
+          "text": "S'éloigner de la porte et examiner le passage",
+          "nextChapterId": 60
+        },
+        {
+          "text": "Ouvrir la porte à la volée",
+          "nextChapterId": 14
+        }
+      ]
+    },
+    "60": {
+      "id": 60,
+      "text": "Il semble qu'il n'y ait pas d'autre moyen de sortir de ce passage. Même le panneau par lequel vous êtes arrivé s'est refermé. Sur le mur, vous remarquez cependant un bouton de sonnette. Et, en espérant qu'il vous permettra de trouver une autre issue, vous le pressez.",
+      "choices": [
+        {
+          "text": "Appuyer sur le bouton",
+          "nextChapterId": 7
+        }
+      ]
+    },
+    "7": {
+      "id": 7,
+      "text": "Lorsque vous pressez le bouton, aucun panneau ne se met à glisser, aucune entrée de passage secret ne se révèle, mais une sonnerie aiguë se déclenche et retentit à travers le Manoir. Vous vous prenez la tête à deux mains. Dans un instant, le Comte de Brume, ses serviteurs du diable et ses domestiques vous auront capturé. Et cette fois, vous n'aurez plus jamais l'occasion de vous échapper...",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    "14": {
+      "id": 14,
+      "text": "L'odeur abominable qui règne dans la pièce vous soulève le cœur, et vous cloue sur place. La pièce elle-même, taillée dans le roc, n'a rien de particulièrement remarquable. Mais les corps décapités de cinq boucs sont dispersés sur le sol et trois DANOIS GÉANTS se disputent rageusement les cadavres. A votre arrivée, ils se tournent vers vous, furieux d'avoir été interrompus dans leur festin. Leurs gueules écument et ils grognent avec hargne. L'un des molosses bondit sur vous, et vous devez le combattre.",
+      "enemy": {
+        "name": "DANOIS GÉANT",
+        "skill": 7,
+        "endurance": 5
+      },
+      "choices": [
+        {
+          "text": "Si vous êtes vainqueur",
+          "nextChapterId": 94
+        }
+      ]
+    },
+    "144": {
+      "id": 144,
+      "text": "« Qu'est ce que c'est ? » demande une voix. La porte n'est pas fermée et vous pouvez l'ouvrir si vous le désirez. Allez-vous pénétrer dans la pièce et tenter votre chance auprès de qui vous a répondu ? Vous pouvez aussi préférer ne pas prendre le risque d'être découvert ; vous marmonnez alors : « Désolé, c'est une erreur », et vous vous éloignez de la porte.",
+      "choices": [
+        {
+          "text": "Pénétrer dans la pièce",
+          "nextChapterId": 71
+        },
+        {
+          "text": "S'éloigner de la porte",
+          "nextChapterId": 278
+        }
+      ]
+    },
+    "71": {
+      "id": 71,
+      "text": "Vous ouvrez la porte, et vous jetez un coup d'œil à l'intérieur de la pièce. Le sol est couvert de poussière et les murs taillés dans le roc sont nus. Une table en bois grossier et une chaise sont poussées contre l'un des murs et, assis à cette table, vous voyez un petit homme à l'aspect tourmenté vêtu d'une toge blanche. Une tête de bouc est posée devant lui. « Bonjour, dit-il nerveusement, Salut au Maître. Je suis prêt à me repentir. Où en est la cérémonie ? Et, hum... est-ce mon tour maintenant ? » Il se penche alors vers vous et vous murmure : « Je ne suis pas pauvre. Aidez-moi à m'échapper de ce lieu et vous serez très généreusement récompensé.»",
+      "choices": [
+        {
+          "text": "Lui dire qui vous êtes",
+          "nextChapterId": 214
+        },
+        {
+          "text": "Le laisser continuer à parler sans émotion",
+          "nextChapterId": 334
+        }
+      ]
+    },
+    "214": {
+      "id": 214,
+      "text": "Vous lui racontez ce qui vous a amené jusqu'à lui, et vous lui dites que vous cherchez, vous aussi, à vous échapper du Manoir, non sans avoir fait disparaître le Comte de Brume et ses Serviteurs du Diable auparavant. En entendant cela, l'homme devient très excité. « Mon nom est Rafferty, dit-il ; j'ai rencontré suffisamment de démons en ces lieux, et je désire les chasser de ma vie à tout jamais. Peut-être pouvons-nous nous enfuir ensemble. Il y a une trappe secrète dans le plafond, dans ce coin de la pièce. Si vous voulez bien accepter de vous baisser, je vais grimper sur vos épaules et lorsque j'aurai franchi cette trappe, je pourrai ensuite vous hisser. »",
+      "choices": [
+        {
+          "text": "Suivre son plan",
+          "nextChapterId": 245
+        },
+        {
+          "text": "Refuser et continuer seul",
+          "nextChapterId": 202
+        }
+      ]
+    },
+    "334": {
+      "id": 334,
+      "text": "Votre regard glacial effraie quelque peu l'homme. « Je constate que vous êtes vraiment un fidèle serviteur du Maître, dit-il en pleurnichant. Je, euh.... J'ai tout simplement inventé cette histoire de récompense pour être certain d'avoir affaire à une personne honnête. Je suppose que mon heure est arrivée, n'est-ce pas ? » Il vous regarde misérablement, et tombe à genoux. Vous le contemplez sans dire un mot, et soudain son attitude change du tout au tout ! Avant que vous n'ayez pu l'en empêcher, il saisit une courte dague cachée sous sa toge et, la tenant à deux mains, il l'enfonce dans sa poitrine ! Horrifié vous le voyez s'effondrer puis s'immobiliser face contre terre. Tout ce que vous auriez pu apprendre de lui est perdu à tout jamais. En maugréant, vous quittez la pièce.",
+      "choices": [
+        {
+          "text": "Retourner dans le passage",
+          "nextChapterId": 278
+        }
+      ]
+    },
+    "106": {
+      "id": 106,
+      "text": "Vous prenez un peu d'élan, et vous vous précipitez sur la porte, l'épaule en avant. La porte tremble mais résiste et, en grimaçant, vous frottez votre épaule endolorie. Vous perdez 2 points d'ENDURANCE. Vous constatez alors que la porte est en chêne et qu'il ne vous serait pas possible de la briser à moins de vous blesser sérieusement.",
+      "enduranceModifier": -2,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 158
+        }
+      ]
+    },
+    "158": {
+      "id": 158,
+      "text": "Soudain, vous entendez un bruit de pas traînants qui s'approche de votre chambre. Les pas s'arrêtent devant la porte, et vous entendez le cliquetis d'une clef qui tourne dans la serrure ! Vous devez rapidement prendre une décision.",
+      "choices": [
+        {
+          "text": "Faire semblant de dormir",
+          "nextChapterId": 179
+        },
+        {
+          "text": "Se cacher derrière la porte",
+          "nextChapterId": 373
+        }
+      ]
+    },
+    "179": {
+      "id": 179,
+      "text": "Vous vous précipitez dans le lit dont vous tirez les draps sur vous, en gardant un œil entrouvert pour voir qui va pénétrer dans la pièce. La porte s'ouvre, et une silhouette ratatinée apparaît en tirant la jambe. On dirait un homme plié en deux, et marchant avec difficulté. Il porte un verre à la main qu'il dépose sur la table de chevet. Puis, il fait demi-tour, et se dirige vers la porte.",
+      "choices": [
+        {
+          "text": "Sauter du lit pour l’attaquer",
+          "nextChapterId": 399
+        },
+        {
+          "text": "Attendre et boire la tisane",
+          "nextChapterId": 45
+        }
+      ]
+    },
+    "373": {
+      "id": 373,
+      "text": "La porte s'ouvre lentement, et un homme portant un verre pénètre dans la pièce en traînant les pieds. Il semble plié en deux, et ses mouvements sont maladroits. Alors qu'il s'approche du lit, vous réalisez qu'il va bientôt se rendre compte que vous n'êtes pas là.",
+      "choices": [
+        {
+          "text": "Se glisser hors de la pièce",
+          "nextChapterId": 350
+        },
+        {
+          "text": "L’attaquer",
+          "nextChapterId": 399
+        }
+      ]
+    },
+    "350": {
+      "id": 350,
+      "text": "Vous vous trouvez sur un balcon qui domine le hall d'entrée. Sur votre droite, ce balcon se termine sur une porte. Sur votre gauche, il longe deux portes avant d'obliquer à droite.",
+      "choices": [
+        {
+          "text": "Prendre à droite",
+          "nextChapterId": 332
+        },
+        {
+          "text": "Prendre à gauche",
+          "nextChapterId": 257
+        }
+      ]
+    },
+    "399": {
+      "id": 399,
+      "text": "Votre visiteur est un BOSSU, et il est autant surpris qu'effrayé de vous voir bondir sur lui.",
+      "enemy": {
+        "name": "BOSSU",
+        "skill": 7,
+        "endurance": 7
+      },
+      "combatInstruction": "Dès que le total d'ENDURANCE de ce Bossu ne sera plus que de 4 (ou moins), rendez-vous au 220.",
+      "choices": []
+    },
+
+
+
     "-1": {
       "id": -1,
       "text": "Fin de la démo. Merci d'avoir joué à cette version simplifiée du Manoir de l'Enfer!"
