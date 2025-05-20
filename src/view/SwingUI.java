@@ -156,12 +156,11 @@ public class SwingUI {
     }
 
     private void createNewPlayer() {
-        // Default values
+        // Initial stats from the book
         int skill = 7;
         int stamina = 20;
         int luck = 7;
 
-        // Create player with initial stats
         Player player = new Player(skill, stamina, luck);
         controller = new GameController(controller.getScenario(), player);
     }
@@ -245,6 +244,14 @@ public class SwingUI {
         combatPanel.setBackground(DARK_GREY);
         combatPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        Enemy enemy = combat.getEnemy();
+        JLabel enemyStatsLabel = new JLabel(String.format(
+            "<html>Adversaire: %s<br>Habileté: %d<br>Endurance: %d</html>",
+            enemy.getName(), enemy.getSkill(), enemy.getEndurance()
+        ));
+        enemyStatsLabel.setForeground(WHITE);
+        enemyStatsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JLabel statusLabel = new JLabel("Combat en cours...");
         statusLabel.setForeground(WHITE);
         statusLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -277,6 +284,8 @@ public class SwingUI {
             updatePlayerStats();
         });
 
+        combatPanel.add(enemyStatsLabel);
+        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         combatPanel.add(statusLabel);
         combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         combatPanel.add(attackButton);
