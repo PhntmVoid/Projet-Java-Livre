@@ -248,7 +248,7 @@
     },
     {
       "id": 33,
-      "text": "Vous faites quelques pas jusqu'à une porte sur laquelle est inscrit Azazel. Vous pouvez essayer de l'ouvrir (rendez-vous au 358), mais vous pouvez également poursuivre votre chemin le long du balcon qui tourne bientôt sur la gauche (rendez-vous au 229).",
+      "text": "Vous faites quelques pas jusqu'à une porte sur laquelle est inscrit Azazel.",
       "choices": [
         {
           "text": "essayer d'ouvrir la porte Azazel",
@@ -713,6 +713,218 @@
         }
       ]
     },
+    {
+      "id": 86,
+      "text": "La porte s'ouvre sur un étroit passage, qui se termine par une fenêtre. À mi-chemin, dans le mur de gauche, vous apercevez une porte : la porte Diabolique.",
+      "choices": [
+        {
+          "text": "pénétrer dans la pièce Diabolique",
+          "nextChapterId": 13
+        },
+        {
+          "text": "vous diriger vers la fenêtre pour l'examiner",
+          "nextChapterId": 110
+        },
+        {
+          "text": "revenir sur le balcon et continuer à le suivre",
+          "nextChapterId": 193
+        }
+      ]
+    },
+    {
+      "id": 193,
+      "text": "Vous poursuivez votre chemin, et vous parvenez à l'escalier principal qui descend au rez-de-chaussée. Face à l'escalier se trouve une porte sur laquelle aucun nom n'est inscrit.",
+      "choices": [
+        {
+          "text": "prendre l'escalier pour gagner le rez-de-chaussée",
+          "nextChapterId": 132
+        },
+        {
+          "text": "vous diriger vers la porte",
+          "nextChapterId": 377
+        },
+        {
+          "text": "poursuivre votre chemin le long du balcon",
+          "nextChapterId": 233
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "text": "Vous essayez de tourner la poignée de la porte, mais elle est bloquée ! Vous êtes enfermé dans la pièce, et un frisson vous parcourt l'échine.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "examiner la boîte posée sur la cheminée",
+          "nextChapterId": 40
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "text": "La boîte laisse échapper un léger cliquetis lorsque vous la saisissez : quelque chose se trouve à l'intérieur ! Vous faites sauter la serrure, vous ouvrez le couvercle, et vous découvrez une petite clef que vous introduisez dans la serrure de la porte. La clef tourne : vous êtes libre ! Vous vous retrouvez dans le coin du balcon. Sur votre gauche, se trouve une porte sur laquelle ne figure aucune inscription, et vous apercevez devant vous l'escalier principal menant au rez-de-chaussée.",
+      "choices": [
+        {
+          "text": "pénétrer dans la pièce à votre gauche",
+          "nextChapterId": 86
+        },
+        {
+          "text": "descendre l'escalier",
+          "nextChapterId": 193
+        }
+      ]
+    },
+    {
+      "id": 114,
+      "text": "Vous pouvez maintenant quitter la pièce ou examiner la boîte posée sur le manteau de la cheminée.",
+      "choices": [
+        {
+          "text": "quitter la pièce",
+          "nextChapterId": 77
+        },
+        {
+          "text": "examiner la boîte",
+          "nextChapterId": 40
+        }
+      ]
+    },
+    {
+      "id": 236,
+      "text": "Asséné de derrière le rideau, un coup violent vous atteint en pleine poitrine et vous projette à terre.",
+      "enduranceModifier": -2,
+      "fearModifier": 2,
+      "enemy": {
+        "name": "ZOMBIE",
+        "skill": 7,
+        "endurance": 6
+      },
+      "choices": [
+        {
+          "text": "si vous êtes vainqueur",
+          "nextChapterId": 114
+        }
+      ]
+    },
+    {
+      "id": 249,
+      "text": "Avec prudence, vous vous dirigez vers les rideaux. Ils sont immobiles. Vous saisissez le rideau de gauche et vous le tirez brutalement. Vous découvrez une large baie vitrée qui est grillagée à l'extérieur. Rien n'est caché là. Vous attrapez alors l'autre rideau ; mais avant d'avoir pu esquisser un geste pour le tirer, vous voyez avec effroi les renflements que vous aviez remarqués prendre vie.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 236
+        }
+      ]
+    },
+    {
+      "id": 197,
+      "text": "Vous saisissez la petite boîte qui se trouve sur le manteau de la cheminée. Au moment où vous allez l'ouvrir, un bruissement provenant du rideau attire votre attention. Il se passe quelque chose d'étrange ! Vous reposez la boîte sur la cheminée, et vous vous dirigez vers les rideaux.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 236
+        }
+      ]
+    },
+    {
+      "id": 152,
+      "text": "Vous saisissez la poignée de la porte, mais elle ne tourne pas : la porte est verrouillée ! L'anxiété vous gagne. Comment faire pour quitter la pièce ?",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "vous diriger vers les rideaux",
+          "nextChapterId": 236
+        }
+      ]
+    },
+    {
+      "id": 358,
+      "text": "La porte s'ouvre, et vous pénétrez dans la pièce. Très vite, vous constatez avec soulagement que bien qu'elle soit encombrée d'objets hétéroclites, personne ne s'y trouve. Vous êtes certainement dans une espèce de laboratoire, car vous pouvez voir un télescope en cuivre dirigé vers le ciel, des formules mathématiques et des tables de logarithmes épinglées sur un mur, un squelette pendu à un crochet, et une table recouverte de cornues et d'éprouvettes diverses. Certains de ces objets pourraient figurer honorablement dans un musée ! car ils datent pour le moins du siècle dernier et sont certainement de grande valeur.",
+      "choices": [
+        {
+          "text": "explorer la pièce",
+          "nextChapterId": 117
+        },
+        {
+          "text": "quitter la pièce",
+          "nextChapterId": 11
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "text": "Vous pénétrez dans la pièce, et vous refermez la porte derrière vous. En constatant que vous êtes seul, vous poussez un soupir de soulagement, et vous vous adossez contre la porte pour reprendre votre souffle.",
+      "choices": [
+        {
+          "text": "vous reposer un peu",
+          "nextChapterId": 372
+        },
+        {
+          "text": "vous diriger vers la fenêtre",
+          "nextChapterId": 107
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "text": "Vous franchissez les quelques pas qui vous séparent de la fenêtre et, lentement, vous écartez les rideaux. Au-dehors, la tempête a redoublé. Le tonnerre gronde et des trombes d'eau sont projetées par le vent contre les vitres. Hélas pour vous, la fenêtre est pourvue de solides barreaux, et vous n'avez aucune chance de vous échapper par-là !",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 168
+        }
+      ]
+    },
+    {
+      "id": 168,
+      "text": "Soudain, une voix étouffée vous appelle par votre nom ! Vous bondissez contre le mur, et vous voyez avec terreur une forme se matérialiser au centre de la pièce. Une silhouette à l'aspect humain a traversé le mur ; ou plutôt, une silhouette à l'aspect vaguement humain... car elle est décapitée. Comme elle se matérialise devant vous, sa voix devient plus audible ; et cette voix provient d'une tête posée sur les mains de la répugnante apparition ! Le spectacle est d'autant plus affreux que le tapis commence à rougir du sang qui s'écoule lentement de la tête tranchée.",
+      "fearModifier": 2,
+      "choices": [
+        {
+          "text": "rester pour savoir ce que veut le fantôme",
+          "nextChapterId": 124
+        },
+        {
+          "text": "fuir immédiatement",
+          "nextChapterId": 382
+        }
+      ]
+    },
+    {
+      "id": 372,
+      "text": "Vous vous laissez tomber sur un lit en vous demandant comment diable vous allez pouvoir vous enfuir de ce maudit Manoir. Il semble que vous soyez en sécurité dans la pièce où vous vous trouvez maintenant, et cette halte vous redonne des forces.",
+      "enduranceModifier": 2,
+      "choices": [
+        {
+          "text": "jeter un coup d'œil à la fenêtre",
+          "nextChapterId": 168
+        }
+      ]
+    },
+    {
+      "id": 110,
+      "text": "Avec précaution, vous vous approchez de la fenêtre. Les rideaux sont tirés, et vous en tapotez les plis avec méfiance. Vous êtes soulagé en constatant qu'ils semblent ne rien dissimuler, mais vous restez cependant sur vos gardes en les tirant. Un coup de tonnerre vous fait alors sursauter. Rien de plus cependant ; la fenêtre que vous venez de découvrir paraît totalement inoffensive. Dommage seulement qu'elle soit pourvue à l'extérieur de solides barreaux ! En regardant au-dehors, vous constatez qu'il pleut toujours à verse mais, alors que le vent projette des trombes d'eau sur les vitres, vous remarquez un phénomène étrange : l'une des vitres semble épargnée par la pluie ! Peut-être est-elle à l'abri du vent ? Intrigué, vous vous baissez pour l'examiner sous un autre angle et vous distinguez alors clairement des mots tracés sur la buée qui la recouvre, trois mots, très exactement : « Mordana dans Abaddon. » Vous vous répétez plusieurs fois le message pour ne pas l'oublier, puis vous l'effacez afin que personne d'autre que vous n'en prenne connaissance. Peut-être vous sera-t-il utile à un moment ou à un autre (qui vous sera indiqué au cours de votre aventure) ; si vous utilisez alors ce message, vous vous rendrez au 88. Mais n'allez pas au 88 maintenant !",
+      "choices": [
+        {
+          "text": "retourner sur le balcon",
+          "nextChapterId": 193
+        }
+      ]
+    },
+    {
+      "id": 124,
+      "text": "« Prépare-toi à mourir, misérable mortel ! ricane la tête sans corps, car il est impossible d'échapper au Démon de ces lieux. Tu as été pris au piège du Manoir de Brume, et avant que le jour ne se lève, tu nous auras rejoints, moi et mes compagnons dans le monde de l'au-delà. Ton sort sera le nôtre, et à jamais ton âme errera dans cet univers de terreur qui aura causé ta perte. » Les derniers mots se perdent dans un rire sardonique qui fait trembler la pièce, un rire qui s'atténue peu à peu alors que l'apparition redevient floue et disparaît dans le mur.",
+      "fearModifier": 2,
+      "choices": [
+        {
+          "text": "quitter cette chambre maléfique",
+          "nextChapterId": 382
+        }
+      ]
+    },
+
+
+
+
     {
       "id": -1,
       "text": "Fin de la démo. Merci d'avoir joué à cette version simplifiée du Manoir de l'Enfer!"
