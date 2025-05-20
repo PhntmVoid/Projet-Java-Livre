@@ -1568,6 +1568,139 @@
       "combatInstruction": "Dès que le total d'ENDURANCE de ce Bossu ne sera plus que de 4 (ou moins), rendez-vous au 220.",
       "choices": []
     },
+    "304": {
+      "id": 304,
+      "text": "Trois portraits attirent plus particulièrement votre attention. Allez-vous vous intéresser à une jeune femme d'aspect agréable, portant une tiare, à un homme corpulent d'âge moyen et portant des lorgnons, ou à une femme âgée aux cheveux gris et à l'expression sévère ?",
+      "choices": [
+        {
+          "text": "Observer la jeune femme à la tiare",
+          "nextChapterId": 151
+        },
+        {
+          "text": "Observer l'homme corpulent",
+          "nextChapterId": 37
+        },
+        {
+          "text": "Observer la femme âgée",
+          "nextChapterId": 250
+        }
+      ]
+    },
+    "151": {
+      "id": 151,
+      "text": "Sous le portrait, se trouve une petite plaque de cuivre sur laquelle vous lisez : « Margaret de Danvers (1802-1834). » Vous regardez son visage avec émotion, en regrettant presque qu'elle soit morte si jeune. Mais alors que vous êtes fasciné par sa beauté, vous sursautez en écarquillant les yeux : avez-vous réellement vu ses lèvres frémir ? Mais non, c'est impossible. Et pourtant, il vous semble maintenant percevoir un chuchotement. Vous vous approchez, et vous collez une oreille sur la bouche peinte qui prononce alors ces mots : « Étranger, prends garde à ce lieu, car il est maudit ! Nombreux sont ceux qui ont succombé à ses maléfices. Je fais partie de ceux-là. Lord Kelnor, ce démon, a déjà prévu votre trépas. Surtout ne buvez pas de son vin blanc. Et si vous le pouvez encore, fuyez ! » Totalement abasourdi, vous faites un pas en arrière. Mais où donc avez-vous mis les pieds ? Dans une espèce de demeure en ruine que le moindre souffle de vent pourrait disloquer, renfermant des objets de la plus grande valeur ; et des peintures qui parlent ?... La terreur vous gagne.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "Vous précipiter vers la porte",
+          "nextChapterId": 391
+        },
+        {
+          "text": "Attendre pour voir ce qui peut encore arriver",
+          "nextChapterId": 277
+        }
+      ]
+    },
+    "37": {
+      "id": 37,
+      "text": "Une plaquette fixée sous le tableau vous indique que vous vous tenez devant le Duc de Brewster (1763-1828). Un personnage d'une élégance raffinée ! Mais soudain vous faites un bond en arrière : vous pourriez jurer que les yeux du Duc ont bougé ! Très vite, vous avez la confirmation de votre doute : les yeux du portrait bougent, et cherchent à attirer votre attention sur l'une des portes du hall. Mais que vous arrive-t-il ? Votre voiture tombe en panne en pleine campagne, puis vous vous retrouvez dans une maison à moitié abandonnée et pourtant luxueuse, dont les tableaux s'animent...",
+      "choices": [
+        {
+          "text": "Regagner votre fauteuil",
+          "nextChapterId": 277
+        },
+        {
+          "text": "Vous diriger vers la porte indiquée",
+          "nextChapterId": 391
+        },
+        {
+          "text": "Observer un autre portrait",
+          "nextChapterId": 250
+        }
+      ]
+    },
+    "250": {
+      "id": 250,
+      "text": "Vous vous approchez d'un portrait sous lequel figure la mention « Duchesse de Brewster (1777-1845). » Il représente une femme âgée d'aspect sévère, et au regard glacial ; une femme à n'en pas douter d'origine noble. Mais alors que vous le regardez, le portrait semble frémir. Vous clignez des yeux, et vous essayez de détourner votre regard. Impossible ! De légers frémissements agitent le visage peint et, bouche bée, vous voyez ses yeux se tourner vers vous. Ses lèvres remuent alors, et une voix vous déclare : « Étranger, sans le savoir, vous avez pénétré dans un endroit maudit, et j'aimerais pouvoir vous prier de vous en éloigner. Mais hélas ! vous ne pouvez vous échapper. Le mal et la douleur règnent en ces lieux que vous ne pourrez quitter que si vous les faites disparaître. Mais cela est presque impossible également. Je peux cependant vous révéler ceci : écoutez attentivement. Vous avez un allié dans cette Maison ; un allié qui peut vous aider. Il est vêtu d'une toge grise, et ensemble, vous pouvez libérer le Manoir de l'emprise du diable qui l'habite. » A ces mots, le frissonnement cesse.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "Retourner à votre place",
+          "nextChapterId": 277
+        }
+      ]
+    },
+    "345": {
+      "id": 345,
+      "text": "La fenêtre éclairée est proche d'une petite porte donnant sur une cuisine. Des voix proviennent de l'intérieur de la pièce, mais vous ne pouvez apercevoir les interlocuteurs qui doivent se tenir contre le mur, hors de votre champ de vision.\n\nVous tendez l'oreille pour essayer de saisir quelques mots de la conversation. Il semble qu'il y ait deux personnes dans la cuisine, et elles parlent avec excitation : « ... Le Maître est prêt, et je commence à être impatient, car c'est la première fois que je participe à cela. Êtes-vous vraiment sûr qu'il va venir ? » Une autre voix d'homme répond plus calmement : « Cette affaire m'inquiète. Elle est si jeune ! De plus, elle est arrivée ici en toute innocence. Je ne sais vraiment pas... » Les deux hommes font quelques pas dans la cuisine, et vous pouvez enfin les voir. Tous deux sont vêtus de toges blanches, et l'un est beaucoup plus jeune que l'autre.",
+      "choices": [
+        {
+          "text": "Frapper à la porte",
+          "nextChapterId": 207
+        },
+        {
+          "text": "Rester caché pour en apprendre davantage",
+          "nextChapterId": 68
+        }
+      ]
+    },
+    "220": {
+      "id": 220,
+      "text": "« Grâce ! grâce ! » crie le Bossu. La pauvre créature vous fait tellement pitié que vous faites quelques pas en arrière alors qu'elle tombe à genoux devant vous. Le Bossu est maintenant inoffensif et il se perd en remerciements pour lui avoir laissé la vie sauve.",
+      "choices": [
+        {
+          "text": "Quitter la pièce en enfermant le Bossu",
+          "nextChapterId": 350
+        },
+        {
+          "text": "Lui poser des questions",
+          "nextChapterId": 234
+        }
+      ]
+    },
+    "234": {
+      "id": 234,
+      "text": "Complètement épouvanté, il accepte de répondre à vos questions pour sauver sa pauvre vie. Allez-vous lui demander :",
+      "choices": [
+        {
+          "text": "Comment vous enfuir du Manoir",
+          "nextChapterId": 258
+        },
+        {
+          "text": "Des renseignements sur les habitants du Manoir",
+          "nextChapterId": 308
+        },
+        {
+          "text": "Ce qui se passe dans le Manoir",
+          "nextChapterId": 325
+        }
+      ]
+    },
+    "258": {
+      "id": 258,
+      "text": "« Vous enfuir ? dit-il en gémissant. On ne peut quitter le Manoir que si le Maître le permet. Mais comme vous avez été bon, très bon avec lui, Shekou va vous aider. À condition que le Maître n'en sache rien. Jurez-moi que vous ne lui direz rien. » Vous lui jurez tout ce qu'il veut, et il vous fait signe de le suivre hors de la pièce, sur un balcon qui surplombe le hall d'entrée. Le Bossu vous montre alors un escalier qui se trouve face à vous, de l'autre côté du hall. « Si vous descendez par cet escalier, vous pourrez ensuite gagner la porte d'entrée, dit-il. Peut-être le Maître l'a-t-il verrouillée, mais je ne le pense pas. Faites vite ! » Avec prudence, vous suivez le balcon en direction de l'escalier. Shekou, qui ne peut marcher aussi vite que vous, vous suit à quelque distance. Vous tournez à droite, puis de nouveau à droite, et vous finissez par atteindre le sommet de l'escalier. Mais en vous retournant, vous constatez que le Bossu n'est plus là ! Vous êtes passé devant de nombreuses portes : par laquelle a-t-il disparu ? Est-il allé prévenir le Maître de vos intentions ?",
+      "choices": [
+        {
+          "text": "Descendre l'escalier",
+          "nextChapterId": 132
+        },
+        {
+          "text": "Essayer une des pièces du premier étage",
+          "nextChapterId": 282
+        }
+      ]
+    },
+    "308": {
+      "id": 308,
+      "text": "« Les habitants ? demande-t-il. Ah, oui ! les habitants bien sûr. Cette nuit est la nuit. C'est la raison pour laquelle il y a tellement de monde ici. Cette nuit, le Maître va accomplir une chose tout à fait exceptionnelle, et tous ses amis sont là. Car tous sont ses amis, à l'exception, cependant, de l'homme en gris. Celui-là a trahi la confiance du Maître, et pour cela, il sera puni. Oui, puni avant que la nuit s'achève. Le Maître l'a enfermé dans la chambre Asmodeus, et il m'a promis de m'en laisser la garde. Vous n'avez rien à craindre si vous êtes un ami du Maître. Vous êtes un de ses amis, n'est-ce pas ? Peut-être vous laissera-t-il garder le prisonnier vous aussi ? » A la pensée des festivités de la nuit, le Bossu éclate d'un rire stupide.",
+      "choices": [
+        {
+          "text": "Quitter la pièce en enfermant le Bossu",
+          "nextChapterId": 350
+        }
+      ]
+    },
+
 
 
 
