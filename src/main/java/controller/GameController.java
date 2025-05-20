@@ -77,14 +77,15 @@ public class GameController {
         }
 
         // Handle luck test if required
+        boolean luckTestPassed = true;
         if (choice.isRequiresLuckTest()) {
-            boolean isLucky = testLuck();
+            luckTestPassed = testLuck();
             LuckTest luckTest = current.getLuckTest();
             if (luckTest != null) {
-                if (isLucky && luckTest.getSuccess() != null) {
+                if (luckTestPassed && luckTest.getSuccess() != null) {
                     LuckTestOutcome success = luckTest.getSuccess();
                     player.modifyStamina(success.getEnduranceModifier());
-                } else if (!isLucky && luckTest.getFailure() != null) {
+                } else if (!luckTestPassed && luckTest.getFailure() != null) {
                     LuckTestOutcome failure = luckTest.getFailure();
                     player.modifyStamina(failure.getEnduranceModifier());
                 }
@@ -106,6 +107,7 @@ public class GameController {
             currentCombat = null;
         }
 
+        // Determine next chapter based on luck test result if applicable
         int nextChapterId = choice.getNextChapterId();
         Chapter nextChapter = scenario.getChapter(nextChapterId);
 
