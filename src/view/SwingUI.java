@@ -1,5 +1,8 @@
+package view;
+
 import controller.GameController;
 import model.*;
+import model.Choice;
 
 import javax.swing.*;
 import java.awt.*;
@@ -194,8 +197,8 @@ public class SwingUI {
             int finalSkill = Integer.parseInt(skillLabel.getText().split(": ")[1]);
             int finalStamina = Integer.parseInt(staminaLabel.getText().split(": ")[1]);
             int finalLuck = Integer.parseInt(luckLabel.getText().split(": ")[1]);
-            
-            controller = new GameController(controller.getScenario(), 
+
+            controller = new GameController(controller.getScenario(),
                 new Player(finalSkill, finalStamina, finalLuck));
             dialog.dispose();
             showGameScreen();
@@ -416,7 +419,7 @@ public class SwingUI {
         enemyLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         enemyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel statsLabel = new JLabel(String.format("Habileté: %d, Endurance: %d", 
+        JLabel statsLabel = new JLabel(String.format("Habileté: %d, Endurance: %d",
             enemy.getSkill(), enemy.getEndurance()));
         statsLabel.setForeground(WHITE);
         statsLabel.setFont(STATS_FONT);
@@ -436,12 +439,12 @@ public class SwingUI {
         attackButton.setMaximumSize(new Dimension(200, 40));
 
         Combat combat = new Combat(controller.getPlayer(), enemy);
-        
+
         attackButton.addActionListener(e -> {
             CombatResult result = combat.executeRound();
             combatLog.append(result.getMessage() + "\n");
             combatLog.setCaretPosition(combatLog.getDocument().getLength());
-            
+
             if (combat.isOver()) {
                 attackButton.setEnabled(false);
                 if (combat.playerWon()) {
@@ -449,7 +452,7 @@ public class SwingUI {
                 } else {
                     combatLog.append("\nVous avez été vaincu...\n");
                 }
-                
+
                 Timer timer = new Timer(2000, event -> {
                     combatDialog.dispose();
                     updateGameScreen();
@@ -457,7 +460,7 @@ public class SwingUI {
                 timer.setRepeats(false);
                 timer.start();
             }
-            
+
             updatePlayerStats();
         });
 
