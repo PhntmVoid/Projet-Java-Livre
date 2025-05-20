@@ -27,20 +27,14 @@ public class Chapter {
     public int getEnduranceModifier() { return enduranceModifier; }
     public int getFearModifier() { return fearModifier; }
     public LuckTest getLuckTest() { return luckTest; }
+    public Enemy getEnemy() { return enemy; }
 
     public void setEnduranceModifier(int modifier) { this.enduranceModifier = modifier; }
     public void setFearModifier(int modifier) { this.fearModifier = modifier; }
     public void setLuckTest(LuckTest test) { this.luckTest = test; }
+    public void setEnemy(Enemy enemy) { this.enemy = enemy; }
 
     public void addChoice(Choice choice) {
         choices.add(choice);
-    }
-
-    public Enemy getEnemy() {
-        return enemy;
-    }
-
-    public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
     }
 }

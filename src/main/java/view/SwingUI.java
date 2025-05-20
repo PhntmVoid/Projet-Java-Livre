@@ -300,7 +300,7 @@ public class SwingUI {
 
         addStatBar("Habileté", player.getCurrentSkill(), player.getMaxSkill());
         addStatBar("Endurance", player.getCurrentStamina(), player.getMaxStamina());
-        addStatBar("Chance", player.getLuck(), 10);
+        addStatBar("Chance", player.getLuck(), player.getMaxLuck());
         addStatBar("Peur", player.getCurrentFear(), player.getMaxFear());
 
         JLabel inventoryTitle = new JLabel("INVENTAIRE", SwingConstants.CENTER);
@@ -438,7 +438,7 @@ public class SwingUI {
         attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         attackButton.setMaximumSize(new Dimension(200, 40));
 
-        Combat combat = new Combat(controller.getPlayer(), enemy);
+        Combat combat = controller.getCurrentCombat();
 
         attackButton.addActionListener(e -> {
             CombatResult result = combat.executeRound();
@@ -507,7 +507,9 @@ public class SwingUI {
                     choiceButton.addActionListener(e -> {
                         if (choice.isCombatRequired()) {
                             Enemy enemy = currentChapter.getEnemy();
-                            handleCombat(enemy);
+                            if (enemy != null) {
+                                handleCombat(enemy);
+                            }
                         }
                         controller.makeChoice(choiceIndex);
                         updateGameScreen();
