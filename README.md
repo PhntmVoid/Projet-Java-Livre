@@ -145,54 +145,8 @@ src/
 - Gestion des erreurs
 - Extensibilité
 
-## Configuration et Déploiement
-
-### Prérequis
-- JDK 17+
-- Gradle 8.10+
-- 512MB RAM minimum
-- Résolution d'écran 800x600 minimum
-
 ### Installation
 1. Cloner le dépôt
 2. Compiler avec Gradle
 3. Exécuter le jeu
 
-### Options de Lancement
-- `--text` : Mode console
-- `--debug` : Mode débogage
-- `--load <save>` : Charger une sauvegarde
-
-## Tests et Qualité
-
-### Tests Unitaires
-- JUnit 5
-- Couverture > 80%
-- Tests d'intégration
-- Tests de performance
-
-### Assurance Qualité
-- Checkstyle
-- PMD
-- SpotBugs
-- SonarQube
-
-## Évolutions Futures
-
-### Court Terme
-- [ ] Système de quêtes
-- [ ] Plus de scénarios
-- [ ] Amélioration des combats
-- [ ] Interface améliorée
-
-### Long Terme
-- [ ] Mode multijoueur
-- [ ] Éditeur de scénarios
-- [ ] Système de progression
-- [ ] Achievements
-
-### Améliorations Techniques
-- [ ] Migration vers JavaFX
-- [ ] Base de données pour les sauvegardes
-- [ ] API REST pour les scénarios
-- [ ] Support mobile
