@@ -1700,7 +1700,478 @@
         }
       ]
     },
+    "311": {
+      "id": 311,
+      "text": "Sur les pages du livre sont représentés des portraits d'aristocrates, qui ont été peints, très certainement, voilà quelques siècles. Le volume vaut, à n'en pas douter, une petite fortune. Vous pouvez l'emporter avec vous si vous le désirez (notez-le alors sur votre Feuille d'Aventure). Vous pouvez maintenant quitter le bureau.",
+      "choices": [
+        {
+          "text": "quitter le bureau",
+          "nextChapterId": 54
+        }
+      ]
+    },
+    "312": {
+      "id": 312,
+      "text": "Vous ouvrez la porte, et vous pénétrez dans une pièce dont l'aspect vous fait penser qu'elle n'est pas souvent utilisée. Peut-être êtes-vous d'ailleurs dans une espèce de resserre, car des draps blancs recouvrent des meubles ainsi que des objets de forme carrée qui ressemblent à de grandes boîtes.",
+      "choices": [
+        {
+          "text": "prendre un peu de repos dans cette pièce",
+          "nextChapterId": 261
+        },
+        {
+          "text": "soulever les draps pour voir ce qu'ils cachent",
+          "nextChapterId": 167
+        }
+      ]
+    },
+    "313": {
+      "id": 313,
+      "text": "L'homme hésite, et il vous considère avec méfiance. Vous lui dites alors que vous ne lui voulez aucun mal, et que vous cherchez seulement le moyen de sortir de ce Manoir. « Idiot ! hurle-t-il. Vous imaginez que je vais croire ce mensonge ridicule ? Vous êtes l'un d'eux ; et s'ils veulent me punir, qu'ils sachent bien que cela leur coûtera très cher ! » A ces mots, il s'avance vers vous.",
+      "choices": [
+        {
+          "text": "essayer de le persuader que vous n'êtes pas l'un d'eux",
+          "nextChapterId": 34
+        },
+        {
+          "text": "lui demander ce qui pourrait le convaincre de votre sincérité",
+          "nextChapterId": 300
+        },
+        {
+          "text": "bondir sur lui pour lui porter le premier un coup",
+          "nextChapterId": 271
+        }
+      ]
+    },
 
+    "315": {
+      "id": 315,
+      "text": "« Très bien Orville, dit le bourreau. Cela suffit pour le moment. » Il se tourne alors vers vous. Avez-vous été convaincant ? Face à chacune des cinq lettres que vous a données Orville, il a lui-même noté les différents mots concernant le Manoir que vous auriez pu trouver. Chacun de ces mots vaut un certain nombre de points, et chaque fois que vous aurez choisi l'un d'eux, vous inscrirez sur votre feuille le nombre de points qui lui correspond. Lorsque vous aurez vérifié vos réponses et fait le total de vos points, vous saurez alors si vous avez réussi à convaincre le bourreau.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 235
+        }
+      ]
+    },
+    "316": {
+      "id": 316,
+      "text": "Deux nouvelles portes se font face dans le corridor, qui se termine en cul-de-sac.",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir la porte de gauche",
+          "nextChapterId": 205
+        },
+        {
+          "text": "essayer d'ouvrir la porte de droite",
+          "nextChapterId": 118
+        }
+      ]
+    },
+    "318": {
+      "id": 318,
+      "text": "Quelques instants plus tard, Franklin, le majordome, pénètre dans la salle à manger. Il semble stupéfait de vous voir là. Vous demandez à parler au Maître du Manoir et, après s'être légèrement incliné, il disparaît. Dix minutes plus tard, le Comte de Brume, le visage crispé de colère, fait irruption dans la pièce, Franklin sur les talons. Ils se tiennent face à vous, de l'autre côté de la table, et vous fixent avec la plus grande attention.\n« Pourquoi me déranger à cette heure de la nuit ? » demande le Comte d'une voix autoritaire. Vous répondez que vous n'ignorez rien du Manoir, de ses habitants, et des pratiques infernales qui s'y trament. Vous ajoutez que vous avez décidé d'y mettre un terme en le faisant disparaître, lui, le Comte de Brume. Les deux hommes échangent un regard, hochent la tête, et portent de nouveau les yeux sur vous. Puis ils s'avancent vers vous, chacun par un côté de la table. Le Comte est à votre gauche, son majordome à votre droite.",
+      "choices": [
+        {
+          "text": "affronter le Comte",
+          "nextChapterId": 30
+        },
+        {
+          "text": "affronter Franklin",
+          "nextChapterId": 351
+        }
+      ]
+    },
+
+    "320": {
+      "id": 320,
+      "text": "Vous vous glissez sous l'escalier en faisant de grands moulinets avec vos bras pour chasser les Chauves-Souris. Bientôt, comme elles ne peuvent vous atteindre, elles ne vous prêtent plus attention et regagnent le coin de la pièce d'où elles étaient venues. Tout est calme maintenant, et vous pouvez réfléchir à ce que vous allez faire.",
+      "choices": [
+        {
+          "text": "gravir l'escalier",
+          "nextChapterId": 293
+        },
+        {
+          "text": "rester dans la pièce pour l'explorer",
+          "nextChapterId": 330
+        }
+      ]
+    },
+    "321": {
+      "id": 321,
+      "text": "«Je peux répondre à votre question, dit-elle, mais à une condition : connaissez-vous mon nom ? » Si vous connaissez le nom de cette vieille femme, vous avez noté à son côté, sur votre Feuille d'Aventure, le numéro du paragraphe auquel vous devez vous rendre maintenant. Si, en revanche, vous ignorez son nom, elle restera muette à toute question que vous lui poserez, quel que soit le sort que vous réserverez à ses plantes.",
+      "choices": [
+        {
+          "text": "vous ne connaissez pas son nom",
+          "nextChapterId": 159
+        }
+      ]
+    },
+    "323": {
+      "id": 323,
+      "text": "La porte est fermée à clef. Vous remarquez que la serrure et la poignée sont d'une seule et même pièce de métal. Possédez-vous une Clef en Fonte ?",
+      "choices": [
+        {
+          "text": "vous avez la Clef en Fonte (suivre l'instruction dans le texte)",
+          "nextChapterId": null
+        },
+        {
+          "text": "vous n'avez pas la Clef en Fonte",
+          "nextChapterId": 118
+        }
+      ]
+    },
+    "324": {
+      "id": 324,
+      "text": "Vous vous approchez de la table que vous examinez sous tous les angles. En regardant dessous, vous constatez qu'elle a l'apparence d'une boîte, ce qui éveille votre curiosité. Vous la tapotez, et elle rend un son creux ; peut-être s'agit-il d'un compartiment secret ? Vous passez vos doigts sous la table et vous finissez par découvrir un petit mécanisme qui libère un tiroir. À l'intérieur de ce tiroir se trouve un coffret de cuir. Mais attention ! Quel est ce bruit ? Très certainement des pas qui se rapprochent de la porte... Il faut vous cacher rapidement...",
+      "choices": [
+        {
+          "text": "prendre le coffret avec vous",
+          "nextChapterId": 147
+        },
+        {
+          "text": "le laisser et refermer le tiroir",
+          "nextChapterId": 100
+        }
+      ]
+    },
+    "325": {
+      "id": 325,
+      "text": "« Ce qui va se passer ? dit-il avec surprise, mais vous le savez ! N'êtes-vous pas venu pour cela ? Cette nuit, Frère Meyna'ch va être investi des Pouvoirs. » Votre perplexité surprend le Bossu, qui comprend soudain que jamais il n'aurait dû vous dire cela. « Vous n'êtes pas un ami du Maître, n'est-ce pas ? Imbécile que je suis ! j'aurais dû m'en douter. Le Maître va me punir... Il faut que je le prévienne, et vite ! » Il se dirige en boitillant vers la porte, mais vous êtes trop rapide pour lui : vous le jetez à terre, et bondissez hors de la pièce en refermant la porte à clef derrière vous.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 350
+        }
+      ]
+    },
+    "326": {
+      "id": 326,
+      "text": "L'homme déploie sa cape ; il vous regarde droit dans les yeux, et l'éclat de ses pupilles noires semble vous transpercer. Pris de terreur, vous essayez d'échapper à l'implacable regard, en vain. Vous êtes en son pouvoir. L'homme étend sa cape sur vous, et vous ressentez une douleur aiguë quand ses dents de vampire s'enfoncent dans votre cou. Ce sera votre dernier souvenir.",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    "327": {
+      "id": 327,
+      "text": "Vous saisissez la poignée de la porte et vous la tournez. Mais la porte ne s'ouvre pas car elle est verrouillée, et la clef ne semble pas se trouver à proximité... à moins que...",
+      "choices": [
+        {
+          "text": "vous emparer du trousseau au-dessus de la cuisinière",
+          "nextChapterId": 148
+        },
+        {
+          "text": "vous diriger vers l'autre porte",
+          "nextChapterId": 126
+        }
+      ]
+    },
+    "328": {
+      "id": 328,
+      "text": "Vous bondissez au milieu de l'assistance en poussant un cri terrifiant. La jeune femme tourne des yeux pleins d'espoir vers vous. Votre audacieuse tentative est tout à fait louable, mais totalement stupide. Car comment espérez-vous pouvoir venir à bout de quarante adversaires ? Vous êtes bientôt entouré, réduit à l'impuissance, et le couteau du prêtre s'enfonce dans votre gorge. Vous êtes mort en héros !",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    "329": {
+      "id": 329,
+      "text": "Vous pouvez maintenant essayer d'ouvrir la porte Abaddon qui se trouve face à vous, ou regagner l'escalier, et le descendre jusqu'au rez-de-chaussée.",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir la porte Abaddon",
+          "nextChapterId": 335
+        },
+        {
+          "text": "descendre jusqu'au rez-de-chaussée",
+          "nextChapterId": 132
+        }
+      ]
+    },
+    "330": {
+      "id": 330,
+      "text": "À quoi allez-vous vous intéresser tout d'abord ?",
+      "choices": [
+        {
+          "text": "au coin de la pièce où sont les Chauves-Souris",
+          "nextChapterId": 165
+        },
+        {
+          "text": "au mur du fond",
+          "nextChapterId": 356
+        },
+        {
+          "text": "à ce qui peut se trouver sous l'escalier",
+          "nextChapterId": 61
+        }
+      ]
+    },
+    "331": {
+      "id": 331,
+      "text": "Vous vous débattez contre le pouvoir qui émane du livre, mais sa force est plus puissante que la vôtre. Peu à peu, votre volonté est submergée par le maléfice et, comme vous glissez sur le sol, votre esprit est aspiré hors de votre corps vers l'oeil du livre. Comme les autres victimes qui sont déjà tombées en son pouvoir, vous êtes condamné à une éternelle agonie, pris au piège de la pupille de l'Œil Hypnotique.",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    "335": {
+      "id": 335,
+      "text": "La porte s'ouvre sur une chambre à coucher, éclairée par une simple bougie posée sur une table de chevet. Une lourde odeur flotte dans l'air, provenant certainement de plantes qui sont posées sur tous les meubles. Aucun doute : l'occupant de cette chambre est un grand ami des végétaux ! Mais soudain, vous vous immobilisez : endormie dans le lit que vous n'aviez pas remarqué au premier abord, se trouve une femme âgée. Et elle ne vous a certainement pas entendu entrer, puisqu'elle continue à dormir profondément.",
+      "choices": [
+        {
+          "text": "la laisser dormir",
+          "nextChapterId": 159
+        },
+        {
+          "text": "vous diriger vers elle pour l’éveiller",
+          "nextChapterId": 139
+        },
+        {
+          "text": "bondir sur elle et l’attaquer",
+          "nextChapterId": 354
+        }
+      ]
+    },
+    "336": {
+      "id": 336,
+      "text": "Vous rattrapez le majordome dans un coin de la pièce, et vous vous préparez à le combattre. Si vous possédez le Poignard Malais, le Kriss, vous ajoutez 3 points à votre total d'HABILETÉ.",
+      "enemy": {
+        "name": "FRANKLIN",
+        "skill": 8,
+        "endurance": 8
+      },
+      "combatInstruction": "Lorsque vous aurez infligé une première blessure à Franklin",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 181
+        }
+      ]
+    },
+    "337": {
+      "id": 337,
+      "text": "Vous vous dirigez vers la cheminée, sur laquelle sont disposés des bibelots. Deux boîtes laquées et un cadre vide entourent un pot dans lequel pousse une plante aux larges feuilles. Dans l'âtre, où un feu de charbon a été préparé, quelque chose attire votre attention : une photographie en noir et blanc a été jetée sur le charbon.",
+      "choices": [
+        {
+          "text": "ouvrir les boîtes",
+          "nextChapterId": 242
+        },
+        {
+          "text": "vous intéresser à la photographie",
+          "nextChapterId": 199
+        }
+      ]
+    },
+    "338": {
+      "id": 338,
+      "text": "La table de chevet attire tout particulièrement votre attention. En effet, sur un plateau d'argent sont disposés du pain, de la confiture et une théière. Après avoir considéré le plateau avec attention, vous vous asseyez sur le lit, et vous faites un délicieux repas !",
+      "enduranceModifier": 4,
+      "luckModifier": 1,
+      "choices": [
+        {
+          "text": "quitter la pièce",
+          "nextChapterId": 243
+        }
+      ]
+    },
+    "339": {
+      "id": 339,
+      "text": "Vous vous trouvez face à deux portes dont chacune porte un nom gravé sur une petite plaque. Devant vous se trouve la porte Asmodeus, et sur votre droite, la porte Eblis.",
+      "choices": [
+        {
+          "text": "ouvrir la porte Asmodeus",
+          "nextChapterId": 154
+        },
+        {
+          "text": "ouvrir la porte Eblis",
+          "nextChapterId": 125
+        },
+        {
+          "text": "suivre le passage qui tourne à gauche",
+          "nextChapterId": 252
+        }
+      ]
+    },
+    "340": {
+      "id": 340,
+      "text": "Vous examinez le sol tout autour de vous, mais vos mains ne rencontrent que de la paille et de la terre. Un bruit de pas traînants provenant de l'autre côté de la porte, vous rappelle tout à coup que vous allez avoir de la visite !",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 263
+        }
+      ]
+    },
+    "341": {
+      "id": 341,
+      "text": "A l'extrémité de la table, se trouvent quatre éprouvettes disposées dans un râtelier. Chacune d'elles est pleine d'un liquide coloré ; très certainement c'est là le résultat d'expériences. Voulez-vous prendre le risque d'avaler une petite gorgée de l'un ou l'autre des liquides ?",
+      "choices": [
+        {
+          "text": "le liquide vert",
+          "nextChapterId": 149
+        },
+        {
+          "text": "le liquide rouge",
+          "nextChapterId": 274
+        },
+        {
+          "text": "le liquide clair",
+          "nextChapterId": 256
+        },
+        {
+          "text": "le liquide jaune",
+          "nextChapterId": 161
+        },
+        {
+          "text": "examiner les tiroirs de la table",
+          "nextChapterId": 81
+        },
+        {
+          "text": "examiner les armoires",
+          "nextChapterId": 371
+        }
+      ]
+    },
+
+
+    "344": {
+      "id": 344,
+      "text": "La porte est fermée. Très certainement l'occupant de la pièce ne désire-t-il pas être importuné !",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir la porte opposée",
+          "nextChapterId": 209
+        },
+        {
+          "text": "poursuivre votre chemin le long du passage",
+          "nextChapterId": 91
+        }
+      ]
+    },
+    "346": {
+      "id": 346,
+      "text": "Comment faire pour vous enfuir? Vous devez tout d'abord revenir sur vos pas le long du balcon, puis tourner à droite.",
+      "choices": [
+        {
+          "text": "vous déplacer avec prudence",
+          "nextChapterId": 257
+        },
+        {
+          "text": "vous ruer vers l’escalier",
+          "nextChapterId": 132
+        }
+      ]
+    },
+
+    "348": {
+      "id": 348,
+      "text": "Vous vous libérez de l'oreiller, et vous sautez du lit en haletant. Était-ce seulement le fruit de votre imagination, ou la literie a-t-elle vraiment voulu vous étouffer ? De toute évidence, vous n’êtes pas le bienvenu dans cette pièce. Aussi, vous vous habillez rapidement, et vous regagnez le balcon.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 121
+        }
+      ]
+    },
+    "349": {
+      "id": 349,
+      "text": "Vous patientez jusqu'à ce que la salle de réception redevienne silencieuse, puis vous traversez avec précaution le miroir. La voie est libre. Vous vous dirigez vers la porte, et vous quittez cette pièce.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 131
+        }
+      ]
+    },
+
+    "351": {
+      "id": 351,
+      "text": "Vous vous tournez vers le majordome. Il s’arrête et fait un pas en arrière. Vous avancez vers lui : il fait alors demi-tour, et s’enfuit en contournant la table. « Franklin, hurle le Comte, attaque-le. » Le majordome sursaute nerveusement.",
+      "choices": [
+        {
+          "text": "le poursuivre",
+          "nextChapterId": 336
+        },
+        {
+          "text": "vous désintéresser de lui pour attaquer le Comte",
+          "nextChapterId": 30
+        }
+      ]
+    },
+
+    "353": {
+      "id": 353,
+      "text": "La porte s'ouvre sur un vaste et agréable salon. Des braises rougeoient dans la cheminée, devant laquelle deux confortables fauteuils entourent une petite table, sur laquelle sont posés deux verres et une carafe. De grands pots où poussent des plantes sont disposés de part et d'autre de la fenêtre, et vous remarquez une porte située non loin de celle par laquelle vous êtes entré.",
+      "choices": [
+        {
+          "text": "explorer le salon",
+          "nextChapterId": 119
+        },
+        {
+          "text": "essayer d’ouvrir l’autre porte",
+          "nextChapterId": 218
+        },
+        {
+          "text": "vous intéresser au contenu de la carafe",
+          "nextChapterId": 292
+        }
+      ]
+    },
+    "354": {
+      "id": 354,
+      "text": "Vous vous avancez vers le lit, dans lequel la vieille femme reste parfaitement immobile. Prêt à toute éventualité, vous retenez votre souffle et vous bandez vos muscles, quand soudain... ses yeux s’ouvrent ! Et vous êtes pris de terreur en voyant son regard absent se perdre dans la pièce et en constatant, surtout, que ses yeux sont d’une couleur laiteuse... Ses yeux n’ont pas de pupilles !",
+      "fearModifier": 3,
+      "choices": [
+        {
+          "text": "faire demi-tour et vous précipiter vers la porte",
+          "nextChapterId": 159
+        },
+        {
+          "text": "attendre pour voir si quelque chose se produit",
+          "nextChapterId": 246
+        }
+      ]
+    },
+    "355": {
+      "id": 355,
+      "text": "Vous tâtonnez dans l’obscurité, mais vous ne trouvez rien. Vous pouvez tenter votre Chance si vous le désirez.",
+      "luckTest": {
+        "success": {
+          "text": "Vous êtes chanceux.",
+          "nextChapterId": 50
+        },
+        "failure": {
+          "text": "Vous êtes malchanceux.",
+          "nextChapterId": 340
+        }
+      },
+      "choices": [
+        {
+          "text": "attendre l’arrivée de ce qui s’approche",
+          "nextChapterId": 263
+        }
+      ]
+    },
+    "356": {
+      "id": 356,
+      "text": "Vous tâtez le mur dans l’espoir d’y découvrir la trace d’un passage secret, mais vous ne remarquez rien. Alors que vous commencez à penser que vous perdez votre temps, votre main fait tomber une brique, découvrant un petit levier qui était caché derrière elle.",
+      "choices": [
+        {
+          "text": "emprunter le boyau",
+          "nextChapterId": 387
+        },
+        {
+          "text": "revenir à l’escalier",
+          "nextChapterId": 293
+        }
+      ]
+    },
 
 
 
