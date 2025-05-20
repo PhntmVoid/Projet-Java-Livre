@@ -27,9 +27,18 @@ public class GameController {
         initializeStartingChapter();
     }
 
-    public Scenario getScenario() {
-        return scenario;
+    public GameController(Scenario scenario, SaveManager.GameState state) {
+        this.scenario = scenario;
+        this.player = state.getPlayer();
+        this.currentChapterId = state.getCurrentChapterId();
+        this.chapterHistory = new ArrayList<>(state.getChapterHistory());
+        this.random = new Random();
     }
+
+    public Scenario getScenario() { return scenario; }
+    public Player getPlayer() { return player; }
+    public int getCurrentChapterId() { return currentChapterId; }
+    public List<Integer> getChapterHistory() { return new ArrayList<>(chapterHistory); }
 
     private void initializeStartingChapter() {
         this.currentChapterId = scenario.getStartChapterId();
@@ -55,32 +64,26 @@ public class GameController {
         return currentCombat;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     public boolean makeChoice(int choiceIndex) {
         Chapter current = getCurrentChapter();
         if (current == null || choiceIndex < 0 || choiceIndex >= current.getChoices().size()) {
             return false;
         }
 
-        // Get the selected choice
         Choice choice = current.getChoices().get(choiceIndex);
 
-        // Apply any modifiers from the current chapter
+        // Apply modifiers from current chapter
         if (current.getEnduranceModifier() != 0) {
             player.modifyStamina(current.getEnduranceModifier());
         }
         if (current.getFearModifier() != 0) {
             player.modifyFear(current.getFearModifier());
-            // Fear affects combat preparation
             if (choice.isCombatRequired() && player.getCurrentFear() >= player.getMaxFear() * 0.7) {
-                player.modifySkill(-1); // Temporary skill reduction due to fear
+                player.modifySkill(-1);
             }
         }
 
-        // Handle luck test if required
+        // Handle luck test
         boolean luckTestPassed = true;
         if (choice.isRequiresLuckTest()) {
             luckTestPassed = testLuck();
@@ -96,7 +99,7 @@ public class GameController {
             }
         }
 
-        // Handle combat if required
+        // Handle combat
         if (choice.isCombatRequired()) {
             Enemy enemy = current.getEnemy();
             if (enemy != null) {
@@ -111,7 +114,6 @@ public class GameController {
             currentCombat = null;
         }
 
-        // Determine next chapter based on luck test result if applicable
         int nextChapterId = choice.getNextChapterId();
         Chapter nextChapter = scenario.getChapter(nextChapterId);
 
@@ -127,10 +129,7 @@ public class GameController {
     }
 
     public boolean testLuck() {
-        // Deduct 1 luck point for testing luck
         player.modifyLuck(-1);
-
-        // Roll 2d6 and compare against current luck
         int roll = random.nextInt(6) + 1 + random.nextInt(6) + 1;
         return roll <= player.getLuck();
     }
