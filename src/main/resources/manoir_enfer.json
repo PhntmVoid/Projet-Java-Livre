@@ -2172,6 +2172,395 @@
         }
       ]
     },
+    "359": {
+      "id": 359,
+      "text": "Vous lui dites alors que vous n'avez aucune raison de le tuer, et il fait quelques pas en arrière, l'air perplexe. « Vous voulez dire que vous n'êtes pas l'un d'entre eux ? Vous êtes vraiment un Étranger ? » Vous hochez la tête. Une expression de joie apparaît alors sur son visage.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 208
+        }
+      ]
+    },
+
+    "361": {
+      "id": 361,
+      "text": "Vous sortez l'ail de votre poche, et vous le tendez vers l'homme. La certitude qui se lisait sur son visage se transforme aussitôt en terreur. Comme vous l'aviez deviné, le VAMPIRE ne supporte pas l'ail. Son front se couvre de sueur et il recule vers le lit.",
+      "choices": [
+        {
+          "text": "vous précipiter vers la porte de gauche",
+          "nextChapterId": 189
+        },
+        {
+          "text": "vous précipiter vers la porte de droite",
+          "nextChapterId": 270
+        },
+        {
+          "text": "faire demi-tour",
+          "nextChapterId": 90
+        }
+      ]
+    },
+    "362": {
+      "id": 362,
+      "text": "Vous goûtez le liquide. C'est du vin blanc ! Vous en buvez un peu plus et il vous réconforte. La tête commence cependant à vous tourner : vous êtes pris de vertiges. Une douleur vous traverse l'estomac comme un coup de poignard et vous fait plier en deux. Il n'y a rien à faire contre cette douleur car vous avez bu du vin empoisonné !",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+
+    "364": {
+      "id": 364,
+      "text": "Les lettres ne paraissent pas très intéressantes. Cependant l'une d'entre elles attire votre attention. Elle est adressée au Comte de Brume, signée 'Pravemi', et met en garde contre des dangers.",
+      "choices": [
+        {
+          "text": "quitter cette pièce",
+          "nextChapterId": 218
+        },
+        {
+          "text": "vous intéresser à la figurine de bois sculptée",
+          "nextChapterId": 85
+        }
+      ]
+    },
+
+    "366": {
+      "id": 366,
+      "text": "Vous revenez sur vos pas dans le couloir, jusqu'au pied de l'escalier. Un peu plus loin, vous parvenez à une volée de marches. Mais la lumière est si faible que vous les voyez trop tard. Vous tombez lourdement.",
+      "enduranceModifier": -1,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 264
+        }
+      ]
+    },
+    "367": {
+      "id": 367,
+      "text": "Vous toussotez, et vous vous avancez vers l'homme qui sursaute. Après quelques mots, il accepte de vous aider. Vous découvrez qu'il s'agit d'un bossu.",
+      "choices": [
+        {
+          "text": "le suivre hors de la pièce",
+          "nextChapterId": 210
+        }
+      ]
+    },
+    "368": {
+      "id": 368,
+      "text": "Vous ne trouvez rien d'intéressant dans les autres placards, et vous quittez la pièce.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 243
+        }
+      ]
+    },
+    "369": {
+      "id": 369,
+      "text": "La poignée tourne… puis revient à sa position initiale. Le bruit de pas s’éloigne. En poussant un soupir de soulagement, vous vous laissez tomber sur le lit.",
+      "choices": [
+        {
+          "text": "essayer de dormir quelques instants",
+          "nextChapterId": 262
+        },
+        {
+          "text": "quitter la chambre et poursuivre votre chemin",
+          "nextChapterId": 252
+        },
+        {
+          "text": "regagner le balcon",
+          "nextChapterId": 272
+        }
+      ]
+    },
+    "370": {
+      "id": 370,
+      "text": "Les Chauves-Souris vous poursuivent alors que vous remontez l’escalier. Vous en atteignez cependant le sommet, mais perdez 1 point d’ENDURANCE.",
+      "enduranceModifier": -1,
+      "choices": [
+        {
+          "text": "ouvrir la porte",
+          "nextChapterId": 293
+        }
+      ]
+    },
+
+    "375": {
+      "id": 375,
+      "text": "Vous revenez devant la cheminée, et vous examinez de nouveau le bouton secret.",
+      "choices": [
+        {
+          "text": "le presser",
+          "nextChapterId": 392
+        },
+        {
+          "text": "quitter le salon",
+          "nextChapterId": 218
+        }
+      ]
+    },
+    "376": {
+      "id": 376,
+      "text": "Vous avez une idée : vous cacher sous le couvre-lit ?",
+      "choices": [
+        {
+          "text": "vous glisser sous le couvre-lit",
+          "nextChapterId": 262
+        },
+        {
+          "text": "ne pas prendre ce risque",
+          "nextChapterId": 369
+        }
+      ]
+    },
+
+    "378": {
+      "id": 378,
+      "text": "Le corridor est désert.",
+      "choices": [
+        {
+          "text": "ouvrir la porte Eblis",
+          "nextChapterId": 125
+        },
+        {
+          "text": "revenir sur le balcon",
+          "nextChapterId": 272
+        }
+      ]
+    },
+    "379": {
+      "id": 379,
+      "text": "Décidément, il n’y a aucun traquenard ici !",
+      "choices": [
+        {
+          "text": "tirer le cordon pour appeler le majordome",
+          "nextChapterId": 318
+        }
+      ]
+    },
+    "380": {
+      "id": 380,
+      "text": "Un drap semble se soulever seul… Vous ajoutez 1 point à votre total de PEUR.",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "saisir le drap",
+          "nextChapterId": 70
+        },
+        {
+          "text": "vous précipiter vers la porte",
+          "nextChapterId": 329
+        }
+      ]
+    },
+
+    "382": {
+      "id": 382,
+      "text": "Vous quittez la chambre Diabolique et vous retrouvez dans le couloir étroit.",
+      "choices": [
+        {
+          "text": "examiner la fenêtre",
+          "nextChapterId": 110
+        },
+        {
+          "text": "regagner le balcon",
+          "nextChapterId": 193
+        }
+      ]
+    },
+    "383": {
+      "id": 383,
+      "text": "Le combat terminé, vous pouvez boire l'eau de la cruche si votre ENDURANCE est inférieure à 12.",
+      "conditionalEnduranceGain": {
+        "gain": 2,
+        "condition": "ENDURANCE < 12"
+      },
+      "choices": [
+        {
+          "text": "explorer le passage",
+          "nextChapterId": 60
+        }
+      ]
+    },
+    "384": {
+      "id": 384,
+      "text": "Vous ouvrez un livre mystérieux orné d’un œil. Vous ajoutez 2 points à votre total de PEUR.",
+      "fearModifier": 2,
+      "skillTest": {
+        "success": {
+          "text": "vous résistez au regard",
+          "nextChapterId": 39
+        },
+        "failure": {
+          "text": "vous êtes happé par le livre",
+          "nextChapterId": 331
+        }
+      }
+    },
+
+    "386": {
+      "id": 386,
+      "text": "Vous tombez sur un tabouret que vous n’aviez pas vu. Vous perdez 3 points d’ENDURANCE.",
+      "enduranceModifier": -3,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 290
+        }
+      ]
+    },
+    "387": {
+      "id": 387,
+      "text": "Vous vous retrouvez dans une salle remplie de toges et masques de bouc. Vous vous déguisez pour passer inaperçu.",
+      "choices": [
+        {
+          "text": "suivre les autres",
+          "nextChapterId": 122
+        },
+        {
+          "text": "rester en arrière",
+          "nextChapterId": 219
+        }
+      ]
+    },
+    "388": {
+      "id": 388,
+      "text": "« Connaissez-vous mon nom ? » dit la vieille femme. Si oui, suivez l’indication sur votre Feuille d’Aventure.",
+      "choices": [
+        {
+          "text": "vous ne connaissez pas son nom",
+          "nextChapterId": 159
+        }
+      ]
+    },
+    "389": {
+      "id": 389,
+      "text": "Vous suivez le passage qui tourne à droite jusqu’au balcon.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 272
+        }
+      ]
+    },
+    "390": {
+      "id": 390,
+      "text": "Une pièce froide. Vous y trouvez un morceau de corde. N'oubliez pas de le noter sur votre Feuille d'Aventure.",
+      "choices": [
+        {
+          "text": "revenir sur le balcon",
+          "nextChapterId": 287
+        }
+      ]
+    },
+
+    "392": {
+      "id": 392,
+      "text": "Vous êtes piégé : une trappe s’ouvre sous vos pieds et vous tombez.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 397
+        }
+      ]
+    },
+    "397": {
+      "id": 397,
+      "text": "Après une chute de plusieurs mètres, vous vous enfoncez dans quelque chose de mou. Vous ajoutez 1 point à votre total de PEUR. Si vous êtes toujours vivant, vous tentez votre Chance. Si vous êtes Malchanceux, vous vous êtes foulé le poignet, et vous perdez 1 point d'HABILETÉ. Vous vous relevez, et vous constatez que vous êtes tombé sur un amas de paille mélangée à de la terre. La pièce dans laquelle vous vous trouvez est minuscule, et doit, très certainement, faire partie des caves du Manoir.",
+      "fearModifier": 1,
+      "luckTest": {
+        "failure": {
+          "text": "Vous êtes Malchanceux, vous perdez 1 point d'HABILETÉ.",
+          "skillModifier": -1
+        }
+      },
+      "choices": [
+        {
+          "text": "se mettre dos au mur pour être dissimulé",
+          "nextChapterId": 6
+        },
+        {
+          "text": "chercher une arme dans la pièce",
+          "nextChapterId": 355
+        }
+      ]
+    },
+    "398": {
+      "id": 398,
+      "text": "L'escalier est très sombre. Vous descendez les marches une à une en essayant de distinguer la suivante. Tout à coup, vos pieds glissent et vous perdez l'équilibre. Vous dégringolez le long de l'escalier pour finalement atterrir brutalement à ses pieds.",
+      "enduranceModifier": -3,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 264
+        }
+      ]
+    },
+    "226": {
+      "id": 226,
+      "text": "Vous examinez ce qui est posé sur le plateau, avec la plus grande attention, mais vous ne remarquez rien qui pourrait attirer votre méfiance. Tout au contraire, cet en-cas vous semble destiné, et vous le dévorez de la meilleure humeur possible.",
+      "enduranceModifier": 4,
+      "fearModifier": -1,
+      "choices": [
+        {
+          "text": "quitter cette chambre",
+          "nextChapterId": 243
+        },
+        {
+          "text": "vous diriger vers les placards",
+          "nextChapterId": 43
+        }
+      ]
+    },
+    "227": {
+      "id": 227,
+      "text": "Qu'avez-vous choisi ? Le pain et les gâteaux vous font gagner 2 points d'ENDURANCE ; la viande et le poisson séché, ainsi que le fromage, 1 point d'ENDURANCE ; les fruits et le vin, aucun point d'ENDURANCE. Le vin vous fait perdre 1 point d'HABILETÉ ; mais si vous avez choisi d'en boire, ôtez 2 points de votre total de PEUR.",
+      "choices": [
+        {
+          "text": "mangé du fromage ou bu du vin blanc",
+          "nextChapterId": 172
+        },
+        {
+          "text": "goûté au poisson séché ou bu du vin rouge",
+          "nextChapterId": 84
+        },
+        {
+          "text": "rien de tout cela",
+          "nextChapterId": 36
+        }
+      ]
+    },
+    "228": {
+      "id": 228,
+      "text": "Comment allez-vous le combattre ?",
+      "choices": [
+        {
+          "text": "utiliser une arme",
+          "nextChapterId": 32
+        },
+        {
+          "text": "utiliser un objet quelconque",
+          "nextChapterId": 46
+        }
+      ]
+    },
+    "230": {
+      "id": 230,
+      "text": "Tout à coup, vous reconnaissez le Bossu : c'est lui qui vous a apporté une boisson, au premier étage !",
+      "choices": [
+        {
+          "text": "essayer de lui rafraîchir la mémoire",
+          "nextChapterId": 198
+        },
+        {
+          "text": "l’attaquer pour vous venger",
+          "nextChapterId": 302
+        }
+      ]
+    },
 
 
 
