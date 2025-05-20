@@ -1,4 +1,4 @@
-# Documentation Technique : Le Manoir de l'Enfer
+# Le Manoir de l'Enfer
 
 ## Table des Matières
 
