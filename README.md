@@ -104,18 +104,3 @@ Projet-Java-Livre/
 ├── build.gradle          # Configuration Gradle
 └── README.md            # Ce fichier
 ```
-
-## Dépendances
-
-- org.json:json:20231013
-
-## Contribution
-
-Pour contribuer au projet:
-
-1. Forkez le dépôt
-2. Créez une branche (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Committez vos changements (`git commit -m 'Ajout nouvelle fonctionnalite'`)
-4. Poussez vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. Ouvrez une Pull Request
-
