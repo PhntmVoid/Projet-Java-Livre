@@ -47,7 +47,9 @@ public class SaveManager {
         try (ObjectInputStream ois = new ObjectInputStream(
                 new BufferedInputStream(Files.newInputStream(savePath)))) {
             GameState state = (GameState) ois.readObject();
-            return new GameController(scenario, state);
+            GameController controller = new GameController(scenario, state.getPlayer());
+            controller.loadState(state);
+            return controller;
         }
     }
 
@@ -64,7 +66,7 @@ public class SaveManager {
         return saves;
     }
 
-    private static class GameState implements Serializable {
+    public static class GameState implements Serializable {
         private final Player player;
         private final int currentChapterId;
         private final List<Integer> chapterHistory;

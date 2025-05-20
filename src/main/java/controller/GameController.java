@@ -27,12 +27,10 @@ public class GameController {
         initializeStartingChapter();
     }
 
-    public GameController(Scenario scenario, SaveManager.GameState state) {
-        this.scenario = scenario;
+    public void loadState(SaveManager.GameState state) {
         this.player = state.getPlayer();
         this.currentChapterId = state.getCurrentChapterId();
         this.chapterHistory = new ArrayList<>(state.getChapterHistory());
-        this.random = new Random();
     }
 
     public Scenario getScenario() { return scenario; }
