@@ -27,6 +27,10 @@ public class GameController {
         initializeStartingChapter();
     }
 
+    public Scenario getScenario() {
+        return scenario;
+    }
+
     private void initializeStartingChapter() {
         this.currentChapterId = scenario.getStartChapterId();
         chapterHistory.add(currentChapterId);

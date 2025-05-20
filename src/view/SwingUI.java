@@ -1,12 +1,9 @@
-package view;
-
 import controller.GameController;
 import model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.List;
 
 public class SwingUI {
@@ -32,7 +29,6 @@ public class SwingUI {
     public SwingUI(GameController controller) {
         this.controller = controller;
         initialize();
-        updateGameScreen();
     }
 
     private void initialize() {
@@ -81,15 +77,150 @@ public class SwingUI {
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         startButton.setMaximumSize(new Dimension(300, 50));
         configureButton(startButton, TEAL_COLOR, WHITE);
-        startButton.addActionListener(e -> showGameScreen());
+        startButton.addActionListener(e -> showPlayerCreation());
+
+        JButton rulesButton = new JButton("Règles du jeu");
+        rulesButton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        rulesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        rulesButton.setMaximumSize(new Dimension(300, 50));
+        configureButton(rulesButton, TEAL_COLOR, WHITE);
+        rulesButton.addActionListener(e -> showRules());
+
+        JButton quitButton = new JButton("Quitter");
+        quitButton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        quitButton.setMaximumSize(new Dimension(300, 50));
+        configureButton(quitButton, TEAL_COLOR, WHITE);
+        quitButton.addActionListener(e -> System.exit(0));
 
         centerPanel.add(Box.createVerticalGlue());
         centerPanel.add(titleLabel);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         centerPanel.add(startButton);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        centerPanel.add(rulesButton);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        centerPanel.add(quitButton);
         centerPanel.add(Box.createVerticalGlue());
 
         mainMenuPanel.add(centerPanel, BorderLayout.CENTER);
+    }
+
+    private void showRules() {
+        JDialog rulesDialog = new JDialog(frame, "Règles du jeu", true);
+        rulesDialog.setSize(600, 400);
+        rulesDialog.setLocationRelativeTo(frame);
+
+        JPanel rulesPanel = new JPanel();
+        rulesPanel.setLayout(new BorderLayout());
+        rulesPanel.setBackground(DARK_GREY);
+        rulesPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JTextArea rulesText = new JTextArea(
+            "RÈGLES DU JEU\n\n" +
+            "HABILETÉ, ENDURANCE ET CHANCE\n\n" +
+            "Votre personnage est défini par trois caractéristiques principales :\n\n" +
+            "HABILETÉ : Représente votre aptitude au combat.\n" +
+            "ENDURANCE : Représente votre constitution et votre volonté de survivre.\n" +
+            "CHANCE : Indique si vous êtes naturellement chanceux.\n\n" +
+            "COMBAT\n\n" +
+            "1. Calculez votre Force d'Attaque (Habileté + 2d6)\n" +
+            "2. Calculez la Force d'Attaque de l'adversaire\n" +
+            "3. Celui qui a la plus grande Force d'Attaque blesse l'autre\n" +
+            "4. Le perdant perd 2 points d'ENDURANCE\n\n" +
+            "CHANCE\n\n" +
+            "Lancez 2 dés. Si le résultat est inférieur ou égal à votre CHANCE,\n" +
+            "vous êtes Chanceux. Sinon, vous êtes Malchanceux.\n" +
+            "Chaque test de Chance réduit votre score de 1 point."
+        );
+        rulesText.setEditable(false);
+        rulesText.setBackground(DARK_GREY);
+        rulesText.setForeground(WHITE);
+        rulesText.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        rulesText.setLineWrap(true);
+        rulesText.setWrapStyleWord(true);
+
+        JScrollPane scrollPane = new JScrollPane(rulesText);
+        scrollPane.setBorder(BorderFactory.createLineBorder(TEAL_COLOR));
+
+        JButton closeButton = new JButton("Fermer");
+        configureButton(closeButton, TEAL_COLOR, WHITE);
+        closeButton.addActionListener(e -> rulesDialog.dispose());
+
+        rulesPanel.add(scrollPane, BorderLayout.CENTER);
+        rulesPanel.add(closeButton, BorderLayout.SOUTH);
+
+        rulesDialog.add(rulesPanel);
+        rulesDialog.setVisible(true);
+    }
+
+    private void showPlayerCreation() {
+        JDialog dialog = new JDialog(frame, "Création du personnage", true);
+        dialog.setSize(400, 300);
+        dialog.setLocationRelativeTo(frame);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(DARK_GREY);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Roll initial stats
+        int skill = rollDice(1) + 6;    // 1d6 + 6
+        int stamina = rollDice(2) + 12;  // 2d6 + 12
+        int luck = rollDice(1) + 6;     // 1d6 + 6
+
+        JLabel skillLabel = new JLabel("HABILETÉ: " + skill);
+        JLabel staminaLabel = new JLabel("ENDURANCE: " + stamina);
+        JLabel luckLabel = new JLabel("CHANCE: " + luck);
+
+        skillLabel.setForeground(WHITE);
+        staminaLabel.setForeground(WHITE);
+        luckLabel.setForeground(WHITE);
+
+        JButton rerollButton = new JButton("Relancer les dés");
+        configureButton(rerollButton, TEAL_COLOR, WHITE);
+        rerollButton.addActionListener(e -> {
+            int newSkill = rollDice(1) + 6;
+            int newStamina = rollDice(2) + 12;
+            int newLuck = rollDice(1) + 6;
+            skillLabel.setText("HABILETÉ: " + newSkill);
+            staminaLabel.setText("ENDURANCE: " + newStamina);
+            luckLabel.setText("CHANCE: " + newLuck);
+        });
+
+        JButton startButton = new JButton("Commencer l'aventure");
+        configureButton(startButton, TEAL_COLOR, WHITE);
+        startButton.addActionListener(e -> {
+            int finalSkill = Integer.parseInt(skillLabel.getText().split(": ")[1]);
+            int finalStamina = Integer.parseInt(staminaLabel.getText().split(": ")[1]);
+            int finalLuck = Integer.parseInt(luckLabel.getText().split(": ")[1]);
+            
+            controller = new GameController(controller.getScenario(), 
+                new Player(finalSkill, finalStamina, finalLuck));
+            dialog.dispose();
+            showGameScreen();
+        });
+
+        panel.add(skillLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(staminaLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(luckLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(rerollButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(startButton);
+
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
+
+    private int rollDice(int number) {
+        int total = 0;
+        for (int i = 0; i < number; i++) {
+            total += (int)(Math.random() * 6) + 1;
+        }
+        return total;
     }
 
     private void createGameInterface() {
