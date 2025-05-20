@@ -70,7 +70,7 @@ Un jeu de fiction interactive en Java, "Le Manoir de l'Enfer", où le joueur fai
 
 1. **Cloner le dépôt:**
    ```bash
-   git clone <url_du_depot>
+   git clone <(https://github.com/PhntmVoid/Projet-Java-Livre.git)>
    cd Projet-Java-Livre
    ```
 
