@@ -1,106 +1,267 @@
-# Projet-Java-Livre: Le Manoir de l'Enfer
+# Documentation Technique : Le Manoir de l'Enfer
 
-## Description
+## Table des Matières
 
-Un jeu de fiction interactive en Java, "Le Manoir de l'Enfer", où le joueur fait des choix pour progresser dans une histoire. Le jeu comprend un scénario chargé depuis un fichier JSON, des statistiques de joueur (habileté, endurance, chance, peur), des combats et des tests de chance. Il propose une interface graphique (GUI) basée sur Swing et une interface textuelle (TUI).
+1. [Introduction](#introduction)
+2. [Architecture](#architecture)
+3. [Composants du Système](#composants-du-système)
+4. [Flux de Données](#flux-de-données)
+5. [Interfaces Utilisateur](#interfaces-utilisateur)
+6. [Systèmes de Jeu](#systèmes-de-jeu)
+7. [Gestion des Données](#gestion-des-données)
+8. [Configuration et Déploiement](#configuration-et-déploiement)
+9. [Tests et Qualité](#tests-et-qualité)
+10. [Évolutions Futures](#évolutions-futures)
 
-## Fonctionnalités
+## Introduction
 
-- **Chargement de Scénario:** Charge les scénarios de jeu depuis des fichiers JSON
-- **Statistiques du Joueur:** Gère les attributs du joueur (habileté, endurance, chance, peur)
-- **Système de Choix:** Présente aux joueurs des choix qui influencent l'histoire
-- **Système de Combat:** Implémente un système de combat avec lancers de dés
-- **Tests de Chance:** Intègre des tests de chance qui peuvent affecter le résultat des événements
-- **Inventaire:** Permet aux joueurs de collecter et gérer des objets
-- **Interface Graphique:** Interface utilisateur graphique avec Swing
-- **Interface Textuelle:** Interface en mode console
+Le Manoir de l'Enfer est un jeu de fiction interactive développé en Java, offrant une expérience de jeu immersive où les choix du joueur influencent directement le déroulement de l'histoire. Cette documentation technique détaille l'architecture, les composants et les mécanismes du système.
 
-## Interfaces et Fonctionnalités Détaillées
+### Objectifs du Projet
+- Créer une expérience de jeu narrative interactive
+- Implémenter des mécaniques de jeu de rôle (stats, combats, tests)
+- Offrir une interface utilisateur intuitive et engageante
+- Assurer une architecture modulaire et extensible
 
-### Menu Principal
-- **Titre du Jeu:** Affiché en grand format
-- **Boutons:**
-  - "Commencer l'aventure": Lance la création du personnage
-  - "Règles du jeu": Affiche les règles dans une fenêtre dédiée
-  - "Quitter": Ferme l'application
+## Architecture
 
-### Création du Personnage
-- **Statistiques Initiales:**
-  - HABILETÉ (1d6 + 6): Capacité au combat
-  - ENDURANCE (2d6 + 12): Points de vie
-  - CHANCE (1d6 + 6): Pour les tests de chance
-- **Options:**
-  - "Relancer les dés": Régénère les statistiques
-  - "Commencer l'aventure": Démarre avec les stats actuelles
+### Vue d'Ensemble
+Le projet suit une architecture MVC (Modèle-Vue-Contrôleur) stricte pour garantir :
+- Séparation claire des responsabilités
+- Maintenance facilitée
+- Extensibilité du système
+- Tests unitaires simplifiés
 
-### Interface de Jeu Principale
-- **Panneau des Statistiques (Gauche):**
-  - Barre d'HABILETÉ (verte)
-  - Barre d'ENDURANCE (rouge)
-  - Barre de CHANCE (jaune)
-  - Barre de PEUR (violette)
-  - Section Inventaire
-- **Zone de Jeu (Centre):**
-  - Texte du chapitre actuel
-  - Boutons de choix en bas
+### Structure des Packages
+```
+src/
+├── main/
+│   ├── java/
+│   │   ├── controller/    # Logique de contrôle
+│   │   ├── model/        # Modèles de données
+│   │   ├── view/         # Interfaces utilisateur
+│   │   └── Main.java     # Point d'entrée
+│   └── resources/        # Ressources (JSON, images)
+└── test/                # Tests unitaires
+```
 
-### Système de Combat
-- **Fenêtre de Combat:**
-  - Statistiques de l'adversaire
-  - Journal de combat
-  - Bouton d'attaque
-- **Mécanique:**
-  - Force d'Attaque = HABILETÉ + 2d6
-  - 2 points d'ENDURANCE perdus par coup
-  - Combat termine à 0 ENDURANCE
+## Composants du Système
+
+### Modèle (Model)
+
+#### Player
+- Gestion des statistiques (HABILETÉ, ENDURANCE, CHANCE, PEUR)
+- Inventaire dynamique
+- États du personnage
+- Méthodes de modification des stats avec validation
+
+```java
+public class Player {
+    private int skill;      // HABILETÉ
+    private int stamina;    // ENDURANCE
+    private int luck;       // CHANCE
+    private int fear;       // PEUR
+    private List<String> inventory;
+    
+    // Méthodes principales
+    public void modifySkill(int amount)
+    public void modifyStamina(int amount)
+    public void modifyLuck(int amount)
+    public void modifyFear(int amount)
+    public boolean isAlive()
+}
+```
+
+#### Chapter
+- Contenu narratif
+- Choix disponibles
+- Modificateurs d'état
+- Conditions de combat et tests
+
+```java
+public class Chapter {
+    private int id;
+    private String text;
+    private List<Choice> choices;
+    private Enemy enemy;
+    private int enduranceModifier;
+    private int fearModifier;
+    private LuckTest luckTest;
+}
+```
+
+#### Combat
+- Système de résolution des combats
+- Calcul des dégâts
+- Gestion des tours
+- États de combat
+
+### Contrôleur (Controller)
+
+#### GameController
+- Gestion du flux de jeu
+- Traitement des choix
+- Coordination modèle-vue
+- Sauvegarde/Chargement
+
+```java
+public class GameController {
+    private Scenario scenario;
+    private Player player;
+    private int currentChapterId;
+    private List<Integer> chapterHistory;
+    
+    // Méthodes principales
+    public boolean makeChoice(int choiceIndex)
+    public boolean testLuck()
+    public boolean isGameOver()
+}
+```
+
+#### ScenarioLoader
+- Chargement des scénarios JSON
+- Validation des données
+- Gestion des erreurs
+- Construction des objets de jeu
+
+### Vue (View)
+
+#### Interface Graphique (SwingUI)
+- Composants Swing personnalisés
+- Gestion des événements
+- Animations et effets visuels
+- Mise à jour dynamique
+
+##### Composants Principaux
+- Menu principal
+- Écran de jeu
+- Interface de combat
+- Inventaire
+- Statistiques du joueur
+
+#### Interface Textuelle (TextUI)
+- Mode console
+- Commandes textuelles
+- Affichage formaté
+- Navigation simplifiée
+
+## Flux de Données
+
+### Chargement du Jeu
+1. Initialisation du système
+2. Chargement du scénario
+3. Création du joueur
+4. Configuration de l'interface
+
+### Cycle de Jeu
+1. Affichage du chapitre
+2. Attente de l'action du joueur
+3. Traitement de l'action
+4. Mise à jour de l'état
+5. Retour à l'étape 1
+
+## Systèmes de Jeu
+
+### Combat
+```java
+public class Combat {
+    private Player player;
+    private Enemy enemy;
+    private Random random;
+    
+    public CombatResult executeRound() {
+        int playerAttackStrength = calculateAttackStrength(player);
+        int enemyAttackStrength = calculateAttackStrength(enemy);
+        // Logique de résolution
+        return new CombatResult();
+    }
+}
+```
 
 ### Tests de Chance
-- **Déclenchement:** Sur certains choix
-- **Mécanique:**
-  - Lance 2d6
-  - Compare avec CHANCE actuelle
-  - CHANCE -1 après chaque test
-- **Résultats:** Affichés dans le texte
+- Lancer de dés virtuel
+- Comparaison avec stat CHANCE
+- Application des effets
+- Réduction de la CHANCE
 
-## Prérequis
+## Gestion des Données
 
-- Kit de Développement Java (JDK) version 17 ou supérieure
-
-## Installation
-
-1. **Cloner le dépôt:**
-   ```bash
-   git clone https://github.com/PhntmVoid/Projet-Java-Livre.git
-   cd Projet-Java-Livre
-   ```
-
-2. **Compiler le code:**
-   ```bash
-   javac src/Main.java
-   ```
-
-3. **Lancer le jeu:**
-   - Interface graphique:
-     ```bash
-     java Main
-     ```
-   - Interface textuelle:
-     ```bash
-     java Main --text
-     ```
-
-## Structure du Projet
-
+### Format de Sauvegarde
+```json
+{
+    "player": {
+        "skill": 10,
+        "stamina": 20,
+        "luck": 7,
+        "fear": 0,
+        "inventory": []
+    },
+    "currentChapter": 1,
+    "history": [1]
+}
 ```
-Projet-Java-Livre/
-├── .gradle/                # Fichiers Gradle
-├── .idea/                  # Fichiers projet IntelliJ IDEA
-├── src/
-│   ├── controller/        # Contrôleurs
-│   ├── model/            # Modèles de jeu
-│   ├── view/             # Interfaces utilisateur
-│   ├── Main.java         # Classe principale
-│   └── resources/        # Données du jeu
-├── build.gradle          # Configuration Gradle
-└── README.md            # Ce fichier
+
+### Scénarios
+- Format JSON structuré
+- Validation des données
+- Gestion des erreurs
+- Extensibilité
+
+## Configuration et Déploiement
+
+### Prérequis
+- JDK 17+
+- Gradle 8.10+
+- 512MB RAM minimum
+- Résolution d'écran 800x600 minimum
+
+### Installation
+```bash
+# Cloner le dépôt
+git clone https://github.com/PhntmVoid/Projet-Java-Livre.git
+
+# Compiler le projet
+./gradlew build
+
+# Exécuter le jeu
+./gradlew run
 ```
+
+### Options de Lancement
+- `--text` : Mode console
+- `--debug` : Mode débogage
+- `--load <save>` : Charger une sauvegarde
+
+## Tests et Qualité
+
+### Tests Unitaires
+- JUnit 5
+- Couverture > 80%
+- Tests d'intégration
+- Tests de performance
+
+### Assurance Qualité
+- Checkstyle
+- PMD
+- SpotBugs
+- SonarQube
+
+## Évolutions Futures
+
+### Court Terme
+- [ ] Système de quêtes
+- [ ] Plus de scénarios
+- [ ] Amélioration des combats
+- [ ] Interface améliorée
+
+### Long Terme
+- [ ] Mode multijoueur
+- [ ] Éditeur de scénarios
+- [ ] Système de progression
+- [ ] Achievements
+
+### Améliorations Techniques
+- [ ] Migration vers JavaFX
+- [ ] Base de données pour les sauvegardes
+- [ ] API REST pour les scénarios
+- [ ] Support mobile
