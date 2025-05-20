@@ -7,6 +7,7 @@ public class Chapter {
     private int id;
     private String text;
     private List<Choice> choices;
+    private Enemy enemy;
     private int enduranceModifier;
     private int fearModifier;
     private LuckTest luckTest;
@@ -33,5 +34,13 @@ public class Chapter {
 
     public void addChoice(Choice choice) {
         choices.add(choice);
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
     }
 }

@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             // Load scenario
-            Scenario scenario = ScenarioLoader.loadScenario("resources/manoir_enfer.json");
+            Scenario scenario = ScenarioLoader.loadScenario("manoir_enfer.json");
 
             // Create player with initial stats
             Player player = new Player(10, 20, 12); // Skill: 7, Stamina: 20, Luck: 7

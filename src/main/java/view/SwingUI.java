@@ -383,11 +383,11 @@ public class SwingUI {
             }
         });
 
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 button.setBackground(bgColor);
             }
         });
@@ -506,7 +506,7 @@ public class SwingUI {
 
                     choiceButton.addActionListener(e -> {
                         if (choice.isCombatRequired()) {
-                            Enemy enemy = new Enemy("Adversaire", 7, 7);
+                            Enemy enemy = currentChapter.getEnemy();
                             handleCombat(enemy);
                         }
                         controller.makeChoice(choiceIndex);

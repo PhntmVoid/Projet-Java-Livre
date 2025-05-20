@@ -1,12 +1,16 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Scenario {
     private String title;
-    private Map<Integer, Chapter> chapters;
     private int startChapterId;
+    private Map<Integer, Chapter> chapters;
 
     public Scenario(String title, int startChapterId) {
         this.title = title;
@@ -15,8 +19,6 @@ public class Scenario {
     }
 
     // Getters et setters
-    public String getTitle() { return title; }
-    public Map<Integer, Chapter> getChapters() { return chapters; }
     public int getStartChapterId() { return startChapterId; }
 
     public void addChapter(Chapter chapter) {
