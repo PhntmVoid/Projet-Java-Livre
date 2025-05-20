@@ -19,7 +19,7 @@ public class Player {
         this.currentSkill = skill;
         this.maxStamina = stamina;
         this.currentStamina = stamina;
-        this.maxFear = 10; // Example value
+        this.maxFear = 10;
         this.currentFear = 0;
         this.maxLuck = luck;
         this.currentLuck = luck;
@@ -59,10 +59,23 @@ public class Player {
 
     public void modifySkill(int change) {
         currentSkill = Math.min(maxSkill, Math.max(0, currentSkill + change));
+        // When fear is high, skill is reduced
+        if (currentFear >= maxFear * 0.8) {
+            currentSkill = Math.max(0, currentSkill - 1);
+        }
     }
 
     public void modifyFear(int change) {
+        int previousFear = currentFear;
         currentFear = Math.min(maxFear, Math.max(0, currentFear + change));
+        
+        // If fear reaches certain thresholds, it affects other stats
+        if (currentFear >= maxFear * 0.8 && previousFear < maxFear * 0.8) {
+            modifySkill(-1); // Reduce skill when fear is very high
+        }
+        if (currentFear >= maxFear * 0.6 && previousFear < maxFear * 0.6) {
+            modifyLuck(-1); // Reduce luck when fear is moderately high
+        }
     }
 
     public void modifyLuck(int change) {

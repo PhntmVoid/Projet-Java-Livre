@@ -74,6 +74,10 @@ public class GameController {
         }
         if (current.getFearModifier() != 0) {
             player.modifyFear(current.getFearModifier());
+            // Fear affects combat preparation
+            if (choice.isCombatRequired() && player.getCurrentFear() >= player.getMaxFear() * 0.7) {
+                player.modifySkill(-1); // Temporary skill reduction due to fear
+            }
         }
 
         // Handle luck test if required
