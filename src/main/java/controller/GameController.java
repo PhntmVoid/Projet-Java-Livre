@@ -76,29 +76,34 @@ public class GameController {
             player.modifyFear(current.getFearModifier());
         }
 
-        // Handle combat if required
-        if (choice.isCombatRequired()) {
-            Enemy enemy = new Enemy("Adversaire", 7, 7);
-            currentCombat = new Combat(player, enemy);
-            if (!player.isAlive()) {
-                currentChapterId = -1;
-                chapterHistory.add(currentChapterId);
-                return true;
-            }
-        } else {
-            currentCombat = null;
-        }
-
         // Handle luck test if required
         if (choice.isRequiresLuckTest()) {
             boolean isLucky = testLuck();
-            if (current.getLuckTest() != null) {
-                if (isLucky && current.getLuckTest().getSuccess() != null) {
-                    player.modifyStamina(current.getLuckTest().getSuccess().getEnduranceModifier());
-                } else if (!isLucky && current.getLuckTest().getFailure() != null) {
-                    player.modifyStamina(current.getLuckTest().getFailure().getEnduranceModifier());
+            LuckTest luckTest = current.getLuckTest();
+            if (luckTest != null) {
+                if (isLucky && luckTest.getSuccess() != null) {
+                    LuckTestOutcome success = luckTest.getSuccess();
+                    player.modifyStamina(success.getEnduranceModifier());
+                } else if (!isLucky && luckTest.getFailure() != null) {
+                    LuckTestOutcome failure = luckTest.getFailure();
+                    player.modifyStamina(failure.getEnduranceModifier());
                 }
             }
+        }
+
+        // Handle combat if required
+        if (choice.isCombatRequired()) {
+            Enemy enemy = current.getEnemy();
+            if (enemy != null) {
+                currentCombat = new Combat(player, enemy);
+                if (!player.isAlive()) {
+                    currentChapterId = -1;
+                    chapterHistory.add(currentChapterId);
+                    return true;
+                }
+            }
+        } else {
+            currentCombat = null;
         }
 
         int nextChapterId = choice.getNextChapterId();
