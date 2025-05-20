@@ -1,9 +1,6 @@
 package controller;
 
-import model.Chapter;
-import model.Choice;
-import model.Player;
-import model.Scenario;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +12,7 @@ public class GameController {
     private int currentChapterId;
     private List<Integer> chapterHistory;
     private Random random;
+    private Combat currentCombat;
 
     public GameController(Scenario scenario, Player player) {
         if (scenario == null || player == null) {
@@ -53,6 +51,10 @@ public class GameController {
         return player;
     }
 
+    public Combat getCurrentCombat() {
+        return currentCombat;
+    }
+
     public boolean makeChoice(int choiceIndex) {
         Chapter current = getCurrentChapter();
         if (current == null || choiceIndex < 0 || choiceIndex >= current.getChoices().size()) {
@@ -72,8 +74,9 @@ public class GameController {
 
         // Handle combat if required
         if (choice.isCombatRequired()) {
-            // For now, we'll just simulate combat damage
-            player.modifyStamina(-2);
+            // Extract enemy details from chapter metadata
+            Enemy enemy = new Enemy("Adversaire", 7, 7); // Default values if not specified
+            currentCombat = new Combat(player, enemy);
             if (!player.isAlive()) {
                 currentChapterId = -1;
                 chapterHistory.add(currentChapterId);
