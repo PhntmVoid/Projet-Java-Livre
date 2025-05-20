@@ -1,11 +1,14 @@
 package view;
 
 import controller.GameController;
-import model.*;
+import model.Chapter;
+import model.Choice;
+import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class SwingUI {
@@ -14,9 +17,8 @@ public class SwingUI {
     private JPanel mainMenuPanel;
     private JPanel gamePanel;
     private JPanel statsPanel;
-    private JTextPane chapterTextArea;
+    private JTextPane chapterTextArea; // Changed from JTextArea to JTextPane
     private JPanel choicesPanel;
-    private JDialog combatDialog;
 
     private static final Font STATS_FONT = new Font("SansSerif", Font.PLAIN, 12);
     private static final Color TEAL_COLOR = new Color(0, 128, 128);
@@ -31,6 +33,7 @@ public class SwingUI {
     public SwingUI(GameController controller) {
         this.controller = controller;
         initialize();
+        updateGameScreen();
     }
 
     private void initialize() {
@@ -79,150 +82,15 @@ public class SwingUI {
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         startButton.setMaximumSize(new Dimension(300, 50));
         configureButton(startButton, TEAL_COLOR, WHITE);
-        startButton.addActionListener(e -> showPlayerCreation());
-
-        JButton rulesButton = new JButton("Règles du jeu");
-        rulesButton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        rulesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        rulesButton.setMaximumSize(new Dimension(300, 50));
-        configureButton(rulesButton, TEAL_COLOR, WHITE);
-        rulesButton.addActionListener(e -> showRules());
-
-        JButton quitButton = new JButton("Quitter");
-        quitButton.setFont(new Font("SansSerif", Font.BOLD, 16));
-        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        quitButton.setMaximumSize(new Dimension(300, 50));
-        configureButton(quitButton, TEAL_COLOR, WHITE);
-        quitButton.addActionListener(e -> System.exit(0));
+        startButton.addActionListener(e -> showGameScreen());
 
         centerPanel.add(Box.createVerticalGlue());
         centerPanel.add(titleLabel);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         centerPanel.add(startButton);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        centerPanel.add(rulesButton);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        centerPanel.add(quitButton);
         centerPanel.add(Box.createVerticalGlue());
 
         mainMenuPanel.add(centerPanel, BorderLayout.CENTER);
-    }
-
-    private void showRules() {
-        JDialog rulesDialog = new JDialog(frame, "Règles du jeu", true);
-        rulesDialog.setSize(600, 400);
-        rulesDialog.setLocationRelativeTo(frame);
-
-        JPanel rulesPanel = new JPanel();
-        rulesPanel.setLayout(new BorderLayout());
-        rulesPanel.setBackground(DARK_GREY);
-        rulesPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        JTextArea rulesText = new JTextArea(
-            "RÈGLES DU JEU\n\n" +
-            "HABILETÉ, ENDURANCE ET CHANCE\n\n" +
-            "Votre personnage est défini par trois caractéristiques principales :\n\n" +
-            "HABILETÉ : Représente votre aptitude au combat.\n" +
-            "ENDURANCE : Représente votre constitution et votre volonté de survivre.\n" +
-            "CHANCE : Indique si vous êtes naturellement chanceux.\n\n" +
-            "COMBAT\n\n" +
-            "1. Calculez votre Force d'Attaque (Habileté + 2d6)\n" +
-            "2. Calculez la Force d'Attaque de l'adversaire\n" +
-            "3. Celui qui a la plus grande Force d'Attaque blesse l'autre\n" +
-            "4. Le perdant perd 2 points d'ENDURANCE\n\n" +
-            "CHANCE\n\n" +
-            "Lancez 2 dés. Si le résultat est inférieur ou égal à votre CHANCE,\n" +
-            "vous êtes Chanceux. Sinon, vous êtes Malchanceux.\n" +
-            "Chaque test de Chance réduit votre score de 1 point."
-        );
-        rulesText.setEditable(false);
-        rulesText.setBackground(DARK_GREY);
-        rulesText.setForeground(WHITE);
-        rulesText.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        rulesText.setLineWrap(true);
-        rulesText.setWrapStyleWord(true);
-
-        JScrollPane scrollPane = new JScrollPane(rulesText);
-        scrollPane.setBorder(BorderFactory.createLineBorder(TEAL_COLOR));
-
-        JButton closeButton = new JButton("Fermer");
-        configureButton(closeButton, TEAL_COLOR, WHITE);
-        closeButton.addActionListener(e -> rulesDialog.dispose());
-
-        rulesPanel.add(scrollPane, BorderLayout.CENTER);
-        rulesPanel.add(closeButton, BorderLayout.SOUTH);
-
-        rulesDialog.add(rulesPanel);
-        rulesDialog.setVisible(true);
-    }
-
-    private void showPlayerCreation() {
-        JDialog dialog = new JDialog(frame, "Création du personnage", true);
-        dialog.setSize(400, 300);
-        dialog.setLocationRelativeTo(frame);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(DARK_GREY);
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        // Roll initial stats
-        int skill = rollDice(1) + 6;    // 1d6 + 6
-        int stamina = rollDice(2) + 12;  // 2d6 + 12
-        int luck = rollDice(1) + 6;     // 1d6 + 6
-
-        JLabel skillLabel = new JLabel("HABILETÉ: " + skill);
-        JLabel staminaLabel = new JLabel("ENDURANCE: " + stamina);
-        JLabel luckLabel = new JLabel("CHANCE: " + luck);
-
-        skillLabel.setForeground(WHITE);
-        staminaLabel.setForeground(WHITE);
-        luckLabel.setForeground(WHITE);
-
-        JButton rerollButton = new JButton("Relancer les dés");
-        configureButton(rerollButton, TEAL_COLOR, WHITE);
-        rerollButton.addActionListener(e -> {
-            int newSkill = rollDice(1) + 6;
-            int newStamina = rollDice(2) + 12;
-            int newLuck = rollDice(1) + 6;
-            skillLabel.setText("HABILETÉ: " + newSkill);
-            staminaLabel.setText("ENDURANCE: " + newStamina);
-            luckLabel.setText("CHANCE: " + newLuck);
-        });
-
-        JButton startButton = new JButton("Commencer l'aventure");
-        configureButton(startButton, TEAL_COLOR, WHITE);
-        startButton.addActionListener(e -> {
-            int finalSkill = Integer.parseInt(skillLabel.getText().split(": ")[1]);
-            int finalStamina = Integer.parseInt(staminaLabel.getText().split(": ")[1]);
-            int finalLuck = Integer.parseInt(luckLabel.getText().split(": ")[1]);
-            
-            controller = new GameController(controller.getScenario(), 
-                new Player(finalSkill, finalStamina, finalLuck));
-            dialog.dispose();
-            showGameScreen();
-        });
-
-        panel.add(skillLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-        panel.add(staminaLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-        panel.add(luckLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        panel.add(rerollButton);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
-        panel.add(startButton);
-
-        dialog.add(panel);
-        dialog.setVisible(true);
-    }
-
-    private int rollDice(int number) {
-        int total = 0;
-        for (int i = 0; i < number; i++) {
-            total += (int)(Math.random() * 6) + 1;
-        }
-        return total;
     }
 
     private void createGameInterface() {
@@ -241,6 +109,7 @@ public class SwingUI {
         contentPanel.setBackground(DARK_GREY);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        // Use JTextPane instead of JTextArea
         chapterTextArea = new JTextPane();
         chapterTextArea.setEditable(false);
         chapterTextArea.setContentType("text/plain");
@@ -402,87 +271,16 @@ public class SwingUI {
         }
     }
 
-    private void handleCombat(Enemy enemy) {
-        combatDialog = new JDialog(frame, "Combat!", true);
-        combatDialog.setSize(400, 300);
-        combatDialog.setLocationRelativeTo(frame);
-        combatDialog.setLayout(new BorderLayout());
-
-        JPanel combatPanel = new JPanel();
-        combatPanel.setLayout(new BoxLayout(combatPanel, BoxLayout.Y_AXIS));
-        combatPanel.setBackground(DARK_GREY);
-        combatPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        JLabel enemyLabel = new JLabel("Combat contre " + enemy.getName());
-        enemyLabel.setForeground(WHITE);
-        enemyLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
-        enemyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel statsLabel = new JLabel(String.format("Habileté: %d, Endurance: %d", 
-            enemy.getSkill(), enemy.getEndurance()));
-        statsLabel.setForeground(WHITE);
-        statsLabel.setFont(STATS_FONT);
-        statsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JTextArea combatLog = new JTextArea();
-        combatLog.setEditable(false);
-        combatLog.setBackground(DARK_GREY);
-        combatLog.setForeground(WHITE);
-        combatLog.setFont(STATS_FONT);
-        JScrollPane scrollPane = new JScrollPane(combatLog);
-        scrollPane.setPreferredSize(new Dimension(350, 150));
-
-        JButton attackButton = new JButton("Attaquer");
-        configureButton(attackButton, TEAL_COLOR, WHITE);
-        attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        attackButton.setMaximumSize(new Dimension(200, 40));
-
-        Combat combat = new Combat(controller.getPlayer(), enemy);
-        
-        attackButton.addActionListener(e -> {
-            CombatResult result = combat.executeRound();
-            combatLog.append(result.getMessage() + "\n");
-            combatLog.setCaretPosition(combatLog.getDocument().getLength());
-            
-            if (combat.isOver()) {
-                attackButton.setEnabled(false);
-                if (combat.playerWon()) {
-                    combatLog.append("\nVous avez vaincu votre adversaire!\n");
-                } else {
-                    combatLog.append("\nVous avez été vaincu...\n");
-                }
-                
-                Timer timer = new Timer(2000, event -> {
-                    combatDialog.dispose();
-                    updateGameScreen();
-                });
-                timer.setRepeats(false);
-                timer.start();
-            }
-            
-            updatePlayerStats();
-        });
-
-        combatPanel.add(enemyLabel);
-        combatPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        combatPanel.add(statsLabel);
-        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        combatPanel.add(scrollPane);
-        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        combatPanel.add(attackButton);
-
-        combatDialog.add(combatPanel);
-        combatDialog.setVisible(true);
-    }
-
     private void updateChapterDisplay() {
         Chapter currentChapter = controller.getCurrentChapter();
         if (currentChapter == null) return;
 
+        // Update chapter text with proper line breaks
         String formattedText = currentChapter.getText().replace("\\n", "\n");
         chapterTextArea.setText(formattedText);
         chapterTextArea.setCaretPosition(0);
 
+        // Update choices
         choicesPanel.removeAll();
 
         if (!controller.isGameOver()) {
@@ -504,10 +302,6 @@ public class SwingUI {
                     ));
 
                     choiceButton.addActionListener(e -> {
-                        if (choice.isCombatRequired()) {
-                            Enemy enemy = new Enemy("Adversaire", 7, 7);
-                            handleCombat(enemy);
-                        }
                         controller.makeChoice(choiceIndex);
                         updateGameScreen();
                     });
@@ -533,6 +327,7 @@ public class SwingUI {
             restartButton.setMaximumSize(new Dimension(250, 40));
 
             configureButton(restartButton, TEAL_COLOR, WHITE);
+
             restartButton.addActionListener(e -> showMainMenu());
 
             choicesPanel.add(Box.createRigidArea(new Dimension(0, 20)));
