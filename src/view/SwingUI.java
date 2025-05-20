@@ -1,9 +1,7 @@
 package view;
 
 import controller.GameController;
-import model.Chapter;
-import model.Choice;
-import model.Player;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +15,9 @@ public class SwingUI {
     private JPanel mainMenuPanel;
     private JPanel gamePanel;
     private JPanel statsPanel;
-    private JTextPane chapterTextArea; // Changed from JTextArea to JTextPane
+    private JTextPane chapterTextArea;
     private JPanel choicesPanel;
+    private JDialog combatDialog;
 
     private static final Font STATS_FONT = new Font("SansSerif", Font.PLAIN, 12);
     private static final Color TEAL_COLOR = new Color(0, 128, 128);
@@ -109,7 +108,6 @@ public class SwingUI {
         contentPanel.setBackground(DARK_GREY);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Use JTextPane instead of JTextArea
         chapterTextArea = new JTextPane();
         chapterTextArea.setEditable(false);
         chapterTextArea.setContentType("text/plain");
@@ -271,16 +269,87 @@ public class SwingUI {
         }
     }
 
+    private void handleCombat(Enemy enemy) {
+        combatDialog = new JDialog(frame, "Combat!", true);
+        combatDialog.setSize(400, 300);
+        combatDialog.setLocationRelativeTo(frame);
+        combatDialog.setLayout(new BorderLayout());
+
+        JPanel combatPanel = new JPanel();
+        combatPanel.setLayout(new BoxLayout(combatPanel, BoxLayout.Y_AXIS));
+        combatPanel.setBackground(DARK_GREY);
+        combatPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel enemyLabel = new JLabel("Combat contre " + enemy.getName());
+        enemyLabel.setForeground(WHITE);
+        enemyLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        enemyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel statsLabel = new JLabel(String.format("Habileté: %d, Endurance: %d", 
+            enemy.getSkill(), enemy.getEndurance()));
+        statsLabel.setForeground(WHITE);
+        statsLabel.setFont(STATS_FONT);
+        statsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JTextArea combatLog = new JTextArea();
+        combatLog.setEditable(false);
+        combatLog.setBackground(DARK_GREY);
+        combatLog.setForeground(WHITE);
+        combatLog.setFont(STATS_FONT);
+        JScrollPane scrollPane = new JScrollPane(combatLog);
+        scrollPane.setPreferredSize(new Dimension(350, 150));
+
+        JButton attackButton = new JButton("Attaquer");
+        configureButton(attackButton, TEAL_COLOR, WHITE);
+        attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        attackButton.setMaximumSize(new Dimension(200, 40));
+
+        Combat combat = new Combat(controller.getPlayer(), enemy);
+        
+        attackButton.addActionListener(e -> {
+            CombatResult result = combat.executeRound();
+            combatLog.append(result.getMessage() + "\n");
+            combatLog.setCaretPosition(combatLog.getDocument().getLength());
+            
+            if (combat.isOver()) {
+                attackButton.setEnabled(false);
+                if (combat.playerWon()) {
+                    combatLog.append("\nVous avez vaincu votre adversaire!\n");
+                } else {
+                    combatLog.append("\nVous avez été vaincu...\n");
+                }
+                
+                Timer timer = new Timer(2000, event -> {
+                    combatDialog.dispose();
+                    updateGameScreen();
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+            
+            updatePlayerStats();
+        });
+
+        combatPanel.add(enemyLabel);
+        combatPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        combatPanel.add(statsLabel);
+        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        combatPanel.add(scrollPane);
+        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        combatPanel.add(attackButton);
+
+        combatDialog.add(combatPanel);
+        combatDialog.setVisible(true);
+    }
+
     private void updateChapterDisplay() {
         Chapter currentChapter = controller.getCurrentChapter();
         if (currentChapter == null) return;
 
-        // Update chapter text with proper line breaks
         String formattedText = currentChapter.getText().replace("\\n", "\n");
         chapterTextArea.setText(formattedText);
         chapterTextArea.setCaretPosition(0);
 
-        // Update choices
         choicesPanel.removeAll();
 
         if (!controller.isGameOver()) {
@@ -302,6 +371,10 @@ public class SwingUI {
                     ));
 
                     choiceButton.addActionListener(e -> {
+                        if (choice.isCombatRequired()) {
+                            Enemy enemy = new Enemy("Adversaire", 7, 7);
+                            handleCombat(enemy);
+                        }
                         controller.makeChoice(choiceIndex);
                         updateGameScreen();
                     });
@@ -327,7 +400,6 @@ public class SwingUI {
             restartButton.setMaximumSize(new Dimension(250, 40));
 
             configureButton(restartButton, TEAL_COLOR, WHITE);
-
             restartButton.addActionListener(e -> showMainMenu());
 
             choicesPanel.add(Box.createRigidArea(new Dimension(0, 20)));
