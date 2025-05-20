@@ -921,6 +921,245 @@
         }
       ]
     },
+    {
+      "id": 132,
+      "text": "En jetant des regards inquiets autour de vous, vous descendez lentement l'escalier. Mais personne ne se manifeste, et vous arrivez sans encombre dans un couloir, au rez-de-chaussée.",
+      "choices": [
+        {
+          "text": "vous diriger vers une porte sur la gauche",
+          "nextChapterId": 353
+        },
+        {
+          "text": "vous diriger vers une porte sur la droite",
+          "nextChapterId": 285
+        },
+        {
+          "text": "vous rendre à la porte d'entrée du Manoir",
+          "nextChapterId": 222
+        }
+      ]
+    },
+    {
+      "id": 377,
+      "text": "Vous pénétrez à l'intérieur de ce qui semble être une petite resserre, et vous refermez la porte derrière vous. Des étagères sont disposées sur les murs de droite et de gauche, sur lesquelles différents objets d'usage domestique sont rangés. Face à vous, vous apercevez une porte.",
+      "choices": [
+        {
+          "text": "examiner les objets sur les étagères",
+          "nextChapterId": 83
+        },
+        {
+          "text": "vous diriger vers la porte",
+          "nextChapterId": 255
+        },
+        {
+          "text": "regagner le balcon",
+          "nextChapterId": 233
+        }
+      ]
+    },
+    {
+      "id": 233,
+      "text": "À quelques pas de la porte sans nom se trouve une nouvelle porte, anonyme elle aussi.",
+      "choices": [
+        {
+          "text": "essayer de l'ouvrir",
+          "nextChapterId": 98
+        },
+        {
+          "text": "poursuivre votre chemin",
+          "nextChapterId": 374
+        }
+      ]
+    },
+    {
+      "id": 98,
+      "text": "Vous poussez la porte avec précaution tout d'abord, mais, comme il règne dans la pièce l'obscurité la plus totale, vous l'ouvrez en grand. Aaaïïeeee ! Vous poussez un hurlement de terreur, car un corps vient de dégringoler sur votre tête ! Le cadavre est celui d'un vieil homme et, à en juger par l'expression figée de son visage, son agonie n'a pas dû être de tout repos.",
+      "fearModifier": 3,
+      "choices": [
+        {
+          "text": "fuir dans la panique",
+          "nextChapterId": 374
+        }
+      ]
+    },
+    {
+      "id": 374,
+      "text": "Vous arrivez bientôt à une bifurcation. Vous pouvez continuer à longer le balcon qui tourne sur la droite, ou prendre sur la gauche le passage qui s'ouvre devant vous.",
+      "choices": [
+        {
+          "text": "longer le balcon à droite",
+          "nextChapterId": 272
+        },
+        {
+          "text": "prendre le passage à gauche",
+          "nextChapterId": 339
+        }
+      ]
+    },
+    {
+      "id": 112,
+      "text": "La porte s'ouvre et vous vous apprêtez à pénétrer dans la pièce, mais ce que vous y voyez vous fait vous arrêter net. Vous êtes au seuil d'une chambre de torture. Dans un coin est posé une espèce de sarcophage dont l'intérieur est garni de pointes acérées. Au centre de la chambre se trouve un chevalet. Et, pendant du plafond, à gauche de la pièce, vous pouvez voir deux cages : la première est juste assez grande pour qu'un homme puisse s'y tenir accroupi, alors que, s'il est possible de se tenir debout dans la seconde, il est en revanche totalement impossible d'y faire le moindre mouvement. Cette découverte vous glace d'horreur. Soudain, deux mains saisissent vos poignets, vous tirent et vous projettent au milieu de la pièce ! Surgi de derrière la porte, apparaît un homme massif aux bras puissants. Il porte un tablier de cuir, et un bandeau noir cache son œil gauche. « Eh bien ! s'exclame-t-il, qui s'est introduit dans notre Manoir ? Allez, parlez... Avez-vous perdu votre langue ? »",
+      "choices": [
+        {
+          "text": "dire que vous cherchez à sortir du Manoir",
+          "nextChapterId": 4
+        },
+        {
+          "text": "mentir et dire que vous êtes un ami du Maître",
+          "nextChapterId": 16
+        }
+      ]
+    },
+    {
+      "id": 396,
+      "text": "La cage est amenée au sol, et vous êtes poussé dedans. Elle est si étroite que lorsque la porte se referme sur vous, vous vous trouvez pressé contre ses barreaux. L'un des assistants du bourreau remonte alors la cage, et vous resterez ainsi suspendu jusqu'à ce que le manque de nourriture vous fasse perdre votre dernier point d'ENDURANCE. Et si la faim ne vient pas à bout de vous suffisamment vite, ce seront les crampes qui auront raison de vous. Car si vous êtes debout, vous ne pouvez ni vous étendre dans cette cage, ni même vous y asseoir.",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    {
+      "id": 201,
+      "text": "Vous êtes tassé à l'intérieur de la petite cage qui est ensuite hissée au plafond. C'est là une villégiature de rêve : la cage est suffisamment large pour vous permettre d'y rester assis, mais vos genoux sont pressés contre votre poitrine, et il vous est impossible de faire le moindre mouvement ! Quand les premières crampes se feront sentir, ce sera le début de votre lente, longue et douloureuse agonie... pour le plus grand plaisir du bourreau et de ses assistants.",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "text": "« Un ami du Maître, bougonne le bourreau. Je ne vous ai jamais vu auparavant et pourtant je connais tous les amis du Maître. » Vous lui expliquez que vous êtes un nouveau venu dans la maison et que c'est la raison pour laquelle vous vous êtes égaré. Bien que le bourreau ne soit pas très convaincu par votre histoire, il ne peut prendre le risque de créer du tort à l'un des amis du Maître. « Je vais vous dire ce que nous allons faire, répond-il. Je ne vous crois pas, mais je vais vous donner une chance. Si vous pouvez me prouver que vous dites la vérité, alors je vous laisserai partir. Pour cela, vous allez devoir subir une petite épreuve. Attachez notre ami, garçons ! » Les assistants du bourreau vous conduisent alors au milieu de la pièce, et vous ligotent sur le chevalet.",
+      "choices": [
+        {
+          "text": "subir l’épreuve du chevalet",
+          "nextChapterId": 381
+        }
+      ]
+    },
+    {
+      "id": 381,
+      "text": "« Très bien, dit le bourreau. Nous allons voir si vous êtes vraiment un ami du Maître. Orville, mon assistant, va choisir à plusieurs reprises une lettre de l'alphabet ; et vous devrez me donner le plus vite possible un mot concernant le Manoir commençant par la lettre choisie. Si vous mettez trop de temps pour répondre, si vous hésitez, Dirk que vous voyez là, donnera un tour de roue. Vous avez compris ? Eh bien, allons-y ! » Dès que l'assistant du bourreau aura choisi une lettre, vous écrirez sur une feuille de papier le premier mot ayant trait au Manoir, auquel vous penserez. A la fin de l'épreuve, le bourreau prendra connaissance de vos réponses. Et selon ce que vous aurez écrit, il vous croira ou pas.",
+      "choices": [
+        {
+          "text": "commencer l’épreuve",
+          "nextChapterId": 38
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "text": "B est la première lettre choisie par Orville. Écrivez vite un mot commençant par cette lettre, sinon déduisez 1 point de votre total d'ENDURANCE, car Dirk tourne la roue !",
+      "enduranceModifier": -1,
+      "choices": [
+        {
+          "text": "lettre suivante",
+          "nextChapterId": 352
+        }
+      ]
+    },
+    {
+      "id": 352,
+      "text": "« Lettre suivante, Orville ! » ordonne le bourreau. Orville réfléchit, puis annonce la lettre A. Écrivez votre réponse le plus rapidement possible, ou déduisez 1 point de votre total d'ENDURANCE.",
+      "enduranceModifier": -1,
+      "choices": [
+        {
+          "text": "lettre suivante",
+          "nextChapterId": 57
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "text": "« Allons, allons, Orville. Une autre lettre ! » Orville réfléchit, et cette fois, il annonce la lettre K. Écrivez vite un mot, ou déduisez 1 point de votre total d'ENDURANCE.",
+      "enduranceModifier": -1,
+      "choices": [
+        {
+          "text": "lettre suivante",
+          "nextChapterId": 333
+        }
+      ]
+    },
+    {
+      "id": 333,
+      "text": "Orville s'est maintenant pris à ce jeu qui l'amuse au plus haut point. M est la nouvelle lettre qu'il a choisie. Écrivez un mot immédiatement, ou enlevez 1 point de votre total d'ENDURANCE.",
+      "enduranceModifier": -1,
+      "choices": [
+        {
+          "text": "lettre suivante",
+          "nextChapterId": 76
+        }
+      ]
+    },
+    {
+      "id": 266,
+      "text": "Avec détermination, l'homme découvre sa poitrine, et vous demande de lui plonger un couteau dans le cœur pour mettre un terme à ses tourments.",
+      "choices": [
+        {
+          "text": "lui obéir avec votre dague",
+          "condition": "hasDagger",
+          "nextChapterId": 182
+        },
+        {
+          "text": "refuser et vous diriger vers une autre cellule",
+          "nextChapterId": 143
+        }
+      ]
+    },
+    {
+      "id": 182,
+      "text": "Vous saisissez votre dague, et l'homme détourne les yeux alors que vous allez le frapper. « Merci encore, dit-il, merci, car je n'aurai plus l'occasion de vous remercier. » Vous projetez votre bras en avant, et vous fermez les yeux au moment où la lame va pénétrer dans sa poitrine. Mais jamais votre couteau n'atteindra sa cible car votre main est soudain saisie par une poigne de fer. Vous ouvrez les yeux, et vous voyez alors un sourire démoniaque se peindre sur le visage de l'homme. Il vous a berné ! Jamais il n'a voulu mettre fin à ses jours : il avait seulement besoin d'une arme pour se débarrasser de ses geôliers. Et vous lui avez fourni cette arme. Il écrase votre main contre les barreaux de sa cellule, vous obligeant à lâcher le poignard qui tombe à ses pieds. La colère qui est alors la vôtre se transforme en terreur, car il ne vous lâche pas pour autant : il se baisse, ramasse le poignard, et en applique la pointe contre votre cou. « Je suis désolé, mon ami, mais je ne peux prendre le risque de vous laisser révéler aux autres que je suis armé. Mes compagnons et moi devons nous libérer à tout prix, et nous le ferons lorsque les geôliers nous apporteront le prochain repas. Je suis vraiment désolé que le prix de notre liberté soit si élevé... pour vous. »",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    {
+      "id": 322,
+      "text": "La jeune fille pousse des cris hystériques, mais vous finissez par comprendre qu'il s'agit d'une servante qui, à la recherche d'un emploi, est arrivée un jour à la porte du Manoir. Ayant été invitée à pénétrer dans la demeure, elle n'en est jamais ressortie ! À travers des sanglots qui se transforment en cris aigus, elle implore votre aide. Mais que pouvez-vous faire ? Car il n'y a pas trace des clefs des cellules. Craignant que ses hurlements n'attirent l'attention des habitants du Manoir, vous essayez de la calmer.",
+      "choices": [
+        {
+          "text": "vous diriger vers l'un des autres prisonniers",
+          "nextChapterId": 143
+        },
+        {
+          "text": "quitter ce cachot sans perdre un instant",
+          "nextChapterId": 91
+        }
+      ]
+    },
+    {
+      "id": 143,
+      "text": "Alors que vous vous dirigez vers la cellule voisine, un bruit de pas précipités venant de l'autre côté de la porte vous fait sursauter. Vous vous retournez juste à temps pour voir surgir quatre hommes, le visage dissimulé sous une tête de bouc, vêtus de toges blanches. « Je vous l'avais bien dit, je savais bien que j'avais entendu quelque chose, déclare l'un d'eux. Regardez ! Quelqu'un veut délivrer nos prisonniers. Venez mes frères ! » Ils se précipitent sur vous, et vous allez devoir combattre leur chef qui vous attaque le premier.",
+      "enemy": {
+        "name": "CHEF DES GARDIENS",
+        "skill": 8,
+        "endurance": 9
+      },
+      "choices": [
+        {
+          "text": "si vous êtes vainqueur",
+          "nextChapterId": 301
+        }
+      ]
+    },
+    {
+      "id": 301,
+      "text": "Bien que vous ayez vaincu leur chef, vous ne pouvez rien faire contre les trois autres gardiens qui vous entourent et finissent par vous réduire à l'impuissance. L'un d'eux se précipite hors de la pièce, et revient bientôt portant les clefs des cellules. Vous êtes maintenant l'hôte du quatrième cachot, et votre aventure se termine ici...",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+
+
 
 
 
