@@ -34,6 +34,7 @@ public class Player {
     public int getCurrentStamina() { return currentStamina; }
     public int getMaxFear() { return maxFear; }
     public int getCurrentFear() { return currentFear; }
+    public int getMaxLuck() { return maxLuck; }
     public int getLuck() { return currentLuck; }
 
     // Inventory methods
