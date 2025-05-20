@@ -2,98 +2,124 @@
 
 ## Description
 
-This is a Java-based interactive fiction game, "Le Manoir de l'Enfer" (The House of Hell), where the player makes choices to navigate through a story. The game features a scenario loaded from a JSON file, player stats (skill, stamina, luck, fear), combat, and luck tests. It offers both a Swing-based graphical user interface (GUI) and a text-based user interface (TUI).
+Un jeu de fiction interactive en Java, "Le Manoir de l'Enfer", où le joueur fait des choix pour progresser dans une histoire. Le jeu comprend un scénario chargé depuis un fichier JSON, des statistiques de joueur (habileté, endurance, chance, peur), des combats et des tests de chance. Il propose une interface graphique (GUI) basée sur Swing et une interface textuelle (TUI).
 
-## Features
+## Fonctionnalités
 
--   **Scenario Loading:** Loads game scenarios from JSON files.
--   **Player Stats:** Manages player attributes such as skill, stamina, luck, and fear.
--   **Choices:** Presents players with choices that drive the narrative.
--   **Combat System:** Implements a combat system with dice rolls and stat comparisons.
--   **Luck Tests:** Incorporates luck tests that can affect the outcome of events.
--   **Inventory:** Allows players to collect and manage items.
--   **GUI:** Provides a graphical user interface using Swing.
--   **TUI:** Offers a text-based user interface for playing in the console.
+- **Chargement de Scénario:** Charge les scénarios de jeu depuis des fichiers JSON
+- **Statistiques du Joueur:** Gère les attributs du joueur (habileté, endurance, chance, peur)
+- **Système de Choix:** Présente aux joueurs des choix qui influencent l'histoire
+- **Système de Combat:** Implémente un système de combat avec lancers de dés
+- **Tests de Chance:** Intègre des tests de chance qui peuvent affecter le résultat des événements
+- **Inventaire:** Permet aux joueurs de collecter et gérer des objets
+- **Interface Graphique:** Interface utilisateur graphique avec Swing
+- **Interface Textuelle:** Interface en mode console
 
-## Getting Started
+## Interfaces et Fonctionnalités Détaillées
 
-### Prerequisites
+### Menu Principal
+- **Titre du Jeu:** Affiché en grand format
+- **Boutons:**
+  - "Commencer l'aventure": Lance la création du personnage
+  - "Règles du jeu": Affiche les règles dans une fenêtre dédiée
+  - "Quitter": Ferme l'application
 
--   Java Development Kit (JDK) version 17 or higher
+### Création du Personnage
+- **Statistiques Initiales:**
+  - HABILETÉ (1d6 + 6): Capacité au combat
+  - ENDURANCE (2d6 + 12): Points de vie
+  - CHANCE (1d6 + 6): Pour les tests de chance
+- **Options:**
+  - "Relancer les dés": Régénère les statistiques
+  - "Commencer l'aventure": Démarre avec les stats actuelles
 
-### How to Run
+### Interface de Jeu Principale
+- **Panneau des Statistiques (Gauche):**
+  - Barre d'HABILETÉ (verte)
+  - Barre d'ENDURANCE (rouge)
+  - Barre de CHANCE (jaune)
+  - Barre de PEUR (violette)
+  - Section Inventaire
+- **Zone de Jeu (Centre):**
+  - Texte du chapitre actuel
+  - Boutons de choix en bas
 
-1.  **Clone the repository:**
+### Système de Combat
+- **Fenêtre de Combat:**
+  - Statistiques de l'adversaire
+  - Journal de combat
+  - Bouton d'attaque
+- **Mécanique:**
+  - Force d'Attaque = HABILETÉ + 2d6
+  - 2 points d'ENDURANCE perdus par coup
+  - Combat termine à 0 ENDURANCE
 
-    ```bash
-    git clone <repository_url>
-    cd Projet-Java-Livre
-    ```
+### Tests de Chance
+- **Déclenchement:** Sur certains choix
+- **Mécanique:**
+  - Lance 2d6
+  - Compare avec CHANCE actuelle
+  - CHANCE -1 après chaque test
+- **Résultats:** Affichés dans le texte
 
-2.  **Compile the code:**
+## Prérequis
 
-    ```bash
-    javac src/Main.java
-    ```
+- Kit de Développement Java (JDK) version 17 ou supérieure
 
-3.  **Run the game:**
+## Installation
 
-    -   **GUI:**
+1. **Cloner le dépôt:**
+   ```bash
+   git clone <url_du_depot>
+   cd Projet-Java-Livre
+   ```
 
-        ```bash
-        java Main
-        ```
+2. **Compiler le code:**
+   ```bash
+   javac src/Main.java
+   ```
 
-    -   **Text UI:**
+3. **Lancer le jeu:**
+   - Interface graphique:
+     ```bash
+     java Main
+     ```
+   - Interface textuelle:
+     ```bash
+     java Main --text
+     ```
 
-        ```bash
-        java Main --text
-        ```
-
-## Project Structure
+## Structure du Projet
 
 ```
 Projet-Java-Livre/
-├── .gradle/                # Gradle files
-├── .idea/                  # IntelliJ IDEA project files
-├── src/                    # Source code
-│   ├── controller/         # Controllers (GameController, ScenarioLoader)
-│   ├── model/              # Game models (Chapter, Choice, Player, Scenario, etc.)
-│   ├── view/               # User interfaces (SwingUI, TextUI)
-│   ├── Main.java           # Main class to start the game
-│   └── resources/          # Game data (scenarios)
-│       └── manoir_enfer.json # Scenario file
-├── build.gradle            # Gradle build file
-├── Projet-Java-Livre.iml   # IntelliJ IDEA module file
-└── README.md               # This file
+├── .gradle/                # Fichiers Gradle
+├── .idea/                  # Fichiers projet IntelliJ IDEA
+├── src/
+│   ├── controller/        # Contrôleurs
+│   ├── model/            # Modèles de jeu
+│   ├── view/             # Interfaces utilisateur
+│   ├── Main.java         # Classe principale
+│   └── resources/        # Données du jeu
+├── build.gradle          # Configuration Gradle
+└── README.md            # Ce fichier
 ```
 
-## Dependencies
+## Dépendances
 
--   org.json:json:20231013
+- org.json:json:20231013
 
-## Usage
+## Contribution
 
-The game starts with a main menu where you can start a new adventure, view the game rules, or quit. When starting a new adventure, you can roll for initial stats (Habileté, Endurance, Chance). The game presents you with choices at each chapter, and your decisions affect the story's outcome.
+Pour contribuer au projet:
 
-## Contributing
+1. Forkez le dépôt
+2. Créez une branche (`git checkout -b feature/nouvelle-fonctionnalite`)
+3. Committez vos changements (`git commit -m 'Ajout nouvelle fonctionnalite'`)
+4. Poussez vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
+5. Ouvrez une Pull Request
 
-We welcome contributions to improve Le Manoir de l'Enfer! Here's how you can help:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add amazing feature'`)
-5. Push to the branch (`git push origin feature/amazing-feature`)
-6. Open a Pull Request
-
-Please make sure to:
-- Follow the existing code style
-- Add comments for new features
-- Update documentation as needed
-- Test your changes thoroughly
-
-## License
+## Licence
 
 MIT License
 
