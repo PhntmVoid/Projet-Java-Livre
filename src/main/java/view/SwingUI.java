@@ -1,12 +1,11 @@
-package view;
-
 import controller.GameController;
+import controller.SaveManager;
 import model.*;
-import model.Choice;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.List;
 
 public class SwingUI {
@@ -31,6 +30,7 @@ public class SwingUI {
 
     public SwingUI(GameController controller) {
         this.controller = controller;
+        SaveManager.initialize();
         initialize();
     }
 
@@ -75,12 +75,19 @@ public class SwingUI {
         titleLabel.setForeground(WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton startButton = new JButton("Commencer l'aventure");
+        JButton startButton = new JButton("Nouvelle partie");
         startButton.setFont(new Font("SansSerif", Font.BOLD, 16));
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         startButton.setMaximumSize(new Dimension(300, 50));
         configureButton(startButton, TEAL_COLOR, WHITE);
         startButton.addActionListener(e -> showPlayerCreation());
+
+        JButton loadButton = new JButton("Charger une partie");
+        loadButton.setFont(new Font("SansSerif", Font.BOLD, 16));
+        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loadButton.setMaximumSize(new Dimension(300, 50));
+        configureButton(loadButton, TEAL_COLOR, WHITE);
+        loadButton.addActionListener(e -> showLoadGameDialog());
 
         JButton rulesButton = new JButton("Règles du jeu");
         rulesButton.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -101,12 +108,107 @@ public class SwingUI {
         centerPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         centerPanel.add(startButton);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        centerPanel.add(loadButton);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         centerPanel.add(rulesButton);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         centerPanel.add(quitButton);
         centerPanel.add(Box.createVerticalGlue());
 
         mainMenuPanel.add(centerPanel, BorderLayout.CENTER);
+    }
+
+    private void showLoadGameDialog() {
+        JDialog loadDialog = new JDialog(frame, "Charger une partie", true);
+        loadDialog.setSize(400, 300);
+        loadDialog.setLocationRelativeTo(frame);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(DARK_GREY);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        List<String> saves = SaveManager.getSaveFiles();
+        saves.forEach(listModel::addElement);
+
+        JList<String> savesList = new JList<>(listModel);
+        savesList.setBackground(DARK_GREY);
+        savesList.setForeground(WHITE);
+        savesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        JScrollPane scrollPane = new JScrollPane(savesList);
+        scrollPane.setBorder(BorderFactory.createLineBorder(TEAL_COLOR));
+
+        JButton loadButton = new JButton("Charger");
+        configureButton(loadButton, TEAL_COLOR, WHITE);
+        loadButton.setEnabled(false);
+
+        savesList.addListSelectionListener(e -> loadButton.setEnabled(savesList.getSelectedValue() != null));
+
+        loadButton.addActionListener(e -> {
+            String selected = savesList.getSelectedValue();
+            if (selected != null) {
+                try {
+                    controller = SaveManager.loadGame(selected, controller.getScenario());
+                    loadDialog.dispose();
+                    showGameScreen();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(loadDialog,
+                        "Erreur lors du chargement: " + ex.getMessage(),
+                        "Erreur",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(loadButton, BorderLayout.SOUTH);
+
+        loadDialog.add(panel);
+        loadDialog.setVisible(true);
+    }
+
+    private void showSaveGameDialog() {
+        JDialog saveDialog = new JDialog(frame, "Sauvegarder la partie", true);
+        saveDialog.setSize(400, 150);
+        saveDialog.setLocationRelativeTo(frame);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout(10, 10));
+        panel.setBackground(DARK_GREY);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JTextField nameField = new JTextField();
+        nameField.setBackground(DARK_GREY);
+        nameField.setForeground(WHITE);
+        nameField.setBorder(BorderFactory.createLineBorder(TEAL_COLOR));
+
+        JButton saveButton = new JButton("Sauvegarder");
+        configureButton(saveButton, TEAL_COLOR, WHITE);
+
+        saveButton.addActionListener(e -> {
+            try {
+                SaveManager.saveGame(controller, nameField.getText());
+                saveDialog.dispose();
+                JOptionPane.showMessageDialog(frame,
+                    "Partie sauvegardée avec succès!",
+                    "Sauvegarde",
+                    JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(saveDialog,
+                    "Erreur lors de la sauvegarde: " + ex.getMessage(),
+                    "Erreur",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        panel.add(new JLabel("Nom de la sauvegarde:"), BorderLayout.NORTH);
+        panel.add(nameField, BorderLayout.CENTER);
+        panel.add(saveButton, BorderLayout.SOUTH);
+
+        saveDialog.add(panel);
+        saveDialog.setVisible(true);
     }
 
     private void showRules() {
@@ -167,7 +269,6 @@ public class SwingUI {
         panel.setBackground(DARK_GREY);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Roll initial stats
         int skill = rollDice(1) + 6;    // 1d6 + 6
         int stamina = rollDice(2) + 12;  // 2d6 + 12
         int luck = rollDice(1) + 6;     // 1d6 + 6
@@ -230,6 +331,27 @@ public class SwingUI {
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(DARK_GREY);
+
+        // Add menu bar
+        JMenuBar menuBar = new JMenuBar();
+        JMenu gameMenu = new JMenu("Jeu");
+        
+        JMenuItem saveMenuItem = new JMenuItem("Sauvegarder");
+        saveMenuItem.addActionListener(e -> showSaveGameDialog());
+        
+        JMenuItem loadMenuItem = new JMenuItem("Charger");
+        loadMenuItem.addActionListener(e -> showLoadGameDialog());
+        
+        JMenuItem mainMenuMenuItem = new JMenuItem("Menu principal");
+        mainMenuMenuItem.addActionListener(e -> showMainMenu());
+
+        gameMenu.add(saveMenuItem);
+        gameMenu.add(loadMenuItem);
+        gameMenu.addSeparator();
+        gameMenu.add(mainMenuMenuItem);
+        
+        menuBar.add(gameMenu);
+        frame.setJMenuBar(menuBar);
 
         statsPanel = new JPanel();
         statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
