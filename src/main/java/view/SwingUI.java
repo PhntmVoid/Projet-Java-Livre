@@ -2,9 +2,11 @@ package view;
 
 import controller.GameController;
 import model.*;
+import model.Choice;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 
 public class SwingUI {
@@ -30,7 +32,6 @@ public class SwingUI {
     public SwingUI(GameController controller) {
         this.controller = controller;
         initialize();
-        updateGameScreen();
     }
 
     private void initialize() {
@@ -79,10 +80,7 @@ public class SwingUI {
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         startButton.setMaximumSize(new Dimension(300, 50));
         configureButton(startButton, TEAL_COLOR, WHITE);
-        startButton.addActionListener(e -> {
-            createNewPlayer();
-            showGameScreen();
-        });
+        startButton.addActionListener(e -> showPlayerCreation());
 
         JButton rulesButton = new JButton("Règles du jeu");
         rulesButton.setFont(new Font("SansSerif", Font.BOLD, 16));
@@ -113,57 +111,119 @@ public class SwingUI {
 
     private void showRules() {
         JDialog rulesDialog = new JDialog(frame, "Règles du jeu", true);
-        rulesDialog.setLayout(new BorderLayout());
+        rulesDialog.setSize(600, 400);
+        rulesDialog.setLocationRelativeTo(frame);
+
+        JPanel rulesPanel = new JPanel();
+        rulesPanel.setLayout(new BorderLayout());
+        rulesPanel.setBackground(DARK_GREY);
+        rulesPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JTextArea rulesText = new JTextArea(
-                "RÈGLES DU JEU\n\n" +
-                        "HABILETÉ\n" +
-                        "Représente votre aptitude au combat. Plus elle est élevée, plus vous avez de chances de vaincre vos adversaires.\n\n" +
-                        "ENDURANCE\n" +
-                        "Représente votre santé et votre constitution. Si elle tombe à zéro, vous êtes mort.\n\n" +
-                        "CHANCE\n" +
-                        "Vous pouvez faire appel à votre chance pour rendre une situation plus favorable, mais c'est risqué!\n\n" +
-                        "COMBAT\n" +
-                        "Les combats se déroulent en rounds. À chaque round:\n" +
-                        "1. Calculez votre force d'attaque (HABILETÉ + 2d6)\n" +
-                        "2. Calculez la force d'attaque de l'ennemi\n" +
-                        "3. Celui qui a la plus grande force d'attaque blesse l'autre\n" +
-                        "Une blessure fait perdre 2 points d'ENDURANCE"
+            "RÈGLES DU JEU\n\n" +
+            "HABILETÉ, ENDURANCE ET CHANCE\n\n" +
+            "Votre personnage est défini par trois caractéristiques principales :\n\n" +
+            "HABILETÉ : Représente votre aptitude au combat.\n" +
+            "ENDURANCE : Représente votre constitution et votre volonté de survivre.\n" +
+            "CHANCE : Indique si vous êtes naturellement chanceux.\n\n" +
+            "COMBAT\n\n" +
+            "1. Calculez votre Force d'Attaque (Habileté + 2d6)\n" +
+            "2. Calculez la Force d'Attaque de l'adversaire\n" +
+            "3. Celui qui a la plus grande Force d'Attaque blesse l'autre\n" +
+            "4. Le perdant perd 2 points d'ENDURANCE\n\n" +
+            "CHANCE\n\n" +
+            "Lancez 2 dés. Si le résultat est inférieur ou égal à votre CHANCE,\n" +
+            "vous êtes Chanceux. Sinon, vous êtes Malchanceux.\n" +
+            "Chaque test de Chance réduit votre score de 1 point."
         );
         rulesText.setEditable(false);
-        rulesText.setLineWrap(true);
-        rulesText.setWrapStyleWord(true);
-        rulesText.setMargin(new Insets(10, 10, 10, 10));
         rulesText.setBackground(DARK_GREY);
         rulesText.setForeground(WHITE);
         rulesText.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        rulesText.setLineWrap(true);
+        rulesText.setWrapStyleWord(true);
 
         JScrollPane scrollPane = new JScrollPane(rulesText);
-        rulesDialog.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setBorder(BorderFactory.createLineBorder(TEAL_COLOR));
 
         JButton closeButton = new JButton("Fermer");
         configureButton(closeButton, TEAL_COLOR, WHITE);
         closeButton.addActionListener(e -> rulesDialog.dispose());
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setBackground(DARK_GREY);
-        buttonPanel.add(closeButton);
-        rulesDialog.add(buttonPanel, BorderLayout.SOUTH);
+        rulesPanel.add(scrollPane, BorderLayout.CENTER);
+        rulesPanel.add(closeButton, BorderLayout.SOUTH);
 
-        rulesDialog.setSize(500, 600);
-        rulesDialog.setLocationRelativeTo(frame);
+        rulesDialog.add(rulesPanel);
         rulesDialog.setVisible(true);
     }
 
-    private void createNewPlayer() {
-        // Default values
-        int skill = 7;
-        int stamina = 20;
-        int luck = 7;
+    private void showPlayerCreation() {
+        JDialog dialog = new JDialog(frame, "Création du personnage", true);
+        dialog.setSize(400, 300);
+        dialog.setLocationRelativeTo(frame);
 
-        // Create player with initial stats
-        Player player = new Player(skill, stamina, luck);
-        controller = new GameController(controller.getScenario(), player);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(DARK_GREY);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Roll initial stats
+        int skill = rollDice(1) + 6;    // 1d6 + 6
+        int stamina = rollDice(2) + 12;  // 2d6 + 12
+        int luck = rollDice(1) + 6;     // 1d6 + 6
+
+        JLabel skillLabel = new JLabel("HABILETÉ: " + skill);
+        JLabel staminaLabel = new JLabel("ENDURANCE: " + stamina);
+        JLabel luckLabel = new JLabel("CHANCE: " + luck);
+
+        skillLabel.setForeground(WHITE);
+        staminaLabel.setForeground(WHITE);
+        luckLabel.setForeground(WHITE);
+
+        JButton rerollButton = new JButton("Relancer les dés");
+        configureButton(rerollButton, TEAL_COLOR, WHITE);
+        rerollButton.addActionListener(e -> {
+            int newSkill = rollDice(1) + 6;
+            int newStamina = rollDice(2) + 12;
+            int newLuck = rollDice(1) + 6;
+            skillLabel.setText("HABILETÉ: " + newSkill);
+            staminaLabel.setText("ENDURANCE: " + newStamina);
+            luckLabel.setText("CHANCE: " + newLuck);
+        });
+
+        JButton startButton = new JButton("Commencer l'aventure");
+        configureButton(startButton, TEAL_COLOR, WHITE);
+        startButton.addActionListener(e -> {
+            int finalSkill = Integer.parseInt(skillLabel.getText().split(": ")[1]);
+            int finalStamina = Integer.parseInt(staminaLabel.getText().split(": ")[1]);
+            int finalLuck = Integer.parseInt(luckLabel.getText().split(": ")[1]);
+
+            controller = new GameController(controller.getScenario(),
+                new Player(finalSkill, finalStamina, finalLuck));
+            dialog.dispose();
+            showGameScreen();
+        });
+
+        panel.add(skillLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(staminaLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(luckLabel);
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(rerollButton);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(startButton);
+
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
+
+    private int rollDice(int number) {
+        int total = 0;
+        for (int i = 0; i < number; i++) {
+            total += (int)(Math.random() * 6) + 1;
+        }
+        return total;
     }
 
     private void createGameInterface() {
@@ -223,66 +283,6 @@ public class SwingUI {
     private void updateGameScreen() {
         updatePlayerStats();
         updateChapterDisplay();
-
-        Combat currentCombat = controller.getCurrentCombat();
-        if (currentCombat != null && !currentCombat.isOver()) {
-            showCombatDialog(currentCombat);
-        }
-    }
-
-    private void showCombatDialog(Combat combat) {
-        if (combatDialog != null && combatDialog.isVisible()) {
-            return;
-        }
-
-        combatDialog = new JDialog(frame, "Combat", true);
-        combatDialog.setLayout(new BorderLayout());
-        combatDialog.setSize(400, 300);
-        combatDialog.setLocationRelativeTo(frame);
-
-        JPanel combatPanel = new JPanel();
-        combatPanel.setLayout(new BoxLayout(combatPanel, BoxLayout.Y_AXIS));
-        combatPanel.setBackground(DARK_GREY);
-        combatPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
-        JLabel statusLabel = new JLabel("Combat en cours...");
-        statusLabel.setForeground(WHITE);
-        statusLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JButton attackButton = new JButton("Attaquer");
-        configureButton(attackButton, TEAL_COLOR, WHITE);
-        attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        attackButton.setMaximumSize(new Dimension(200, 40));
-
-        attackButton.addActionListener(e -> {
-            CombatResult result = combat.executeRound();
-            statusLabel.setText(result.getMessage());
-
-            if (combat.isOver()) {
-                attackButton.setEnabled(false);
-                if (combat.playerWon()) {
-                    statusLabel.setText("Victoire ! Vous avez vaincu votre adversaire.");
-                } else {
-                    statusLabel.setText("Défaite ! Vous avez été vaincu.");
-                }
-
-                Timer timer = new Timer(2000, evt -> {
-                    combatDialog.dispose();
-                    updateGameScreen();
-                });
-                timer.setRepeats(false);
-                timer.start();
-            }
-
-            updatePlayerStats();
-        });
-
-        combatPanel.add(statusLabel);
-        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        combatPanel.add(attackButton);
-
-        combatDialog.add(combatPanel);
-        combatDialog.setVisible(true);
     }
 
     private void updatePlayerStats() {
@@ -383,11 +383,11 @@ public class SwingUI {
             }
         });
 
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
+            public void mouseExited(MouseEvent evt) {
                 button.setBackground(bgColor);
             }
         });
@@ -403,6 +403,79 @@ public class SwingUI {
         }
     }
 
+    private void handleCombat(Enemy enemy) {
+        combatDialog = new JDialog(frame, "Combat!", true);
+        combatDialog.setSize(400, 300);
+        combatDialog.setLocationRelativeTo(frame);
+        combatDialog.setLayout(new BorderLayout());
+
+        JPanel combatPanel = new JPanel();
+        combatPanel.setLayout(new BoxLayout(combatPanel, BoxLayout.Y_AXIS));
+        combatPanel.setBackground(DARK_GREY);
+        combatPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel enemyLabel = new JLabel("Combat contre " + enemy.getName());
+        enemyLabel.setForeground(WHITE);
+        enemyLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        enemyLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel statsLabel = new JLabel(String.format("Habileté: %d, Endurance: %d",
+            enemy.getSkill(), enemy.getEndurance()));
+        statsLabel.setForeground(WHITE);
+        statsLabel.setFont(STATS_FONT);
+        statsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JTextArea combatLog = new JTextArea();
+        combatLog.setEditable(false);
+        combatLog.setBackground(DARK_GREY);
+        combatLog.setForeground(WHITE);
+        combatLog.setFont(STATS_FONT);
+        JScrollPane scrollPane = new JScrollPane(combatLog);
+        scrollPane.setPreferredSize(new Dimension(350, 150));
+
+        JButton attackButton = new JButton("Attaquer");
+        configureButton(attackButton, TEAL_COLOR, WHITE);
+        attackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        attackButton.setMaximumSize(new Dimension(200, 40));
+
+        Combat combat = new Combat(controller.getPlayer(), enemy);
+
+        attackButton.addActionListener(e -> {
+            CombatResult result = combat.executeRound();
+            combatLog.append(result.getMessage() + "\n");
+            combatLog.setCaretPosition(combatLog.getDocument().getLength());
+
+            if (combat.isOver()) {
+                attackButton.setEnabled(false);
+                if (combat.playerWon()) {
+                    combatLog.append("\nVous avez vaincu votre adversaire!\n");
+                } else {
+                    combatLog.append("\nVous avez été vaincu...\n");
+                }
+
+                Timer timer = new Timer(2000, event -> {
+                    combatDialog.dispose();
+                    updateGameScreen();
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+
+            updatePlayerStats();
+        });
+
+        combatPanel.add(enemyLabel);
+        combatPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        combatPanel.add(statsLabel);
+        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        combatPanel.add(scrollPane);
+        combatPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        combatPanel.add(attackButton);
+
+        combatDialog.add(combatPanel);
+        combatDialog.setVisible(true);
+    }
+
     private void updateChapterDisplay() {
         Chapter currentChapter = controller.getCurrentChapter();
         if (currentChapter == null) return;
@@ -414,11 +487,11 @@ public class SwingUI {
         choicesPanel.removeAll();
 
         if (!controller.isGameOver()) {
-            List<model.Choice> choices = currentChapter.getChoices();
+            List<Choice> choices = currentChapter.getChoices();
             if (choices != null && !choices.isEmpty()) {
                 for (int i = 0; i < choices.size(); i++) {
                     final int choiceIndex = i;
-                    model.Choice choice = choices.get(i);
+                    Choice choice = choices.get(i);
 
                     JButton choiceButton = new JButton(choice.getText());
                     choiceButton.setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -432,6 +505,10 @@ public class SwingUI {
                     ));
 
                     choiceButton.addActionListener(e -> {
+                        if (choice.isCombatRequired()) {
+                            Enemy enemy = currentChapter.getEnemy();
+                            handleCombat(enemy);
+                        }
                         controller.makeChoice(choiceIndex);
                         updateGameScreen();
                     });

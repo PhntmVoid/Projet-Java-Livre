@@ -51,12 +51,12 @@ public class GameController {
                 "(Ceci est une erreur technique - le chapitre suivant n'existe pas dans le scénario)");
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     public Combat getCurrentCombat() {
         return currentCombat;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public boolean makeChoice(int choiceIndex) {
@@ -78,14 +78,15 @@ public class GameController {
 
         // Handle combat if required
         if (choice.isCombatRequired()) {
-            // Extract enemy details from chapter metadata
-            Enemy enemy = new Enemy("Adversaire", 7, 7); // Default values if not specified
+            Enemy enemy = new Enemy("Adversaire", 7, 7);
             currentCombat = new Combat(player, enemy);
             if (!player.isAlive()) {
                 currentChapterId = -1;
                 chapterHistory.add(currentChapterId);
                 return true;
             }
+        } else {
+            currentCombat = null;
         }
 
         // Handle luck test if required
