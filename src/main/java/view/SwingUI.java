@@ -23,6 +23,7 @@ public class SwingUI {
     private JTextPane chapterTextArea;
     private JPanel choicesPanel;
     private JDialog combatDialog;
+    private JToolBar toolbar;
 
     private static final Font STATS_FONT = new Font("SansSerif", Font.PLAIN, 12);
     private static final Color TEAL_COLOR = new Color(0, 128, 128);
@@ -338,26 +339,39 @@ public class SwingUI {
         gamePanel.setLayout(new BorderLayout());
         gamePanel.setBackground(DARK_GREY);
 
-        // Add menu bar
-        JMenuBar menuBar = new JMenuBar();
-        JMenu gameMenu = new JMenu("Jeu");
-        
-        JMenuItem saveMenuItem = new JMenuItem("Sauvegarder");
-        saveMenuItem.addActionListener(e -> showSaveGameDialog());
-        
-        JMenuItem loadMenuItem = new JMenuItem("Charger");
-        loadMenuItem.addActionListener(e -> showLoadGameDialog());
-        
-        JMenuItem mainMenuMenuItem = new JMenuItem("Menu principal");
-        mainMenuMenuItem.addActionListener(e -> showMainMenu());
+        // Create toolbar
+        toolbar = new JToolBar();
+        toolbar.setFloatable(false);
+        toolbar.setBackground(DARK_GREY);
+        toolbar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, TEAL_COLOR));
 
-        gameMenu.add(saveMenuItem);
-        gameMenu.add(loadMenuItem);
-        gameMenu.addSeparator();
-        gameMenu.add(mainMenuMenuItem);
-        
-        menuBar.add(gameMenu);
-        frame.setJMenuBar(menuBar);
+        JButton saveButton = new JButton("Sauvegarder");
+        JButton loadButton = new JButton("Charger");
+        JButton menuButton = new JButton("Menu Principal");
+
+        configureButton(saveButton, TEAL_COLOR, WHITE);
+        configureButton(loadButton, TEAL_COLOR, WHITE);
+        configureButton(menuButton, TEAL_COLOR, WHITE);
+
+        saveButton.addActionListener(e -> showSaveGameDialog());
+        loadButton.addActionListener(e -> showLoadGameDialog());
+        menuButton.addActionListener(e -> {
+            int choice = JOptionPane.showConfirmDialog(frame,
+                "Retourner au menu principal ? La progression non sauvegardée sera perdue.",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                showMainMenu();
+            }
+        });
+
+        toolbar.add(saveButton);
+        toolbar.add(Box.createHorizontalStrut(10));
+        toolbar.add(loadButton);
+        toolbar.add(Box.createHorizontalStrut(10));
+        toolbar.add(menuButton);
+
+        gamePanel.add(toolbar, BorderLayout.NORTH);
 
         statsPanel = new JPanel();
         statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
