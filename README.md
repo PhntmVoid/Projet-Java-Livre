@@ -55,40 +55,11 @@ src/
 - États du personnage
 - Méthodes de modification des stats avec validation
 
-```java
-public class Player {
-    private int skill;      // HABILETÉ
-    private int stamina;    // ENDURANCE
-    private int luck;       // CHANCE
-    private int fear;       // PEUR
-    private List<String> inventory;
-    
-    // Méthodes principales
-    public void modifySkill(int amount)
-    public void modifyStamina(int amount)
-    public void modifyLuck(int amount)
-    public void modifyFear(int amount)
-    public boolean isAlive()
-}
-```
-
 #### Chapter
 - Contenu narratif
 - Choix disponibles
 - Modificateurs d'état
 - Conditions de combat et tests
-
-```java
-public class Chapter {
-    private int id;
-    private String text;
-    private List<Choice> choices;
-    private Enemy enemy;
-    private int enduranceModifier;
-    private int fearModifier;
-    private LuckTest luckTest;
-}
-```
 
 #### Combat
 - Système de résolution des combats
@@ -103,20 +74,6 @@ public class Chapter {
 - Traitement des choix
 - Coordination modèle-vue
 - Sauvegarde/Chargement
-
-```java
-public class GameController {
-    private Scenario scenario;
-    private Player player;
-    private int currentChapterId;
-    private List<Integer> chapterHistory;
-    
-    // Méthodes principales
-    public boolean makeChoice(int choiceIndex)
-    public boolean testLuck()
-    public boolean isGameOver()
-}
-```
 
 #### ScenarioLoader
 - Chargement des scénarios JSON
@@ -163,20 +120,10 @@ public class GameController {
 ## Systèmes de Jeu
 
 ### Combat
-```java
-public class Combat {
-    private Player player;
-    private Enemy enemy;
-    private Random random;
-    
-    public CombatResult executeRound() {
-        int playerAttackStrength = calculateAttackStrength(player);
-        int enemyAttackStrength = calculateAttackStrength(enemy);
-        // Logique de résolution
-        return new CombatResult();
-    }
-}
-```
+- Calcul de la force d'attaque
+- Résolution des rounds
+- Application des dégâts
+- Gestion des états spéciaux
 
 ### Tests de Chance
 - Lancer de dés virtuel
@@ -187,19 +134,10 @@ public class Combat {
 ## Gestion des Données
 
 ### Format de Sauvegarde
-```json
-{
-    "player": {
-        "skill": 10,
-        "stamina": 20,
-        "luck": 7,
-        "fear": 0,
-        "inventory": []
-    },
-    "currentChapter": 1,
-    "history": [1]
-}
-```
+- Structure JSON
+- États du joueur
+- Progression du jeu
+- Historique des choix
 
 ### Scénarios
 - Format JSON structuré
@@ -216,16 +154,9 @@ public class Combat {
 - Résolution d'écran 800x600 minimum
 
 ### Installation
-```bash
-# Cloner le dépôt
-git clone https://github.com/PhntmVoid/Projet-Java-Livre.git
-
-# Compiler le projet
-./gradlew build
-
-# Exécuter le jeu
-./gradlew run
-```
+1. Cloner le dépôt
+2. Compiler avec Gradle
+3. Exécuter le jeu
 
 ### Options de Lancement
 - `--text` : Mode console
