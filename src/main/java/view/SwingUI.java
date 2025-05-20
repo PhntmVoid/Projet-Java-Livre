@@ -1,6 +1,12 @@
+package view;
+
 import controller.GameController;
 import controller.SaveManager;
-import model.*;
+import model.Chapter;
+import model.Enemy;
+import model.Combat;
+import model.CombatResult;
+import model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -609,11 +615,11 @@ public class SwingUI {
         choicesPanel.removeAll();
 
         if (!controller.isGameOver()) {
-            List<Choice> choices = currentChapter.getChoices();
+            List<model.Choice> choices = currentChapter.getChoices();
             if (choices != null && !choices.isEmpty()) {
                 for (int i = 0; i < choices.size(); i++) {
                     final int choiceIndex = i;
-                    Choice choice = choices.get(i);
+                    model.Choice choice = choices.get(i);
 
                     JButton choiceButton = new JButton(choice.getText());
                     choiceButton.setFont(new Font("SansSerif", Font.PLAIN, 14));
