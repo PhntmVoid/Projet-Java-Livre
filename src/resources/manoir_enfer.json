@@ -1158,12 +1158,221 @@
         }
       ]
     },
+    {
+      "id": 314,
+      "text": "La tension augmente alors que les participants à la cérémonie se prennent par la main et entourent l'autel. Le prêtre lève sa dague, et pousse un hurlement hystérique en l'abattant. Vous vous obligez à regarder ailleurs et, en tournant la tête, vous apercevez tout à coup un autre passage aboutissant à la salle. Vous reportez les yeux sur l'assemblée : tous les participants sont accaparés par le sacrifice et se badigeonnent du sang de leur malheureuse victime. Vous en profitez pour essayer de gagner subrepticement le passage.",
+      "luckTest": {
+        "success": 129,
+        "failure": 187
+      }
+    },
+    {
+      "id": 187,
+      "text": "Alors que vous vous faufilez le long du mur, quelqu'un pousse un cri : vous êtes découvert ! Tous les yeux se tournent vers vous, et bientôt l'assistance démoniaque s'avance et vous entoure. Vous êtes pris au piège.",
+      "choices": [
+        {
+          "text": "vous battre pour vous frayer un chemin",
+          "nextChapterId": 365
+        }
+      ]
+    },
+    {
+      "id": 365,
+      "text": "Vous vous battez avec la force du désespoir. Mais vous êtes submergé par le trop grand nombre de ces adorateurs du Diable. Vous êtes fait prisonnier, et vous le resterez jusqu'à ce que la dague du Grand Prêtre s'enfonce dans votre poitrine. Car vous serez sa prochaine victime.",
+      "choices": [
+        {
+          "text": "Fin de l'aventure",
+          "nextChapterId": -1
+        }
+      ]
+    },
+    {
+      "id": 347,
+      "text": "Le Bossu est las de votre curiosité, et il se dirige vers une porte située dans le mur de gauche. Avant de disparaître, il vous montre le passage en grommelant : « Allez tout droit, et vous arriverez à l'escalier. »",
+      "choices": [
+        {
+          "text": "suivre le passage",
+          "nextChapterId": 91
+        }
+      ]
+    },
+    {
+      "id": 363,
+      "text": "Vous vous approchez de la cellule dans laquelle est enfermé l'homme chauve. « Ne perdez pas votre temps ici, vous dit-il, car vous ne pouvez nous être d'aucune aide. Notre seul désir est que vous détruisiez le démon qui règne en ces lieux avant qu'il nous tue. Mais il est peu probable que vous y parveniez parce qu'il vous faudrait vous débarrasser du Maître tout d'abord. Et il ne peut être tué que grâce au Kriss, le Poignard Malais, au cours d'un combat qui ne peut se dérouler que dans une pièce rouge, pour symboliser un combat se déroulant dans l'enfer même. La salle à manger du rez-de-chaussée a des murs rouges, mais sa porte est toujours soigneusement fermée. Je sais que la clef, les jours de cérémonie, est cachée derrière un miroir. Si vous pouvez trouver cette clef et si vous pouvez vous emparer du Poignard Malais, alors vous pourrez sauver le monde des événements infernaux qui se préparent dans les murs de ce Manoir. Quant à nous, nous serons certainement tous morts avant que la nuit s'achève. Aussi ne perdez pas votre temps avec nous. » Vous réfléchissez à ce que l'homme chauve vient de vous dire, et vous vous demandez s'il est préférable de partir sur-le-champ comme il vous l'a conseillé, ou s'il vous serait plus profitable de savoir si les autres prisonniers ont quelque renseignement intéressant à vous communiquer.",
+      "choices": [
+        {
+          "text": "partir sur-le-champ comme il vous l'a conseillé",
+          "nextChapterId": 91
+        },
+        {
+          "text": "savoir si les autres prisonniers ont quelque renseignement intéressant à vous communiquer",
+          "nextChapterId": 143
+        }
+      ]
+    },
+    {
+      "id": 129,
+      "text": "Sur la pointe des pieds, vous longez le plus calmement possible le mur en direction du passage, en gardant les yeux fixés sur le lieu de la cérémonie pour être sûr que personne ne vous remarque. Vous vous faufilez ainsi jusqu'à l'entrée de ce passage dans lequel vous pénétrez promptement. Vous êtes sauvé. Vous marchez jusqu'à une porte qui n'est pas verrouillée.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 232
+        }
+      ]
+    },
+    {
+      "id": 232,
+      "text": "La porte s'ouvre sur une petite pièce plongée dans l'obscurité. Il semble qu'il n'y ait aucun moyen d'en sortir, mais vous en faites le tour en longeant les murs. Enfin, dans un angle, votre main rencontre un petit bouton que vous pressez. La paroi qui vous fait face coulisse alors et découvre un passage dans lequel deux portes se font face. Il n'y a pas d'autre issue.",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir la porte de gauche",
+          "nextChapterId": 342
+        },
+        {
+          "text": "frapper à celle de droite",
+          "nextChapterId": 144
+        }
+      ]
+    },
+    {
+      "id": 343,
+      "text": "Vous combattez les Chauves-Souris comme s'il s'agissait d'un seul adversaire.",
+      "enemy": {
+        "name": "CHAUVES-SOURIS",
+        "skill": 4,
+        "endurance": 4
+      },
+      "choices": [
+        {
+          "text": "si vous êtes vainqueur",
+          "nextChapterId": 320
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "text": "Alors que vous alliez refermer la porte derrière vous, vous entendez le bruit d'une autre porte qui s'ouvre. Quelqu'un vient ! Vous rentrez avec précipitation dans la pièce, en repoussant la porte aussi doucement que vous le pouvez. Dans l'obscurité, vous entendez l'autre porte se refermer également, puis tout redevient calme. Mais peut-être quelqu'un s'est-il tapi à proximité ?",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 385
+        }
+      ]
+    },
+    {
+      "id": 385,
+      "text": "Soudain, vous tendez l'oreille : un bruit de pas se rapproche. Vous vous jetez dans l'ombre et vous attendez avec anxiété. Les pas s'arrêtent devant la porte, et vous entendez une conversation qui s'engage. « N'aurions-nous pas dû demander la permission au Maître ? » dit l'une des voix. « Hum, vous avez sans doute raison, répond l'autre voix, et peut-être ferions-nous mieux d'aller chercher de quoi allumer les lampes. » Vous poussez un soupir de soulagement lorsque le bruit de pas reprend et s'éloigne dans la direction par laquelle vous êtes arrivé. Vous décidez qu'il est préférable de quitter cette pièce avant que des visiteurs reviennent, et le chemin le plus sûr vous semble être à l'opposé de celui qu'ils ont pris.",
+      "choices": [
+        {
+          "text": "si vous êtes arrivé par la gauche",
+          "nextChapterId": 229
+        },
+        {
+          "text": "si vous veniez de la droite",
+          "nextChapterId": 26
+        }
+      ]
+    },
+    {
+      "id": 229,
+      "text": "Vous suivez le balcon qui tourne sur la gauche, jusqu'à une porte située sur votre droite. Une plaque indique qu'il s'agit de la chambre Erasme.",
+      "choices": [
+        {
+          "text": "pénétrer dans cette pièce",
+          "nextChapterId": 140
+        },
+        {
+          "text": "poursuivre votre chemin jusqu'à une autre porte",
+          "nextChapterId": 332
+        }
+      ]
+    },
+    {
+      "id": 117,
+      "text": "Vous fermez la porte derrière vous. Un cri aigu provenant de l'un des coins de la pièce vous fait alors bondir, mais vous êtes rassuré en constatant qu'il provient d'une cage dans laquelle trois rats sont enfermés. Vous restez cependant aux aguets en explorant la pièce.",
+      "choices": [
+        {
+          "text": "vous intéresser aux tiroirs de la table",
+          "nextChapterId": 81
+        },
+        {
+          "text": "examiner les liquides contenus dans les éprouvettes",
+          "nextChapterId": 341
+        },
+        {
+          "text": "ouvrir les armoires",
+          "nextChapterId": 371
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "text": "Dans un tiroir, vous découvrez plusieurs coupe-papier finement ciselés. Peut-être font-ils partie d'une collection ? Vous les examinez avec attention : ils paraissent robustes et ressemblent à des dagues. Convenablement maniés, ils pourraient se transformer en armes redoutables. Si vous le désirez, vous pouvez prendre un de ces coupe-papier (notez-le alors sur votre Feuille d'Aventure). S'il vous arrive, par la suite, de l'utiliser comme une ARME dans un combat, votre HABILETÉ retrouvera alors son Total de départ.",
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 385
+        }
+      ]
+    },
+    {
+      "id": 371,
+      "text": "Vous vous dirigez vers les armoires. Les portes n'en sont pas fermées à clef, et vous les tirez. Vous les refermez aussi rapidement que vous les aviez ouvertes et, en tremblant, les mains pressées contre votre bouche pour ne pas hurler, vous reculez pas à pas vers la porte tant ce que vous avez vu vous a horrifié. Deux corps sont en effet pendus à des crocs. Deux corps qui ont dû être utilisés au cours d'une innommable expérience - récente -, car le sang s'en écoule encore, et ils semblent tièdes.",
+      "fearModifier": 2,
+      "choices": [
+        {
+          "text": "Continuer",
+          "nextChapterId": 385
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "text": "Quelques mètres plus loin, sur la gauche, vous voyez une nouvelle porte sur laquelle le nom Méphisto est inscrit.",
+      "choices": [
+        {
+          "text": "essayer d'ouvrir cette porte",
+          "nextChapterId": 298
+        },
+        {
+          "text": "poursuivre votre chemin vers les deux portes situées dans l'angle du balcon",
+          "nextChapterId": 287
+        }
+      ]
+    },
+    {
+      "id": 298,
+      "text": "Vous tournez la poignée et vous entrebâillez la porte qui bute sur quelque chose, l'empêchant de s'ouvrir davantage.",
+      "choices": [
+        {
+          "text": "essayer de pousser la porte",
+          "nextChapterId": 390
+        },
+        {
+          "text": "continuer votre chemin le long du balcon",
+          "nextChapterId": 287
+        }
+      ]
+    },
+    {
+      "id": 332,
+      "text": "Au bout du balcon, se trouve une solide porte en bois. Alors que vous vous demandez si vous allez essayer de pénétrer dans cette nouvelle pièce, un bruit provenant de derrière vous, vous fait sursauter. Vous vous retournez vivement, et poussez un soupir de soulagement en constatant qu'il ne s'agit que d'un courant d'air qui agite des tapisseries pendues au mur. Votre crainte n'était pas fondée, et vous vous tournez vers la porte. Avec terreur, vous découvrez alors une silhouette pâle et vaporeuse qui se dresse devant vous. L'apparition est celle d'une jeune femme d'une vingtaine d'années, à la longue chevelure. Elle est vêtue d'une robe blanche de mariée qui a dû voir de meilleurs jours car elle est froissée et déchirée. « Dieu merci, je vous ai trouvé à temps, dit-elle. Je dois vous parler sans perdre un instant. Venez, entrons dans cette pièce. »",
+      "fearModifier": 1,
+      "choices": [
+        {
+          "text": "la suivre comme elle vous le demande",
+          "nextChapterId": 73
+        },
+        {
+          "text": "faire demi-tour, redoutant un piège",
+          "nextChapterId": 279
+        }
+      ]
+    },
 
 
 
-
-
-
+    
     {
       "id": -1,
       "text": "Fin de la démo. Merci d'avoir joué à cette version simplifiée du Manoir de l'Enfer!"
