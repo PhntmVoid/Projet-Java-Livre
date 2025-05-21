@@ -35,6 +35,7 @@ public class Player {
     public int getMaxFear() { return maxFear; }
     public int getCurrentFear() { return currentFear; }
     public int getLuck() { return currentLuck; }
+    public int getMaxLuck() { return maxLuck; }
 
     // Inventory methods
     public boolean hasItem(String item) {
